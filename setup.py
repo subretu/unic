@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 
 setup(
-    name="unit-converter",
+    name="unit_converter",
     version="1.0.0",
     description="Python library for converting various units.",
     author="subretu",
