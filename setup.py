@@ -7,7 +7,7 @@ setup(
     description="Python library for converting various units.",
     author="subretu",
     url="https://github.com/subretu/unit-converter",
-    packages=find_packages("unitconverter"),
-    package_dir={"": "unitconverter"},
+    packages=find_packages("src"),
+    package_dir={"": "src"},
     zip_safe=False,
 )
