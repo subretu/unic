@@ -12,7 +12,7 @@ class ConvertDateTime:
                 for key in kwargs.keys():
                     if key == "tz":
                         dt = datetime.datetime.fromtimestamp(
-                            data, datetime.timezone(datetime.timedelta(hours=settings.TIMEZONE["Asia/Tokyo"]))
+                            data, datetime.timezone(datetime.timedelta(hours=settings.TIMEZONE[kwargs["tz"]]))
                         )
                         return dt.strftime("%Y-%m-%d %H:%M:%S")
                     else:
