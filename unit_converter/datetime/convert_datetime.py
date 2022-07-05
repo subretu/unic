@@ -1,4 +1,5 @@
 import datetime
+from .config import settings
 
 
 class ConvertDateTime:
@@ -11,7 +12,7 @@ class ConvertDateTime:
                 for key in kwargs.keys():
                     if key == "tz":
                         dt = datetime.datetime.fromtimestamp(
-                            data, datetime.timezone(datetime.timedelta(hours=9))
+                            data, datetime.timezone(datetime.timedelta(hours=settings.TIMEZONE["Asia/Tokyo"]))
                         )
                         return dt.strftime("%Y-%m-%d %H:%M:%S")
                     else:
