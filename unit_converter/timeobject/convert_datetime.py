@@ -2,7 +2,7 @@ import datetime
 from .config import settings
 
 
-class ConvertDateTime:
+class ConvertTimeObject:
     def convert_timestamp(self, data, **kwargs):
         try:
             if len(kwargs) == 0:
