@@ -8,10 +8,10 @@ class ConvertTimeObject:
             if len(kwargs) == 0:
                 if len(str(abs(data))) == 10:
                     dt = datetime.datetime.fromtimestamp(data, datetime.timezone.utc)
-                    return dt.strftime("%Y-%m-%d %H:%M:%S.%f")
+                    return dt
                 elif len(str(abs(data))) == 13:
                     dt = datetime.datetime.fromtimestamp( data / 1000, datetime.timezone.utc)
-                    return dt.strftime("%Y-%m-%d %H:%M:%S.%f")
+                    return dt
                 else:
                     raise Exception("Unixtime digits error.")
             elif len(kwargs) == 1:
@@ -21,13 +21,13 @@ class ConvertTimeObject:
                             data,
                             datetime.timezone(datetime.timedelta(hours=settings.TIMEZONE[kwargs["tz"]])),
                         )
-                        return dt.strftime("%Y-%m-%d %H:%M:%S")
+                        return dt
                     elif key == "tz" and len(str(abs(data))) == 13:
                         dt = datetime.datetime.fromtimestamp(
                             data / 1000,
                             datetime.timezone(datetime.timedelta(hours=settings.TIMEZONE[kwargs["tz"]])),
                         )
-                        return dt.strftime("%Y-%m-%d %H:%M:%S")
+                        return dt
                     else:
                         raise Exception(
                             "Parameter name error or Unixtime digits error."
