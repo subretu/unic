@@ -14,7 +14,7 @@ class ConvertTimeObject:
                     dt_timestamp = datetime.fromtimestamp(data / 1000, timezone.utc)
                     return dt_timestamp
                 else:
-                    raise Exception("Unixtime digits error.")
+                    raise ValueError("Unixtime digits is 10 or 13.")
             elif len(kwargs) == 1:
                 for key in kwargs.keys():
                     if key == "tz" and len(str(abs(data))) == 10:
@@ -67,8 +67,8 @@ class ConvertTimeObject:
                         )
                         return dt_unixtime
                     else:
-                        raise Exception(
-                            "Parameter name error or Unixtime digits error."
+                        raise NameError(
+                            "Parameter name not defined."
                         )
             else:
                 raise Exception("Too many parameter.")
