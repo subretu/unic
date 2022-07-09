@@ -31,7 +31,7 @@ class ConvertTimeUnit:
         except Exception:
             raise
 
-    def convert_minutes(self, data, time_unit):
+    def convert_minute(self, data, time_unit):
         try:
             match time_unit:
                 case "msec":
