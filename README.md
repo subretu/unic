@@ -1,9 +1,4 @@
-<div align="center">
-<img src="./images/unicorn.png" width="370">
-</div>
-
 # unicorn
-
 - Unicorn is python library for converting various units.
 - The current available conversion targets are as follows.
   - Time Unit
