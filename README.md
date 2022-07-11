@@ -1,5 +1,6 @@
-
+<div align="center">
 <img src="./images/unicorn.png" width="370">
+</div>
 
 # unicorn
 
