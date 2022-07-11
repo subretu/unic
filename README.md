@@ -1,5 +1,5 @@
-# unit-converter
-- Unit-converter is python library for converting various units.
+# unicorn
+- Unicorn is python library for converting various units.
 - The current available conversion targets are as follows.
   - Time Unit
     - minute / second / milisecond → hour
@@ -16,8 +16,8 @@
 - Local install using pip.
 
 ```
-git clone https://github.com/subretu/unit-converter.git
-pip install ./unit-converter/
+git clone https://github.com/subretu/unicorn.git
+pip install ./unicorn/
 ```
 
 
@@ -25,9 +25,9 @@ pip install ./unit-converter/
 ## Example
 ----------------
 ```python
-import unit_converter
+import unicorn
 
 
-converter = unit_converter.ConvertTimeObject()
+converter = unicorn.ConvertTimeObject()
 dt_timestamp = converter.convert_timestamp(1577841753)
 ```
