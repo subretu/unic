@@ -4,7 +4,7 @@ import unicorn
 VERSION = unicorn.__version__
 
 setup(
-    name="unicornr",
+    name="unicorn",
     version=VERSION,
     description="Python library for converting various units.",
     author="subretu",
