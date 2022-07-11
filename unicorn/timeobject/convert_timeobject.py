@@ -66,9 +66,7 @@ class ConvertTimeObject:
                         )
                         return dt_unixtime
                     else:
-                        raise NameError(
-                            "Parameter name not defined."
-                        )
+                        raise NameError("Parameter name not defined.")
             else:
                 raise Exception("Too many parameter.")
         except Exception:
