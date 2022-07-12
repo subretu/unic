@@ -1,28 +1,35 @@
 import pytest
-from unicorn.timeunit import convert_timeunit
+from unicorn.timeunit import timeunit
 
 
 class TestConverterMillisecond:
     def test_convert_millisecond_msec(self):
-        aaa = convert_timeunit.ConvertTimeUnit()
-        result_data = aaa.convert_millisecond(6, "msec")
+        test_timeunit = timeunit.TimeUnit()
+        result = test_timeunit.convert_millisecond(6, "msec")
 
-        assert result_data == 6
+        assert result == 6
 
     def test_convert_millisecond_sec(self):
-        aaa = convert_timeunit.ConvertTimeUnit()
-        result_data = aaa.convert_millisecond(10, "sec")
+        test_timeunit = timeunit.TimeUnit()
+        result = test_timeunit.convert_millisecond(10, "sec")
 
-        assert result_data == 10000
+        assert result == 10000
 
     def test_convert_millisecond_min(self):
-        aaa = convert_timeunit.ConvertTimeUnit()
-        result_data = aaa.convert_millisecond(50, "min")
+        test_timeunit = timeunit.TimeUnit()
+        result = test_timeunit.convert_millisecond(50, "min")
 
-        assert result_data == 3000000
+        assert result == 3000000
 
     def test_convert_millisecond_hour(self):
-        aaa = convert_timeunit.ConvertTimeUnit()
-        result_data = aaa.convert_millisecond(24, "hr")
+        test_timeunit = timeunit.TimeUnit()
+        result = test_timeunit.convert_millisecond(24, "hr")
 
-        assert result_data == 86400000
+        assert result == 86400000
+
+    def test_convert_millisecond_fail(self):
+        with pytest.raises(Exception) as e:
+            test_timeunit = timeunit.TimeUnit()
+            _ = test_timeunit.convert_millisecond(15, "millisec")
+
+        assert str(e.value) == "Undefined unit time."

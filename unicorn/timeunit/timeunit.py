@@ -1,4 +1,4 @@
-class ConvertTimeUnit:
+class TimeUnit:
     def convert_millisecond(self, data, time_unit):
         try:
             match time_unit:

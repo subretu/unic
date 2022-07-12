@@ -1,4 +1,4 @@
-from .timeunit.convert_timeunit import *
-from .timeobject.convert_timeobject import *
+from .timeunit.timeunit import *
+from .timeobject.timeobject import *
 
 __version__ = "0.9.8"

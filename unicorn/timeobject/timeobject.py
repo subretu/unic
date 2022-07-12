@@ -2,7 +2,7 @@ from datetime import datetime, timezone, timedelta
 from .config import settings
 
 
-class ConvertTimeObject:
+class TimeObject:
     def convert_timestamp(self, data, **kwargs):
         try:
             if len(kwargs) == 0:
