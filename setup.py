@@ -11,4 +11,6 @@ setup(
     url="https://github.com/subretu/unicorn",
     packages=find_packages(),
     zip_safe=False,
+    setup_requires=["pytest-runner"],
+    tests_require=["pytest", "pytest-cov"]
 )
