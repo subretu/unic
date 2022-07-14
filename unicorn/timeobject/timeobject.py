@@ -16,22 +16,25 @@ class TimeObject:
                     raise ValueError("Unixtime digits is 10 or 13.")
             elif len(kwargs) == 1:
                 for key in kwargs.keys():
-                    if key == "tz" and len(str(abs(data))) == 10:
-                        dt_timestamp = datetime.fromtimestamp(
-                            data,
-                            timezone(timedelta(hours=settings.TIMEZONE[kwargs["tz"]])),
-                        )
-                        return dt_timestamp
-                    elif key == "tz" and len(str(abs(data))) == 13:
-                        dt_timestamp = datetime.fromtimestamp(
-                            data / 1000,
-                            timezone(timedelta(hours=settings.TIMEZONE[kwargs["tz"]])),
-                        )
-                        return dt_timestamp
+                    if key == "tz":
+                        if len(str(abs(data))) == 10:
+                            dt_timestamp = datetime.fromtimestamp(
+                                data,
+                                timezone(timedelta(hours=settings.TIMEZONE[kwargs["tz"]])),
+                            )
+                            return dt_timestamp
+                        elif len(str(abs(data))) == 13:
+                            dt_timestamp = datetime.fromtimestamp(
+                                data / 1000,
+                                timezone(timedelta(hours=settings.TIMEZONE[kwargs["tz"]])),
+                            )
+                            return dt_timestamp
+                        else:
+                            raise Exception(
+                                "Unixtime digits is 10 or 13."
+                            )
                     else:
-                        raise Exception(
-                            "Parameter name error or Unixtime digits error."
-                        )
+                        raise Exception("Parameter name not defined.")
             else:
                 raise Exception("Too many parameter.")
         except Exception:
