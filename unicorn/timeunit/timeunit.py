@@ -1,6 +1,3 @@
-from time import time
-
-
 class TimeUnit:
     def convert_millisecond(self, data, unit):
         try:
