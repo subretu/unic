@@ -8,7 +8,7 @@
     - hour / minutes / second → milisecond
   - TIme Object
     - unixtime / unixtime+timezone → datetime（timestamp format）
-    - datetime（timestamp format） / datetime+timezone（timestamp format） → unixtime
+    - string(yyyy-mm-dd hh:mm:ss) / string(yyyy-mm-dd hh:mm:ss)+timezone → unixtime
 
 ## Installing
 ----------
