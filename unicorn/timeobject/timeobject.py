@@ -20,10 +20,16 @@ class TimeObject:
                 digits = self._count_digits(data)
 
                 if digits == 10:
-                    dt_timestamp = datetime.fromtimestamp(data, timezone.utc)
+                    dt_timestamp = datetime.fromtimestamp(
+                        data,
+                        timezone(timedelta(hours=settings.TIMEZONE[kwargs["tz"]])),
+                    )
                     return dt_timestamp
                 elif digits == 13:
-                    dt_timestamp = datetime.fromtimestamp(data / 1000, timezone.utc)
+                    dt_timestamp = datetime.fromtimestamp(
+                        data / 1000,
+                        timezone(timedelta(hours=settings.TIMEZONE[kwargs["tz"]])),
+                    )
                     return dt_timestamp
             else:
                 raise Exception("Too many parameter.")
