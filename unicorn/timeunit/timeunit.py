@@ -38,7 +38,7 @@ class TimeUnit:
             elif unit == "min":
                 return data
             elif unit == "hr":
-                return data * 3600
+                return data * 60
             else:
                 raise Exception("Undefined unit time.")
         except Exception:
