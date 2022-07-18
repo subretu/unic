@@ -46,7 +46,7 @@ class TimeObject:
                 dt_unixtime = (
                     str(int(dt_timestamp.replace(tzinfo=timezone.utc).timestamp())) + milisecond
                 )
-                return dt_unixtime
+                return int(dt_unixtime)
             elif len(kwargs) == 1:
                 self._check_parameter(kwargs)
 
@@ -54,7 +54,7 @@ class TimeObject:
                     except_milisecond, "%Y-%m-%d %H:%M:%S"
                 ) + timedelta(hours=settings.TIMEZONE[kwargs["tz"]])
                 dt_unixtime = (str(int(dt_timestamp.replace(tzinfo=timezone.utc).timestamp()))) + milisecond
-                return dt_unixtime
+                return int(dt_unixtime)
             else:
                 raise Exception("Too many parameter.")
         except Exception:
