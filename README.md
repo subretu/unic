@@ -1,3 +1,5 @@
+![Python minimum version](https://img.shields.io/badge/Python-3.8%2B-brightgreen)
+
 # unicorn
 - Unicorn is various units converting python library.
 - The current available conversion targets are as follows.
