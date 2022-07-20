@@ -1,5 +1,5 @@
 # unicorn
-- Unicorn is python library for converting various units.
+- Unicorn is various units converting python library.
 - The current available conversion targets are as follows.
   - Time Unit
     - minute / second / milisecond → hour
