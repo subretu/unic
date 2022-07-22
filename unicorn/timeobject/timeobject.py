@@ -3,7 +3,7 @@ from .config import settings
 
 
 class TimeObject:
-    def convert_timestamp(self, data, **kwargs):
+    def convert_datetime(self, data, **kwargs):
         try:
             if len(kwargs) == 0:
                 digits = self._count_digits(data)
