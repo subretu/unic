@@ -10,6 +10,7 @@
     - hour / minutes / second → milisecond
   - TIme Object
     - unixtime / unixtime+timezone → datetime.datetime
+    - unixtime / unixtime+timezone → datetime.date
     - string(yyyy-mm-dd hh:mm:ss) / string(yyyy-mm-dd hh:mm:ss)+timezone → unixtime
 
 ## Installing
