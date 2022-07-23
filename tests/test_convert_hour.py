@@ -1,5 +1,5 @@
 import pytest
-from unicorn.timeunit import timeunit
+from unicorn.unit import timeunit
 
 
 class TestConverterHour:
