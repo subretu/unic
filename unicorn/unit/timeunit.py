@@ -4,7 +4,7 @@ class TimeUnit:
             if unit == "msec":
                 return data
             elif unit == "sec":
-                return data * 1000
+                return data * 100
             elif unit == "min":
                 return data * 60 * 1000
             elif unit == "hour":
