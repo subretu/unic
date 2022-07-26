@@ -23,7 +23,7 @@ class TestConverterMillisecond:
 
     def test_convert_millisecond_hour(self):
         test_timeunit = timeunit.TimeUnit()
-        result = test_timeunit.convert_millisecond(24, "hr")
+        result = test_timeunit.convert_millisecond(24, "hour")
 
         assert result == 86400000
 

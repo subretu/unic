@@ -23,7 +23,7 @@ class TestConverterMinute:
 
     def test_convert_minute_hour(self):
         test_timeunit = timeunit.TimeUnit()
-        result = test_timeunit.convert_minute(17, "hr")
+        result = test_timeunit.convert_minute(17, "hour")
 
         assert result == 1020
 

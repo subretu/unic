@@ -7,7 +7,7 @@ class TimeUnit:
                 return data * 1000
             elif unit == "min":
                 return data * 60 * 1000
-            elif unit == "hr":
+            elif unit == "hour":
                 return data * 3600 * 1000
             else:
                 raise Exception("Undefined unit time.")
@@ -22,7 +22,7 @@ class TimeUnit:
                 return data
             elif unit == "min":
                 return data * 60
-            elif unit == "hr":
+            elif unit == "hour":
                 return data * 3600
             else:
                 raise Exception("Undefined unit time.")
@@ -37,7 +37,7 @@ class TimeUnit:
                 return data / 60
             elif unit == "min":
                 return data
-            elif unit == "hr":
+            elif unit == "hour":
                 return data * 60
             else:
                 raise Exception("Undefined unit time.")
@@ -52,7 +52,7 @@ class TimeUnit:
                 return data / 3600
             elif unit == "min":
                 return data / 60
-            elif unit == "hr":
+            elif unit == "hour":
                 return data
             else:
                 raise Exception("Undefined unit time.")

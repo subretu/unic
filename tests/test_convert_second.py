@@ -23,7 +23,7 @@ class TestConverterSecond:
 
     def test_convert_second_hour(self):
         test_timeunit = timeunit.TimeUnit()
-        result = test_timeunit.convert_second(4, "hr")
+        result = test_timeunit.convert_second(4, "hour")
 
         assert result == 14400
 

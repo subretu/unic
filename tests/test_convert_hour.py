@@ -23,13 +23,13 @@ class TestConverterHour:
 
     def test_convert_hour_hour(self):
         test_timeunit = timeunit.TimeUnit()
-        result = test_timeunit.convert_hour(24, "hr")
+        result = test_timeunit.convert_hour(24, "hour")
 
         assert result == 24
 
     def test_convert_hour_fail(self):
         with pytest.raises(Exception) as e:
             test_timeunit = timeunit.TimeUnit()
-            _ = test_timeunit.convert_hour(24, "hour")
+            _ = test_timeunit.convert_hour(24, "hr")
 
         assert str(e.value) == "Undefined unit time."
