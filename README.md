@@ -7,7 +7,7 @@
     - minute / second / milisecond → hour
     - hour / second / milisecond → minute
     - hour / minute / milisecond → second
-    - hour / minutes / second → milisecond
+    - hour / minute / second → milisecond
   - TIme Object
     - unixtime / unixtime+timezone → datetime.datetime
     - unixtime / unixtime+timezone → datetime.date
