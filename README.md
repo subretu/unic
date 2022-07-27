@@ -1,5 +1,6 @@
 ![Python minimum version](https://img.shields.io/badge/Python-3.8%2B-brightgreen)
-
+[![pytest](https://github.com/subretu/unicorn/actions/workflows/pytest.yml/badge.svg)](https://github.com/subretu/unicorn/actions/workflows/pytest.yml)
+[![black](https://github.com/subretu/unicorn/actions/workflows/format.yml/badge.svg)](https://github.com/subretu/unicorn/actions/workflows/format.yml)
 
 # unicorn
 - Unicorn is various units converting python library.
