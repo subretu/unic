@@ -1,4 +1,4 @@
-name: black-formatter
+name: format-black
 
 on:
   push:
