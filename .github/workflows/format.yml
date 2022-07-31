@@ -11,13 +11,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set up Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
           python-version: 3.9
-      - name: Install dependencies
+      - name: Install pipenv
         run: |
           python -m pip install --upgrade pip
-          pip install black
+          python -m pip install pipenv
+      - name: Install dependencies
+        run: pipenv sync --dev
       - name: format
         run: |
-          black --check --verbose .
+          pipenv run black --check --verbose .
