@@ -11,7 +11,8 @@ class Unixtime:
             if len(kwargs) == 0:
                 dt_timestamp = datetime.strptime(except_milisecond, "%Y-%m-%d %H:%M:%S")
                 dt_unixtime = (
-                    str(int(dt_timestamp.replace(tzinfo=timezone.utc).timestamp())) + milisecond
+                    str(int(dt_timestamp.replace(tzinfo=timezone.utc).timestamp()))
+                    + milisecond
                 )
                 return int(dt_unixtime)
             elif len(kwargs) == 1:
@@ -20,7 +21,9 @@ class Unixtime:
                 dt_timestamp = datetime.strptime(
                     except_milisecond, "%Y-%m-%d %H:%M:%S"
                 ) + timedelta(hours=settings.TIMEZONE[kwargs["tz"]])
-                dt_unixtime = (str(int(dt_timestamp.replace(tzinfo=timezone.utc).timestamp()))) + milisecond
+                dt_unixtime = (
+                    str(int(dt_timestamp.replace(tzinfo=timezone.utc).timestamp()))
+                ) + milisecond
                 return int(dt_unixtime)
             else:
                 raise Exception("Too many parameter.")
@@ -28,7 +31,7 @@ class Unixtime:
             raise
 
     def _check_parameter(self, params):
-        if 'tz' in params:
+        if "tz" in params:
             pass
         else:
             raise Exception("Parameter name not defined.")

@@ -70,7 +70,7 @@ class TimeObject:
             raise
 
     def _check_parameter(self, params):
-        if 'tz' in params:
+        if "tz" in params:
             pass
         else:
             raise Exception("Parameter name not defined.")

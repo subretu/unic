@@ -24,13 +24,17 @@ class TestConvertUnixtime:
     def test_convert_unixtime_parameter_number_error(self):
         with pytest.raises(Exception) as e:
             test_unixtime = unixtime.Unixtime()
-            _ = test_unixtime.convert_unixtime("2022-07-18 13:49:00", tz="Asia/Tokyo", hoge=123456)
+            _ = test_unixtime.convert_unixtime(
+                "2022-07-18 13:49:00", tz="Asia/Tokyo", hoge=123456
+            )
 
         assert str(e.value) == "Too many parameter."
 
     def test_convert_unixtime_parameter_error(self):
         with pytest.raises(Exception) as e:
             test_unixtime = unixtime.Unixtime()
-            _ = test_unixtime.convert_unixtime("2022-07-18 13:49:00", timezone="Asia/Tokyo")
+            _ = test_unixtime.convert_unixtime(
+                "2022-07-18 13:49:00", timezone="Asia/Tokyo"
+            )
 
         assert str(e.value) == "Parameter name not defined."
