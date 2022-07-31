@@ -7,6 +7,7 @@ name = "pypi"
 
 [dev-packages]
 black = "*"
+typing_extensions = "*"
 pytest = "*"
 
 [requires]
