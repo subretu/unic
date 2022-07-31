@@ -17,13 +17,14 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
+      - name: Install pipenv
         run: |
           python -m pip install --upgrade pip
-          pip install pytest
-      - name: PyTest
-        run: |
-          python -m pytest ./tests --junit-xml results/pytest.xml
+          python -m pip install pipenv
+      - name: Install dependencies
+        run: pipenv sync --dev
+      - name: Test
+        run: pipenv run pytest ./tests --junit-xml results/pytest.xml
         continue-on-error: true
       - name: Upload Unit Test Results
         if: ${{ always() }}
