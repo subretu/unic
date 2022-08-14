@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 
 [dev-packages]
-black = "*"
+black = "==22.6"
 typing_extensions = "*"
 platformdirs = "*"
 pytest = "*"
