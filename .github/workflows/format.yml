@@ -19,7 +19,7 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install pipenv
       - name: Install dependencies
-        run: pipenv install --dev
+        run: pipenv sync --dev
       - name: format
         run: |
           pipenv run black --check --verbose .
