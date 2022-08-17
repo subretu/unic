@@ -5,16 +5,7 @@ from ..config import settings
 class TimeObject:
     def convert_datetime(self, data, **kwargs):
         try:
-            if len(kwargs) == 0:
-                digits = self._count_digits(data)
-
-                if digits == 10:
-                    dt_timestamp = datetime.fromtimestamp(data, timezone.utc)
-                    return dt_timestamp
-                elif digits == 13:
-                    dt_timestamp = datetime.fromtimestamp(data / 1000, timezone.utc)
-                    return dt_timestamp
-            elif len(kwargs) == 1:
+            if len(kwargs) <= 1:
                 self._check_parameter(kwargs)
 
                 digits = self._count_digits(data)
@@ -22,13 +13,25 @@ class TimeObject:
                 if digits == 10:
                     dt_timestamp = datetime.fromtimestamp(
                         data,
-                        timezone(timedelta(hours=settings.TIMEZONE[kwargs["tz"]])),
+                        timezone(
+                            timedelta(
+                                hours=lambda x: settings.TIMEZONE[kwargs["tz"]]
+                                if len(kwargs) == 1
+                                else 0
+                            )
+                        ),
                     )
                     return dt_timestamp
                 elif digits == 13:
                     dt_timestamp = datetime.fromtimestamp(
                         data / 1000,
-                        timezone(timedelta(hours=settings.TIMEZONE[kwargs["tz"]])),
+                        timezone(
+                            timedelta(
+                                hours=lambda x: settings.TIMEZONE[kwargs["tz"]]
+                                if len(kwargs) == 1
+                                else 0
+                            )
+                        ),
                     )
                     return dt_timestamp
             else:
@@ -38,16 +41,7 @@ class TimeObject:
 
     def convert_date(self, data, **kwargs):
         try:
-            if len(kwargs) == 0:
-                digits = self._count_digits(data)
-
-                if digits == 10:
-                    dt_timestamp = datetime.fromtimestamp(data, timezone.utc)
-                    return dt_timestamp.date()
-                elif digits == 13:
-                    dt_timestamp = datetime.fromtimestamp(data / 1000, timezone.utc)
-                    return dt_timestamp.date()
-            elif len(kwargs) == 1:
+            if len(kwargs) <= 1:
                 self._check_parameter(kwargs)
 
                 digits = self._count_digits(data)
@@ -55,13 +49,25 @@ class TimeObject:
                 if digits == 10:
                     dt_timestamp = datetime.fromtimestamp(
                         data,
-                        timezone(timedelta(hours=settings.TIMEZONE[kwargs["tz"]])),
+                        timezone(
+                            timedelta(
+                                hours=lambda x: settings.TIMEZONE[kwargs["tz"]]
+                                if len(kwargs) == 1
+                                else 0
+                            )
+                        ),
                     )
                     return dt_timestamp.date()
                 elif digits == 13:
                     dt_timestamp = datetime.fromtimestamp(
                         data / 1000,
-                        timezone(timedelta(hours=settings.TIMEZONE[kwargs["tz"]])),
+                        timezone(
+                            timedelta(
+                                hours=lambda x: settings.TIMEZONE[kwargs["tz"]]
+                                if len(kwargs) == 1
+                                else 0
+                            )
+                        ),
                     )
                     return dt_timestamp.date()
             else:
@@ -70,7 +76,7 @@ class TimeObject:
             raise
 
     def _check_parameter(self, params):
-        if "tz" in params:
+        if (len(params) == 0) or ("tz" in params):
             pass
         else:
             raise Exception("Parameter name not defined.")
