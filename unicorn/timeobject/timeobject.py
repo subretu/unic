@@ -8,30 +8,22 @@ class TimeObject:
             if len(kwargs) <= 1:
                 self._check_parameter(kwargs)
 
+                timezone_hour = (
+                    lambda: settings.TIMEZONE[kwargs["tz"]] if len(kwargs) == 1 else 0
+                )
+
                 digits = self._count_digits(data)
 
                 if digits == 10:
                     dt_timestamp = datetime.fromtimestamp(
                         data,
-                        timezone(
-                            timedelta(
-                                hours=lambda x: settings.TIMEZONE[kwargs["tz"]]
-                                if len(kwargs) == 1
-                                else 0
-                            )
-                        ),
+                        timezone(timedelta(hours=timezone_hour())),
                     )
                     return dt_timestamp
                 elif digits == 13:
                     dt_timestamp = datetime.fromtimestamp(
                         data / 1000,
-                        timezone(
-                            timedelta(
-                                hours=lambda x: settings.TIMEZONE[kwargs["tz"]]
-                                if len(kwargs) == 1
-                                else 0
-                            )
-                        ),
+                        timezone(timedelta(hours=timezone_hour())),
                     )
                     return dt_timestamp
             else:
@@ -44,30 +36,22 @@ class TimeObject:
             if len(kwargs) <= 1:
                 self._check_parameter(kwargs)
 
+                timezone_hour = (
+                    lambda: settings.TIMEZONE[kwargs["tz"]] if len(kwargs) == 1 else 0
+                )
+
                 digits = self._count_digits(data)
 
                 if digits == 10:
                     dt_timestamp = datetime.fromtimestamp(
                         data,
-                        timezone(
-                            timedelta(
-                                hours=lambda x: settings.TIMEZONE[kwargs["tz"]]
-                                if len(kwargs) == 1
-                                else 0
-                            )
-                        ),
+                        timezone(timedelta(hours=timezone_hour())),
                     )
                     return dt_timestamp.date()
                 elif digits == 13:
                     dt_timestamp = datetime.fromtimestamp(
                         data / 1000,
-                        timezone(
-                            timedelta(
-                                hours=lambda x: settings.TIMEZONE[kwargs["tz"]]
-                                if len(kwargs) == 1
-                                else 0
-                            )
-                        ),
+                        timezone(timedelta(hours=timezone_hour())),
                     )
                     return dt_timestamp.date()
             else:

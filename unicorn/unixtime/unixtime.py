@@ -8,19 +8,16 @@ class Unixtime:
             except_milisecond = data[0:19]
             milisecond = data[20:23]
 
-            if len(kwargs) == 0:
-                dt_timestamp = datetime.strptime(except_milisecond, "%Y-%m-%d %H:%M:%S")
-                dt_unixtime = (
-                    str(int(dt_timestamp.replace(tzinfo=timezone.utc).timestamp()))
-                    + milisecond
-                )
-                return int(dt_unixtime)
-            elif len(kwargs) == 1:
+            if len(kwargs) <= 1:
                 self._check_parameter(kwargs)
+
+                timezone_hour = (
+                    lambda: settings.TIMEZONE[kwargs["tz"]] if len(kwargs) == 1 else 0
+                )
 
                 dt_timestamp = datetime.strptime(
                     except_milisecond, "%Y-%m-%d %H:%M:%S"
-                ) + timedelta(hours=settings.TIMEZONE[kwargs["tz"]])
+                ) + timedelta(hours=timezone_hour())
                 dt_unixtime = (
                     str(int(dt_timestamp.replace(tzinfo=timezone.utc).timestamp()))
                 ) + milisecond
@@ -31,7 +28,7 @@ class Unixtime:
             raise
 
     def _check_parameter(self, params):
-        if "tz" in params:
+        if (len(params) == 0) or ("tz" in params):
             pass
         else:
             raise Exception("Parameter name not defined.")
