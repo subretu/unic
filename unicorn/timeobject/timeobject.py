@@ -6,7 +6,7 @@ class TimeObject:
     def convert_datetime(self, data, **kwargs):
         try:
             if len(kwargs) <= 1:
-                self._check_parametername(kwargs)
+                self._check_parameter_name(kwargs)
 
                 timezone_hour = (
                     lambda: settings.TIMEZONE[kwargs["tz"]] if len(kwargs) == 1 else 0
@@ -34,7 +34,7 @@ class TimeObject:
     def convert_date(self, data, **kwargs):
         try:
             if len(kwargs) <= 1:
-                self._check_parametername(kwargs)
+                self._check_parameter_name(kwargs)
 
                 timezone_hour = (
                     lambda: settings.TIMEZONE[kwargs["tz"]] if len(kwargs) == 1 else 0
@@ -59,7 +59,7 @@ class TimeObject:
         except Exception:
             raise
 
-    def _check_parameternamename(self, params):
+    def _check_parameter_namename(self, params):
         if (len(params) == 0) or ("tz" in params):
             pass
         else:
