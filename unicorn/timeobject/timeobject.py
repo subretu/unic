@@ -1,5 +1,6 @@
 from datetime import datetime, timezone, timedelta
 from ..config import settings
+from ..utils import check_parameter
 
 
 class TimeObject:
@@ -7,6 +8,9 @@ class TimeObject:
         try:
             if len(kwargs) <= 1:
                 self._check_parameter_name(kwargs)
+
+                if len(kwargs) == 1:
+                    check_parameter.check_parameter_value(kwargs["tz"])
 
                 timezone_hour = (
                     lambda: settings.TIMEZONE[kwargs["tz"]] if len(kwargs) == 1 else 0
@@ -59,7 +63,7 @@ class TimeObject:
         except Exception:
             raise
 
-    def _check_parameter_namename(self, params):
+    def _check_parameter_name(self, params):
         if (len(params) == 0) or ("tz" in params):
             pass
         else:
