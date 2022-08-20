@@ -22,12 +22,19 @@ class TestConvertDate:
 
         assert result == date(2022, 7, 17)
 
-    def test_convert_date_parameter_error(self):
+    def test_convert_date_parameter_name_error(self):
         with pytest.raises(Exception) as e:
             test_timeobject = timeobject.TimeObject()
             _ = test_timeobject.convert_date(1657985494, timezone="Asia/Tokyo")
 
-        assert str(e.value) == "Parameter name not defined."
+        assert str(e.value) == "Invalid parameter name."
+
+    def test_convert_datetime_parameter_value_error(self):
+        with pytest.raises(Exception) as e:
+            test_timeobject = timeobject.TimeObject()
+            _ = test_timeobject.convert_date(1657985494, tz="Asia/Osaka")
+
+        assert str(e.value) == "Invalid parameter value."
 
     def test_convert_date_parameter_number_error(self):
         with pytest.raises(Exception) as e:

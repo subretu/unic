@@ -7,7 +7,7 @@ class TimeObject:
     def convert_datetime(self, data, **kwargs):
         try:
             if len(kwargs) <= 1:
-                self._check_parameter_name(kwargs)
+                check_parameter.check_parameter_name(kwargs)
 
                 if len(kwargs) == 1:
                     check_parameter.check_parameter_value(kwargs["tz"])
@@ -38,7 +38,10 @@ class TimeObject:
     def convert_date(self, data, **kwargs):
         try:
             if len(kwargs) <= 1:
-                self._check_parameter_name(kwargs)
+                check_parameter.check_parameter_name(kwargs)
+
+                if len(kwargs) == 1:
+                    check_parameter.check_parameter_value(kwargs["tz"])
 
                 timezone_hour = (
                     lambda: settings.TIMEZONE[kwargs["tz"]] if len(kwargs) == 1 else 0
@@ -62,12 +65,6 @@ class TimeObject:
                 raise Exception("Too many parameter.")
         except Exception:
             raise
-
-    def _check_parameter_name(self, params):
-        if (len(params) == 0) or ("tz" in params):
-            pass
-        else:
-            raise Exception("Parameter name not defined.")
 
     def _count_digits(self, data):
         digits = len(str(abs(data)))
