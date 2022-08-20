@@ -1,5 +1,6 @@
 from datetime import datetime, timezone, timedelta
 from ..config import settings
+from ..utils import check_parameter
 
 
 class Unixtime:
@@ -9,7 +10,7 @@ class Unixtime:
             milisecond = data[20:23]
 
             if len(kwargs) <= 1:
-                self._check_parameter(kwargs)
+                check_parameter.check_name(kwargs)
 
                 timezone_hour = (
                     lambda: settings.TIMEZONE[kwargs["tz"]] if len(kwargs) == 1 else 0
@@ -26,12 +27,6 @@ class Unixtime:
                 raise Exception("Too many parameter.")
         except Exception:
             raise
-
-    def _check_parameter(self, params):
-        if (len(params) == 0) or ("tz" in params):
-            pass
-        else:
-            raise Exception("Parameter name not defined.")
 
     def _count_digits(self, data):
         digits = len(str(abs(data)))

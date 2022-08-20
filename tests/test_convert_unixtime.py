@@ -37,4 +37,4 @@ class TestConvertUnixtime:
                 "2022-07-18 13:49:00", timezone="Asia/Tokyo"
             )
 
-        assert str(e.value) == "Parameter name not defined."
+        assert str(e.value) == "Invalid parameter name."
