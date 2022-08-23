@@ -2,7 +2,7 @@
 name = "unicorn"
 version = "0.1.0"
 description = ""
-authors = [""Subretu <subretu@example.com>""]
+authors = ["Subretu <subretu@example.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
