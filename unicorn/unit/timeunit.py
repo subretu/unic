@@ -1,5 +1,5 @@
 class TimeUnit:
-    def convert_millisecond(self, data, unit):
+    def convert_millisecond(self, data: int, unit: str) -> int:
         try:
             if unit == "msec":
                 return data
@@ -14,7 +14,7 @@ class TimeUnit:
         except Exception:
             raise
 
-    def convert_second(self, data, unit):
+    def convert_second(self, data: int, unit: str) -> int:
         try:
             if unit == "msec":
                 return data / 1000
@@ -29,7 +29,7 @@ class TimeUnit:
         except Exception:
             raise
 
-    def convert_minute(self, data, unit):
+    def convert_minute(self, data: int, unit: str) -> int:
         try:
             if unit == "msec":
                 return (data / 60) / 1000
@@ -44,7 +44,7 @@ class TimeUnit:
         except Exception:
             raise
 
-    def convert_hour(self, data, unit):
+    def convert_hour(self, data: int, unit: str) -> int:
         try:
             if unit == "msec":
                 return (data / 3600) / 1000

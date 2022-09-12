@@ -4,7 +4,7 @@ from ..utils import check_parameter
 
 
 class Unixtime:
-    def convert_unixtime(self, data, **kwargs):
+    def convert_unixtime(self, data: str, **kwargs) -> int:
         try:
             except_milisecond = data[0:19]
             milisecond = data[20:23]
@@ -27,11 +27,3 @@ class Unixtime:
                 raise Exception("Too many parameter.")
         except Exception:
             raise
-
-    def _count_digits(self, data):
-        digits = len(str(abs(data)))
-
-        if digits == 10 or digits == 13:
-            return digits
-        else:
-            raise Exception("Unixtime digits is 10 or 13.")

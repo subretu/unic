@@ -1,10 +1,10 @@
-from datetime import datetime, timezone, timedelta
+from datetime import date, datetime, timezone, timedelta
 from ..config import settings
 from ..utils import check_parameter
 
 
 class TimeObject:
-    def convert_datetime(self, data, **kwargs):
+    def convert_datetime(self, data: int, **kwargs) -> datetime:
         try:
             check_parameter.check_number(kwargs)
             check_parameter.check_name(kwargs)
@@ -32,7 +32,7 @@ class TimeObject:
         except Exception:
             raise
 
-    def convert_date(self, data, **kwargs):
+    def convert_date(self, data: int, **kwargs) -> date:
         try:
             check_parameter.check_number(kwargs)
             check_parameter.check_name(kwargs)
@@ -60,7 +60,7 @@ class TimeObject:
         except Exception:
             raise
 
-    def _count_digits(self, data):
+    def _count_digits(self, data: int) -> int:
         digits = len(str(abs(data)))
 
         if digits == 10 or digits == 13:
