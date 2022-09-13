@@ -4,7 +4,7 @@ from ..utils import check_parameter
 
 
 class TimeObject:
-    def convert_datetime(self, data: int, **kwargs) -> datetime:
+    def convert_datetime(self, data: int, **kwargs: any) -> datetime:
         try:
             check_parameter.check_number(kwargs)
             check_parameter.check_name(kwargs)
@@ -32,7 +32,7 @@ class TimeObject:
         except Exception:
             raise
 
-    def convert_date(self, data: int, **kwargs) -> date:
+    def convert_date(self, data: int, **kwargs: any) -> date:
         try:
             check_parameter.check_number(kwargs)
             check_parameter.check_name(kwargs)
