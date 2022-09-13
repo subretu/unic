@@ -3,6 +3,9 @@ name: pytest
 on:
   push:
 
+permissions:
+  id-token: write
+
 jobs:
   pytest:
     name: Run tests with pytest
