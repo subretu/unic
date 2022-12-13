@@ -1,6 +1,29 @@
+from pydantic import BaseModel, ValidationError, validator
+
+
+class TimeUnitrModel(BaseModel):
+    data: int
+    unit: str
+
+    @validator("unit")
+    def unit_check(cls, v):
+        if v not in ["msec", "sec", "min", "hour"]:
+            raise ValueError("Undefined unit")
+        return v.title()
+
+
+def _init(data: int, unit: str):
+    try:
+        input_data = TimeUnitrModel(data=data, unit=unit)
+        return input_data
+    except ValidationError as e:
+        print(e)
+
+
 class TimeUnit:
     def convert_millisecond(self, data: int, unit: str) -> int:
         try:
+            input_data = _init(data, unit)
             if unit == "msec":
                 return data
             elif unit == "sec":
