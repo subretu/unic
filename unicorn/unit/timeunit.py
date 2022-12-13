@@ -1,9 +1,12 @@
-from pydantic import BaseModel, ValidationError, validator
+from pydantic import (
+    BaseModel, ValidationError, validator, StrictInt, StrictStr
+)
 
 
 class TimeUnitrModel(BaseModel):
-    data: int
-    unit: str
+    # 自動変換を防ぐ型で定義
+    data: StrictInt
+    unit: StrictStr
 
     @validator("unit")
     def unit_check(cls, v):
