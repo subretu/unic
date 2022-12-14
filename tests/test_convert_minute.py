@@ -32,4 +32,7 @@ class TestConverterMinute:
             test_timeunit = timeunit.TimeUnit()
             _ = test_timeunit.convert_minute(60, "minute")
 
-        assert str(e.value) == "Undefined unit time."
+        error_msg = """1 validation error for TimeUnitrModel
+unit
+  Undefined unit. (type=value_error)"""
+        assert str(e.value) == error_msg
