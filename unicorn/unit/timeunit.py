@@ -21,6 +21,7 @@ def _init(data: int, unit: str):
         return input_data
     except ValidationError as e:
         print(e)
+        raise
 
 
 class TimeUnit:
