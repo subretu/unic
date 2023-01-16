@@ -1,6 +1,5 @@
-from pydantic import (
-    BaseModel, ValidationError, validator, StrictInt, StrictStr
-)
+from pydantic import BaseModel, ValidationError, validator, StrictInt, StrictStr
+import toml
 
 
 class TimeUnitrModel(BaseModel):
@@ -15,6 +14,12 @@ class TimeUnitrModel(BaseModel):
         return v
 
 
+def parse_setting():
+    with open("./unicorn/unit/config/unit_settings.toml") as f:
+        obj = toml.load(f)
+        return obj
+
+
 def _initial_data(data: int, unit: str):
     try:
         input_data = TimeUnitrModel(data=data, unit=unit)
@@ -25,9 +30,13 @@ def _initial_data(data: int, unit: str):
 
 
 class TimeUnit:
-    def convert_millisecond(self, data: int, unit: str) -> int:
+    def convert_millisecond(self, data: int, from_unit: str, to_unit: str) -> int:
         try:
-            input_data = _initial_data(data, unit)
+            input_data = _initial_data(data, to_unit)
+            parameter = parse_setting()
+            data = input_data.data * parameter[from_unit][to_unit]
+            return data
+            """
             if input_data.unit == "msec":
                 return input_data.data
             elif input_data.unit == "sec":
@@ -38,6 +47,7 @@ class TimeUnit:
                 return input_data.data * 3600 * 1000
             else:
                 raise
+            """
         except Exception:
             raise
 
