@@ -30,7 +30,7 @@ def _initial_data(data: int, unit: str):
 
 
 class TimeUnit:
-    def convert_millisecond(self, data: int, from_unit: str, to_unit: str) -> int:
+    def convert(self, data: int, from_unit: str, to_unit: str) -> int:
         try:
             input_data = _initial_data(data, to_unit)
             parameter = parse_setting()
@@ -51,6 +51,7 @@ class TimeUnit:
         except Exception:
             raise
 
+"""
     def convert_second(self, data: int, unit: str) -> int:
         try:
             input_data = _initial_data(data, unit)
@@ -98,3 +99,4 @@ class TimeUnit:
                 raise
         except Exception:
             raise
+"""
