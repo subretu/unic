@@ -2,7 +2,7 @@ from pydantic import BaseModel, ValidationError, validator, StrictInt, StrictStr
 import toml
 
 
-class TimeUnitrModel(BaseModel):
+class TimeUnitModel(BaseModel):
     # 自動変換を防ぐ型で定義
     data: StrictInt
     unit: StrictStr
@@ -22,7 +22,7 @@ def parse_setting():
 
 def _initial_data(data: int, unit: str):
     try:
-        input_data = TimeUnitrModel(data=data, unit=unit)
+        input_data = TimeUnitModel(data=data, unit=unit)
         return input_data
     except ValidationError as e:
         print(e)
