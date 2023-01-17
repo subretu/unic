@@ -1,6 +1,5 @@
 from datetime import datetime, timezone, timedelta
-from ..configs import settings
-from ..utils import check_parameter
+from ..utils import check_parameter, config_parser
 
 
 class Unixtime:
@@ -12,13 +11,17 @@ class Unixtime:
             if len(kwargs) <= 1:
                 check_parameter.check_name(kwargs)
 
-                timezone_hour = (
-                    lambda: settings.TIMEZONE[kwargs["tz"]] if len(kwargs) == 1 else 0
-                )
+                if len(kwargs) == 1:
+                    parameter = config_parser.parse_toml(
+                        "./unicorn/configs/timezone.toml"
+                    )
+                    timezone_hour = parameter[kwargs["tz"]]["value"]
+                else:
+                    timezone_hour = 0
 
                 dt_timestamp = datetime.strptime(
                     except_milisecond, "%Y-%m-%d %H:%M:%S"
-                ) + timedelta(hours=timezone_hour())
+                ) + timedelta(hours=timezone_hour)
                 dt_unixtime = (
                     str(int(dt_timestamp.replace(tzinfo=timezone.utc).timestamp()))
                 ) + milisecond

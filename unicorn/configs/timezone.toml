@@ -1,0 +1,136 @@
+["Africa/Johannesburg"]
+value = 2
+["Africa/Lagos"]
+value = 1
+["Africa/Windhoek"]
+value = 1
+["America/Adak"]
+value = -10
+["America/Anchorage"]
+value = -9
+["America/Argentina/Buenos_Aires"]
+value = -3
+["America/Bogota"]
+value = -5
+["America/Caracas"]
+value = -4.5
+["America/Chicago"]
+value = -6
+["America/Denver"]
+value = -7
+["America/Godthab"]
+value = -3
+["America/Guatemala"]
+value = -6
+["America/Halifax"]
+value = -4
+["America/Los_Angeles"]
+value = -8
+["America/Montevideo"]
+value = -3
+["America/New_York"]
+value = -5
+["America/Noronha"]
+value = -2
+["America/Phoenix"]
+value = -7
+["America/Santiago"]
+value = -4
+["America/Santo_Domingo"]
+value = -4
+["America/St_Johns"]
+value = -3.5
+["Asia/Baghdad"]
+value = 3
+["Asia/Baku"]
+value = 4
+["Asia/Beirut"]
+value = 2
+["Asia/Dhaka"]
+value = 6
+["Asia/Dubai"]
+value = 4
+["Asia/Irkutsk"]
+value = 9
+["Asia/Jakarta"]
+value = 7
+["Asia/Kabul"]
+value = 4.5
+["Asia/Kamchatka"]
+value = 12
+["Asia/Karachi"]
+value = 5
+["Asia/Kathmandu"]
+value = 5.75
+["Asia/Kolkata"]
+value = 5.5
+["Asia/Krasnoyarsk"]
+value = 8
+["Asia/Omsk"]
+value = 7
+["Asia/Rangoon"]
+value = 6.5
+["Asia/Shanghai"]
+value = 8
+["Asia/Tehran"]
+value = 3.5
+["Asia/Tokyo"]
+value = 9
+["Asia/Vladivostok"]
+value = 11
+["Asia/Yakutsk"]
+value = 10
+["Asia/Yekaterinburg"]
+value = 6
+["Atlantic/Azores"]
+value = -1
+["Atlantic/Cape_Verde"]
+value = -1
+["Australia/Adelaide"]
+value = 9.5
+["Australia/Brisbane"]
+value = 10
+["Australia/Darwin"]
+value = 9.5
+["Australia/Eucla"]
+value = 8.75
+["Australia/Lord_Howe"]
+value = 10.5
+["Australia/Sydney"]
+value = 10
+["Etc/GMT+12"]
+value = -12
+["Europe/Berlin"]
+value = 1
+["Europe/London"]
+value = 0
+["Europe/Moscow"]
+value = 4
+["Pacific/Apia"]
+value = 13
+["Pacific/Auckland"]
+value = 12
+["Pacific/Chatham"]
+value = 12.75
+["Pacific/Easter"]
+value = -6
+["Pacific/Gambier"]
+value = -9
+["Pacific/Honolulu"]
+value = -10
+["Pacific/Kiritimati"]
+value = 14
+["Pacific/Majuro"]
+value = 12
+["Pacific/Marquesas"]
+value = -9.5
+["Pacific/Norfolk"]
+value = 11.5
+["Pacific/Noumea"]
+value = 11
+["Pacific/Pago_Pago"]
+value = -11
+["Pacific/Pitcairn"]
+value = -8
+["Pacific/Tongatapu"]
+value = 13

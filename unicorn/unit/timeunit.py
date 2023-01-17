@@ -1,5 +1,5 @@
 from pydantic import BaseModel, ValidationError, validator, StrictInt, StrictStr
-import toml
+from ..utils import config_parser
 
 
 class TimeUnitModel(BaseModel):
@@ -12,12 +12,6 @@ class TimeUnitModel(BaseModel):
         if v not in ["msec", "sec", "min", "hour"]:
             raise ValueError("Undefined unit.")
         return v
-
-
-def parse_setting():
-    with open("./unicorn/configs/unit/settings.toml") as f:
-        obj = toml.load(f)
-        return obj
 
 
 def _initial_data(data: int, unit: str):
@@ -33,7 +27,7 @@ class TimeUnit:
     def convert(self, data: int, from_unit: str, to_unit: str) -> int:
         try:
             input_data = _initial_data(data, to_unit)
-            parameter = parse_setting()
+            parameter = config_parser.parse_toml("./unicorn/configs/unit/settings.toml")
             data = input_data.data * parameter[from_unit][to_unit]
             return data
         except Exception:
