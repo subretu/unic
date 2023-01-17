@@ -15,7 +15,7 @@ class TimeUnitModel(BaseModel):
 
 
 def parse_setting():
-    with open("./unicorn/unit/config/unit_settings.toml") as f:
+    with open("./unicorn/configs/unit/settings.toml") as f:
         obj = toml.load(f)
         return obj
 

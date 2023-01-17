@@ -1,5 +1,5 @@
 from datetime import datetime, timezone, timedelta
-from ..config import settings
+from ..configs import settings
 from ..utils import check_parameter
 
 

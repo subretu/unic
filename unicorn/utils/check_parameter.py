@@ -1,4 +1,4 @@
-from ..config import settings
+from ..configs import settings
 
 
 def check_number(parameter: dict) -> None:
