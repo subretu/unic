@@ -12,9 +12,7 @@ class Unixtime:
             check_parameter.check_name(kwargs)
 
             if len(kwargs) == 1:
-                parameter = config_parser.parse_toml(
-                    "./unicorn/configs/timezone.toml"
-                )
+                parameter = config_parser.parse_toml("./unicorn/configs/timezone.toml")
                 timezone_hour = parameter[kwargs["tz"]]["value"]
             else:
                 timezone_hour = 0
