@@ -1,4 +1,3 @@
-import toml
 from ..utils import config_parser
 
 
@@ -14,12 +13,6 @@ def check_name(parameter_name: dict) -> None:
         pass
     else:
         raise Exception("Invalid parameter name.")
-
-
-def parse_setting():
-    with open("./unicorn/configs/timezone.toml") as f:
-        obj = toml.load(f)
-        return obj
 
 
 def check_value(parameter_value: str) -> None:
