@@ -23,9 +23,7 @@ def parse_setting():
 
 
 def check_value(parameter_value: str) -> None:
-    parameter = config_parser.parse_toml(
-        "./unicorn/configs/timezone.toml"
-    )
+    parameter = config_parser.parse_toml("./unicorn/configs/timezone.toml")
     if parameter_value in parameter.keys():
         pass
     else:
