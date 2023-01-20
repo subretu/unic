@@ -47,6 +47,6 @@ class TestConverterSecond:
             _ = test_timeunit.convert(35, "sec", "second")
 
         error_msg = """1 validation error for TimeUnitModel
-unit
+to_unit
   Undefined unit. (type=value_error)"""
         assert str(e.value) == error_msg

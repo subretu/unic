@@ -5,18 +5,25 @@ from ..utils import config_parser
 class TimeUnitModel(BaseModel):
     # 自動変換を防ぐ型で定義
     data: StrictInt
-    unit: StrictStr
+    from_unit: StrictStr
+    to_unit: StrictStr
 
-    @validator("unit")
-    def unit_check(cls, v):
+    @validator("from_unit")
+    def from_unit_check(cls, v):
+        if v not in ["msec", "sec", "min", "hour"]:
+            raise ValueError("Undefined unit.")
+        return v
+
+    @validator("to_unit")
+    def to_unit_check(cls, v):
         if v not in ["msec", "sec", "min", "hour"]:
             raise ValueError("Undefined unit.")
         return v
 
 
-def _initial_data(data: int, unit: str):
+def _initial_data(data: int, from_unit: str, to_unit: str):
     try:
-        input_data = TimeUnitModel(data=data, unit=unit)
+        input_data = TimeUnitModel(data=data, from_unit=from_unit, to_unit=to_unit)
         return input_data
     except ValidationError as e:
         print(e)
@@ -26,7 +33,7 @@ def _initial_data(data: int, unit: str):
 class TimeUnit:
     def convert(self, data: int, from_unit: str, to_unit: str) -> int:
         try:
-            input_data = _initial_data(data, to_unit)
+            input_data = _initial_data(data, from_unit, to_unit)
             parameter = config_parser.parse_toml("./unicorn/configs/unit/settings.toml")
             data = input_data.data * parameter[from_unit][to_unit]
             return data
