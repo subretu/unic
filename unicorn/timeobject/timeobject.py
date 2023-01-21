@@ -57,7 +57,7 @@ class TimeObject:
 
     def _convert_timestamp_by_digits(
         self, data: int, digits: int, timezone_hour: int
-    ) -> object:
+    ) -> datetime:
         if digits == 10:
             dt_timestamp = datetime.fromtimestamp(
                 data,
