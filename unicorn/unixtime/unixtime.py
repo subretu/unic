@@ -20,9 +20,11 @@ class Unixtime:
             dt_timestamp = datetime.strptime(
                 except_milisecond, "%Y-%m-%d %H:%M:%S"
             ) + timedelta(hours=timezone_hour)
+
             dt_unixtime = (
                 str(int(dt_timestamp.replace(tzinfo=timezone.utc).timestamp()))
             ) + milisecond
+
             return int(dt_unixtime)
         except Exception:
             raise
