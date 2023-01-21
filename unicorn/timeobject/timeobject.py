@@ -17,18 +17,11 @@ class TimeObject:
 
             digits = self._count_digits(data)
 
-            if digits == 10:
-                dt_timestamp = datetime.fromtimestamp(
-                    data,
-                    timezone(timedelta(hours=timezone_hour)),
-                )
-                return dt_timestamp
-            elif digits == 13:
-                dt_timestamp = datetime.fromtimestamp(
-                    data / 1000,
-                    timezone(timedelta(hours=timezone_hour)),
-                )
-                return dt_timestamp
+            dt_timestamp = self._convert_timestamp_by_digits(
+                data, digits, timezone_hour
+            )
+
+            return dt_timestamp
         except Exception:
             raise
 
@@ -46,18 +39,11 @@ class TimeObject:
 
             digits = self._count_digits(data)
 
-            if digits == 10:
-                dt_timestamp = datetime.fromtimestamp(
-                    data,
-                    timezone(timedelta(hours=timezone_hour)),
-                )
-                return dt_timestamp.date()
-            elif digits == 13:
-                dt_timestamp = datetime.fromtimestamp(
-                    data / 1000,
-                    timezone(timedelta(hours=timezone_hour)),
-                )
-                return dt_timestamp.date()
+            dt_timestamp = self._convert_timestamp_by_digits(
+                data, digits, timezone_hour
+            )
+
+            return dt_timestamp.date()
         except Exception:
             raise
 
@@ -68,3 +54,19 @@ class TimeObject:
             return digits
         else:
             raise Exception("Unixtime digits is 10 or 13.")
+
+    def _convert_timestamp_by_digits(
+        self, data: int, digits: int, timezone_hour: int
+    ) -> object:
+        if digits == 10:
+            dt_timestamp = datetime.fromtimestamp(
+                data,
+                timezone(timedelta(hours=timezone_hour)),
+            )
+            return dt_timestamp
+        elif digits == 13:
+            dt_timestamp = datetime.fromtimestamp(
+                data / 1000,
+                timezone(timedelta(hours=timezone_hour)),
+            )
+            return dt_timestamp
