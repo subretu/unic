@@ -13,10 +13,10 @@
   - TIme Object
     - unixtime / unixtime+timezone → datetime.datetime
     - unixtime / unixtime+timezone → datetime.date
+  - Unix Time
     - string(yyyy-mm-dd hh:mm:ss) / string(yyyy-mm-dd hh:mm:ss)+timezone → unixtime
 
 ## Installing
-----------
 
 - Local install using pip.
 
@@ -28,11 +28,11 @@ pip install ./unicorn/
 
 
 ## Example
-----------------
+
 ```python
 import unicorn
 
 
-converter = unicorn.ConvertTimeObject()
-dt_timestamp = converter.convert_timestamp(1577841753)
+converter = unicorn.TimeObject()
+dt_timestamp = converter.convert_datetime(1577841753)
 ```
