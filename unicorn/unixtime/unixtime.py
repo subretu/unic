@@ -3,7 +3,7 @@ from ..utils import check_parameter, config_parser
 
 
 class Unixtime:
-    def convert_unixtime(self, data: str, **kwargs: any) -> int:
+    def convert(self, data: str, **kwargs: any) -> int:
         try:
             except_milisecond = data[0:19]
             milisecond = data[20:23]
