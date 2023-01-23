@@ -33,8 +33,6 @@ class TestConvertUnixtime:
     def test_convert_unixtime_parameter_error(self):
         with pytest.raises(Exception) as e:
             test_unixtime = unixtime.Unixtime()
-            _ = test_unixtime.convert(
-                "2022-07-18 13:49:00", timezone="Asia/Tokyo"
-            )
+            _ = test_unixtime.convert("2022-07-18 13:49:00", timezone="Asia/Tokyo")
 
         assert str(e.value) == "Invalid parameter name."
