@@ -27,7 +27,9 @@ class TestConvertDatetime:
     def test_convert_datetime_parameter_name_error(self):
         with pytest.raises(Exception) as e:
             test_timeobject = timeobject.TimeObject()
-            _ = test_timeobject.convert(1657985494, target="datetime", timezone="Asia/Tokyo")
+            _ = test_timeobject.convert(
+                1657985494, target="datetime", timezone="Asia/Tokyo"
+            )
 
         assert str(e.value) == "Invalid parameter name."
 
