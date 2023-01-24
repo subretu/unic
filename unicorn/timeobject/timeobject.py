@@ -3,12 +3,11 @@ from ..utils import check_parameter, config_parser
 
 
 class TimeObject:
-    def convert_datetime(self, data: int, **kwargs: any) -> datetime:
+    def convert(self, data: int, **kwargs: any) -> date:
         try:
-            check_parameter.check_number(kwargs)
-            check_parameter.check_name(kwargs)
+            self._check_parameter_name(kwargs)
 
-            if len(kwargs) == 1:
+            if len(kwargs) == 2:
                 check_parameter.check_value(kwargs["tz"])
                 parameter = config_parser.parse_toml("./unicorn/configs/timezone.toml")
                 timezone_hour = parameter[kwargs["tz"]]["value"]
@@ -21,29 +20,12 @@ class TimeObject:
                 data, digits, timezone_hour
             )
 
-            return dt_timestamp
-        except Exception:
-            raise
-
-    def convert_date(self, data: int, **kwargs: any) -> date:
-        try:
-            check_parameter.check_number(kwargs)
-            check_parameter.check_name(kwargs)
-
-            if len(kwargs) == 1:
-                check_parameter.check_value(kwargs["tz"])
-                parameter = config_parser.parse_toml("./unicorn/configs/timezone.toml")
-                timezone_hour = parameter[kwargs["tz"]]["value"]
+            if kwargs["target"] == "datetime":
+                return dt_timestamp
+            elif kwargs["target"] == "date":
+                return dt_timestamp.date()
             else:
-                timezone_hour = 0
-
-            digits = self._count_digits(data)
-
-            dt_timestamp = self._convert_timestamp_by_digits(
-                data, digits, timezone_hour
-            )
-
-            return dt_timestamp.date()
+                raise
         except Exception:
             raise
 
@@ -70,3 +52,15 @@ class TimeObject:
                 timezone(timedelta(hours=timezone_hour)),
             )
             return dt_timestamp
+
+    def _check_parameter_name(self, parameter_name: dict) -> None:
+        if (len(parameter_name) == 1) and ("target" in parameter_name):
+            pass
+        elif (
+            (len(parameter_name) == 2)
+            and ("target" in parameter_name)
+            and ("tz" in parameter_name)
+        ):
+            pass
+        else:
+            raise Exception("Invalid parameter name.")
