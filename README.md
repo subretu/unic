@@ -34,5 +34,5 @@ import unicorn
 
 
 converter = unicorn.TimeObject()
-dt_timestamp = converter.convert_datetime(1577841753, target="datetime")
+dt_timestamp = converter.convert(1577841753, target="datetime")
 ```
