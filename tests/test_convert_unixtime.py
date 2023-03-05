@@ -28,7 +28,10 @@ class TestConvertUnixtime:
                 "2022-07-18 13:49:00", tz="Asia/Tokyo", hoge=123456
             )
 
-        assert str(e.value) == "Too many parameter."
+        assert (
+            str(e.value)
+            == "Too many parameter,cified,if specify parameters to the function,the number should be one."
+        )
 
     def test_convert_unixtime_parameter_error(self):
         with pytest.raises(Exception) as e:

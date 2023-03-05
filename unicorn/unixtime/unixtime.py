@@ -9,9 +9,9 @@ class Unixtime:
             milisecond = data[20:23]
 
             check_parameter.check_number(kwargs)
-            check_parameter.check_name(kwargs)
 
             if len(kwargs) == 1:
+                check_parameter.check_name(kwargs)
                 parameter = config_parser.parse_toml("./unicorn/configs/timezone.toml")
                 timezone_hour = parameter[kwargs["tz"]]["value"]
             else:
