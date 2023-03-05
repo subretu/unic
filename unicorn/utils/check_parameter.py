@@ -5,11 +5,13 @@ def check_number(parameter: dict) -> None:
     if len(parameter) <= 1:
         pass
     else:
-        raise Exception("Too many parameter.")
+        raise Exception(
+            "Too many parameter,cified,if specify parameters to the function,the number should be one."
+        )
 
 
 def check_name(parameter_name: dict) -> None:
-    if (len(parameter_name) == 0) or ("tz" in parameter_name):
+    if "tz" in parameter_name:
         pass
     else:
         raise Exception("Invalid parameter name.")
