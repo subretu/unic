@@ -34,5 +34,5 @@ class TestConverterMillisecond:
 
         error_msg = """1 validation error for TimeUnitModel
 to_unit
-  Undefined unit. (type=value_error)"""
+  Undefined unit name. (type=value_error)"""
         assert str(e.value) == error_msg

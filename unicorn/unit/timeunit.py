@@ -21,15 +21,6 @@ class TimeUnitModel(BaseModel):
         return v
 
 
-def _initial_data(data: int, from_unit: str, to_unit: str):
-    try:
-        input_data = TimeUnitModel(data=data, from_unit=from_unit, to_unit=to_unit)
-        return input_data
-    except ValidationError as e:
-        print(e)
-        raise
-
-
 class TimeUnit:
     def convert(self, data: int, *, from_unit: str = None, to_unit: str = None) -> int:
         try:
@@ -39,3 +30,12 @@ class TimeUnit:
             return data
         except Exception:
             raise
+
+
+def _initial_data(data: int, from_unit: str, to_unit: str):
+    try:
+        input_data = TimeUnitModel(data=data, from_unit=from_unit, to_unit=to_unit)
+        return input_data
+    except ValidationError as e:
+        print(e)
+        raise
