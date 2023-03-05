@@ -11,13 +11,13 @@ class TimeUnitModel(BaseModel):
     @validator("from_unit")
     def from_unit_check(cls, v):
         if v not in ["msec", "sec", "min", "hour"]:
-            raise ValueError("Undefined unit.")
+            raise ValueError("Undefined unit name.")
         return v
 
     @validator("to_unit")
     def to_unit_check(cls, v):
         if v not in ["msec", "sec", "min", "hour"]:
-            raise ValueError("Undefined unit.")
+            raise ValueError("Undefined unit name.")
         return v
 
 
