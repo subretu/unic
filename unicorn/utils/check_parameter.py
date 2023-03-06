@@ -6,7 +6,7 @@ def check_number(parameter: dict) -> None:
         pass
     else:
         raise Exception(
-            "Too many parameter,cified,if specify parameters to the function,the number should be one."
+            "Too many parameter.If specify parameters to the function,the number should be one."
         )
 
 

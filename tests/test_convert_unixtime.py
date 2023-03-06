@@ -30,7 +30,7 @@ class TestConvertUnixtime:
 
         assert (
             str(e.value)
-            == "Too many parameter,cified,if specify parameters to the function,the number should be one."
+            == "Too many parameter.If specify parameters to the function,the number should be one."
         )
 
     def test_convert_unixtime_parameter_error(self):
