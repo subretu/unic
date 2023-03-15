@@ -38,4 +38,4 @@ class TestConvertUnixtime:
             test_unixtime = unixtime.Unixtime()
             _ = test_unixtime.convert("2022-07-18 13:49:00", timezone="Asia/Tokyo")
 
-        assert str(e.value) == "Invalid parameter name."
+        assert str(e.value) == "Invalid parameter value."
