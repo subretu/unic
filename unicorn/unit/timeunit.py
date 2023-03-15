@@ -23,19 +23,16 @@ class TimeUnitModel(BaseModel):
 
 class TimeUnit:
     def convert(self, data: int, *, from_unit: str = None, to_unit: str = None) -> int:
+        input_data = self.initial_data(data, from_unit, to_unit)
+        parameter = config_parser.parse_toml("./unicorn/configs/unit/settings.toml")
+        data = input_data.data * parameter[from_unit][to_unit]
+
+        return data
+
+    def initial_data(self, data: int, from_unit: str, to_unit: str):
         try:
-            input_data = _initial_data(data, from_unit, to_unit)
-            parameter = config_parser.parse_toml("./unicorn/configs/unit/settings.toml")
-            data = input_data.data * parameter[from_unit][to_unit]
-            return data
-        except Exception:
+            input_data = TimeUnitModel(data=data, from_unit=from_unit, to_unit=to_unit)
+            return input_data
+        except ValidationError as e:
+            print(e)
             raise
-
-
-def _initial_data(data: int, from_unit: str, to_unit: str):
-    try:
-        input_data = TimeUnitModel(data=data, from_unit=from_unit, to_unit=to_unit)
-        return input_data
-    except ValidationError as e:
-        print(e)
-        raise
