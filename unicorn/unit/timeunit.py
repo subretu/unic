@@ -10,29 +10,31 @@ class TimeUnitModel(BaseModel):
 
     @validator("from_unit")
     def from_unit_check(cls, v):
-        if v not in ["msec", "sec", "min", "hour"]:
-            raise ValueError("Undefined unit name.")
+        valid_units = ["msec", "sec", "min", "hour"]
+        if v not in valid_units:
+            raise ValueError(
+                f"Invalid from_unit name: {v}. Allowed values are {valid_units}."
+            )
         return v
 
     @validator("to_unit")
     def to_unit_check(cls, v):
-        if v not in ["msec", "sec", "min", "hour"]:
-            raise ValueError("Undefined unit name.")
+        valid_units = ["msec", "sec", "min", "hour"]
+        if v not in valid_units:
+            raise ValueError(
+                f"Invalid to_unit name: {v}. Allowed values are {valid_units}."
+            )
         return v
 
 
 class TimeUnit:
     def convert(self, data: int, *, from_unit: str = None, to_unit: str = None) -> int:
-        input_data = self.initial_data(data, from_unit, to_unit)
+        try:
+            input_data = TimeUnitModel(data=data, from_unit=from_unit, to_unit=to_unit)
+        except ValidationError as e:
+            raise ValueError(str(e))
+
         parameter = config_parser.parse_toml("./unicorn/configs/unit/settings.toml")
         data = input_data.data * parameter[from_unit][to_unit]
 
         return data
-
-    def initial_data(self, data: int, from_unit: str, to_unit: str):
-        try:
-            input_data = TimeUnitModel(data=data, from_unit=from_unit, to_unit=to_unit)
-            return input_data
-        except ValidationError as e:
-            print(e)
-            raise

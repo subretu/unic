@@ -34,5 +34,5 @@ class TestConverterHour:
 
         error_msg = """1 validation error for TimeUnitModel
 to_unit
-  Undefined unit name. (type=value_error)"""
+  Invalid to_unit name: hr. Allowed values are ['msec', 'sec', 'min', 'hour']. (type=value_error)"""
         assert str(e.value) == error_msg
