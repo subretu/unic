@@ -35,14 +35,7 @@ class TimeUnit:
         except ValidationError as e:
             raise ValueError(str(e))
 
-        config_file_path = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            "..",
-            "configs",
-            "unit",
-            "settings.toml",
-        )
-        parameter = config_parser.parse_toml(config_file_path)
+        parameter = config_parser.parse_toml("unit")
         data = input_data.data * parameter[from_unit][to_unit]
 
         return data

@@ -18,7 +18,7 @@ def check_name(parameter_name: dict) -> None:
 
 
 def check_value(parameter_value: str) -> None:
-    parameter = config_parser.parse_toml("./unicorn/configs/timezone.toml")
+    parameter = config_parser.parse_toml("timezone")
     if parameter_value in parameter.keys():
         return
     else:

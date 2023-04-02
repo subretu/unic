@@ -10,7 +10,7 @@ class TimeObject:
 
         if tz:
             check_parameter.check_value(tz)
-            parameter = config_parser.parse_toml("./unicorn/configs/timezone.toml")
+            parameter = config_parser.parse_toml("timezone")
             timezone_hour = parameter[tz]["value"]
         else:
             timezone_hour = 0
