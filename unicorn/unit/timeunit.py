@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ValidationError, validator, StrictInt, StrictStr
 from ..utils import config_parser
-import os
+from fractions import Fraction
 
 
 class TimeUnitModel(BaseModel):
@@ -36,6 +36,6 @@ class TimeUnit:
             raise ValueError(str(e))
 
         parameter = config_parser.parse_toml("unit")
-        data = input_data.data * parameter[from_unit][to_unit]
+        data = float(input_data.data * Fraction(parameter[from_unit][to_unit]))
 
         return data

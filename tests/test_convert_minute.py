@@ -23,9 +23,9 @@ class TestConverterMinute:
 
     def test_convert_minute_hour(self):
         test_timeunit = timeunit.TimeUnit()
-        result = test_timeunit.convert(17, from_unit="min", to_unit="hour")
+        result = test_timeunit.convert(120, from_unit="min", to_unit="hour")
 
-        assert result == 1020
+        assert result == 2
 
     def test_convert_minute_fail(self):
         with pytest.raises(Exception) as e:
