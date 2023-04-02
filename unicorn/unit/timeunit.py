@@ -1,5 +1,6 @@
 from pydantic import BaseModel, ValidationError, validator, StrictInt, StrictStr
 from ..utils import config_parser
+import os
 
 
 class TimeUnitModel(BaseModel):
@@ -34,7 +35,14 @@ class TimeUnit:
         except ValidationError as e:
             raise ValueError(str(e))
 
-        parameter = config_parser.parse_toml("./unicorn/configs/unit/settings.toml")
+        config_file_path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "..",
+            "configs",
+            "unit",
+            "settings.toml",
+        )
+        parameter = config_parser.parse_toml(config_file_path)
         data = input_data.data * parameter[from_unit][to_unit]
 
         return data
