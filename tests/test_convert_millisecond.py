@@ -11,21 +11,21 @@ class TestConverterMillisecond:
 
     def test_convert_millisecond_sec(self):
         test_timeunit = timeunit.TimeUnit()
-        result = test_timeunit.convert(10, from_unit="msec", to_unit="sec")
+        result = test_timeunit.convert(2000, from_unit="msec", to_unit="sec")
 
-        assert result == 10000
+        assert result == 2
 
     def test_convert_millisecond_min(self):
         test_timeunit = timeunit.TimeUnit()
-        result = test_timeunit.convert(50, from_unit="msec", to_unit="min")
+        result = test_timeunit.convert(120000, from_unit="msec", to_unit="min")
 
-        assert result == 3000000
+        assert result == 2
 
     def test_convert_millisecond_hour(self):
         test_timeunit = timeunit.TimeUnit()
-        result = test_timeunit.convert(24, from_unit="msec", to_unit="hour")
+        result = test_timeunit.convert(43200000, from_unit="msec", to_unit="hour")
 
-        assert result == 86400000
+        assert result == 12
 
     def test_convert_millisecond_fail(self):
         with pytest.raises(Exception) as e:

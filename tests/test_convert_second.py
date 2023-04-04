@@ -7,14 +7,14 @@ class TestConverterSecond:
         test_timeunit = timeunit.TimeUnit()
         result = test_timeunit.convert(8, from_unit="sec", to_unit="msec")
 
-        assert result == 0.008
+        assert result == 8000
 
     @pytest.mark.parametrize(
         "msec, from_unit, to_unit,  expect",
         [
-            (8, "sec", "msec", 0.008),
-            (9, "sec", "msec", 0.009000000000000001),
-            (10, "sec", "msec", 0.01),
+            (8, "sec", "msec", 8000),
+            (9, "sec", "msec", 9000),
+            (150, "sec", "msec", 150000),
         ],
     )
     def test_convert_second_msec2(self, msec, from_unit, to_unit, expect):
@@ -31,15 +31,15 @@ class TestConverterSecond:
 
     def test_convert_second_min(self):
         test_timeunit = timeunit.TimeUnit()
-        result = test_timeunit.convert(19, from_unit="sec", to_unit="min")
+        result = test_timeunit.convert(180, from_unit="sec", to_unit="min")
 
-        assert result == 1140
+        assert result == 3
 
     def test_convert_second_hour(self):
         test_timeunit = timeunit.TimeUnit()
-        result = test_timeunit.convert(4, from_unit="sec", to_unit="hour")
+        result = test_timeunit.convert(7200, from_unit="sec", to_unit="hour")
 
-        assert result == 14400
+        assert result == 2
 
     def test_convert_second_fail(self):
         with pytest.raises(Exception) as e:

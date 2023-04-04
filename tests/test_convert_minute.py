@@ -7,13 +7,13 @@ class TestConverterMinute:
         test_timeunit = timeunit.TimeUnit()
         result = test_timeunit.convert(60, from_unit="min", to_unit="msec")
 
-        assert result == 0.001
+        assert result == 3600000
 
     def test_convert_minute_sec(self):
         test_timeunit = timeunit.TimeUnit()
         result = test_timeunit.convert(568, from_unit="min", to_unit="sec")
 
-        assert result == 9.466666666666667
+        assert result == 34080
 
     def test_convert_minute_min(self):
         test_timeunit = timeunit.TimeUnit()

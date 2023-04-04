@@ -5,21 +5,21 @@ from unicorn.unit import timeunit
 class TestConverterHour:
     def test_convert_hour_msec(self):
         test_timeunit = timeunit.TimeUnit()
-        result = test_timeunit.convert(6000, from_unit="hour", to_unit="msec")
+        result = test_timeunit.convert(6, from_unit="hour", to_unit="msec")
 
-        assert result == 0.0016666666666666668
+        assert result == 21600000
 
     def test_convert_hour_sec(self):
         test_timeunit = timeunit.TimeUnit()
-        result = test_timeunit.convert(4800, from_unit="hour", to_unit="sec")
+        result = test_timeunit.convert(4, from_unit="hour", to_unit="sec")
 
-        assert result == 1.3333333333333333
+        assert result == 14400
 
     def test_convert_hour_min(self):
         test_timeunit = timeunit.TimeUnit()
-        result = test_timeunit.convert(720, from_unit="hour", to_unit="min")
+        result = test_timeunit.convert(7, from_unit="hour", to_unit="min")
 
-        assert result == 12
+        assert result == 420
 
     def test_convert_hour_hour(self):
         test_timeunit = timeunit.TimeUnit()

@@ -1,23 +1,23 @@
 [msec]
 msec = 1
-sec = 1000
-min =60000
-hour = 3600000
+sec = "1/1000"
+min = "1/60000"
+hour = "1/3600000"
 
 [sec]
-msec = 0.001
+msec = 1000
 sec = 1
-min =60
-hour = 3600
+min ="1/60"
+hour = "1/3600"
 
 [min]
-msec ="1/60000"
-sec = "1/60"
+msec =60000
+sec = 60
 min = 1
 hour = "1/60"
 
 [hour]
-msec = "1/3600000"
-sec = "1/3600"
-min = "1/60"
+msec = 3600000
+sec = 3600
+min = 60
 hour = 1
