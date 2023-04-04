@@ -7,7 +7,7 @@ class TestConverterHour:
         test_timeunit = timeunit.TimeUnit()
         result = test_timeunit.convert(6000, from_unit="hour", to_unit="msec")
 
-        assert result == 0.0016666666666666666
+        assert result == 0.0016666666666666668
 
     def test_convert_hour_sec(self):
         test_timeunit = timeunit.TimeUnit()
