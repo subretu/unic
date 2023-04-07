@@ -6,21 +6,15 @@
 - Unicorn is various units converting python library.
 - The current available conversion targets are as follows.
   - Time Unit
-    | from | to |
-    |--------|------|
-    | milisecond | second / minute / hour |
-    | second  | milisecond / minute / hour  |
-    | minute | milisecond / second / hour  |
-    | hour | milisecond / second / minute  |
+    - minute / second / milisecond → hour
+    - hour / second / milisecond → minute
+    - hour / minute / milisecond → second
+    - hour / minute / second → milisecond
   - TIme Object
-    | from | to |
-    |--------|------|
-    | unixtime / unixtime+timezone | datetime.datetime |
-    | unixtime / unixtime+timezone | datetime.date |
+    - unixtime / unixtime+timezone → datetime.datetime
+    - unixtime / unixtime+timezone → datetime.date
   - Unix Time
-    | from | to |
-    |--------|------|
-    | string(yyyy-mm-dd hh:mm:ss) / string(yyyy-mm-dd hh:mm:ss)+timezone |  unixtime|
+    - string(yyyy-mm-dd hh:mm:ss) / string(yyyy-mm-dd hh:mm:ss)+timezone → unixtime
 
 ## Installing
 
