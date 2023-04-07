@@ -8,19 +8,19 @@
   - Time Unit
     | from | to |
     |--------|------|
-    | milisecond | second <br> minute <br> hour |
-    | second  | milisecond <br> minute <br> hour  |
-    | minute | milisecond <br> second <br> hour  |
-    | hour | milisecond <br> second <br> minute  |
+    | milisecond | second / minute / hour |
+    | second  | milisecond / minute / hour  |
+    | minute | milisecond / second / hour  |
+    | hour | milisecond / second / minute  |
   - TIme Object
     | from | to |
     |--------|------|
-    | unixtime <br> unixtime+timezone | datetime.datetime |
-    | unixtime <br> unixtime+timezone | datetime.date |
+    | unixtime / unixtime+timezone | datetime.datetime |
+    | unixtime / unixtime+timezone | datetime.date |
   - Unix Time
     | from | to |
     |--------|------|
-    | string(yyyy-mm-dd hh:mm:ss) <br> string(yyyy-mm-dd hh:mm:ss)+timezone |  unixtime|
+    | string(yyyy-mm-dd hh:mm:ss) / string(yyyy-mm-dd hh:mm:ss)+timezone |  unixtime|
 
 ## Installing
 
