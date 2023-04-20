@@ -12,7 +12,7 @@ pydantic = "^1.10.7"
 
 [tool.poetry.dev-dependencies]
 black = "^23.3.0"
-pytest = "^7.3.0"
+pytest = "^7.3.1"
 mypy = "^1.2"
 
 [build-system]
