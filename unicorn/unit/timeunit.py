@@ -31,6 +31,15 @@ class TimeUnitModel(BaseModel):
 class TimeUnit:
     def convert(self, data: int, *, from_unit: str = None, to_unit: str = None) -> int:
         try:
+            if from_unit is None and to_unit is None:
+                raise ValueError(
+                    "Both 'from_unit' and 'to_unit' arguments are required."
+                )
+            elif from_unit is None:
+                raise ValueError("The 'from_unit' argument is required.")
+            elif to_unit is None:
+                raise ValueError("The 'to_unit' argument is required.")
+
             input_data = TimeUnitModel(data=data, from_unit=from_unit, to_unit=to_unit)
         except ValidationError as e:
             raise ValueError(str(e))
