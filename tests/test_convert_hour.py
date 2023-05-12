@@ -21,6 +21,12 @@ class TestConverterHour:
 
         assert result == 420
 
+    def test_convert_hour_min2(self):
+        test_timeunit = timeunit.TimeUnit()
+        result = test_timeunit.convert(7.5, from_unit="hour", to_unit="min")
+
+        assert result == 450
+
     def test_convert_hour_hour(self):
         test_timeunit = timeunit.TimeUnit()
         result = test_timeunit.convert(24, from_unit="hour", to_unit="hour")
