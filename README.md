@@ -10,7 +10,7 @@
     - hour / second / milisecond → minute
     - hour / minute / milisecond → second
     - hour / minute / second → milisecond
-  - TIme Object
+  - Time Object
     - unixtime / unixtime+timezone → datetime.datetime
     - unixtime / unixtime+timezone → datetime.date
   - Unix Time
@@ -18,21 +18,46 @@
 
 ## Installing
 
-- Local install using pip.
+  - Local install using pip.
 
-```
-git clone https://github.com/subretu/unicorn.git
-pip install ./unicorn/
-```
+  ```
+  git clone https://github.com/subretu/unicorn.git
+  pip install ./unicorn/
+  ```
 
 
 
 ## Example
+
+### Time Unit
+
+```python
+import unicorn
+
+
+converter = unicorn.TimeUnit()
+# Convert hour to minute
+converte_min = converter.convert(2, from_unit="hour", to_unit="min")
+```
+
+### Time Object
 
 ```python
 import unicorn
 
 
 converter = unicorn.TimeObject()
-dt_timestamp = converter.convert(1577841753, target="datetime")
+# Convert to datatime
+converte_datetime = converter.convert(1577841753, target="datetime")
+```
+
+### Unix Time
+
+```python
+import unicorn
+
+
+converter = unicorn.Unixtime()
+# Specify time zone
+converte_unixtime = converter.convert("2023-05-12 10:15:20", tz="Asia/Tokyo")
 ```
