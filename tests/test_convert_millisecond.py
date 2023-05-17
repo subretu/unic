@@ -15,6 +15,12 @@ class TestConverterMillisecond:
 
         assert result == 2
 
+    def test_convert_millisecond_sec_float(self):
+        test_timeunit = timeunit.TimeUnit()
+        result = test_timeunit.convert(1250.6, from_unit="msec", to_unit="sec")
+
+        assert result == 1.2506
+
     def test_convert_millisecond_min(self):
         test_timeunit = timeunit.TimeUnit()
         result = test_timeunit.convert(120000, from_unit="msec", to_unit="min")
@@ -35,4 +41,22 @@ class TestConverterMillisecond:
         error_msg = """1 validation error for TimeUnitModel
 to_unit
   Invalid to_unit name: millisec. Allowed values are ['msec', 'sec', 'min', 'hour']. (type=value_error)"""
+        assert str(e.value) == error_msg
+
+    def test_convert_millisecond_fail_parameter_count_shortage(self):
+        with pytest.raises(Exception) as e:
+            test_timeunit = timeunit.TimeUnit()
+            _ = test_timeunit.convert(24, to_unit="min")
+
+        error_msg = "The 'from_unit' argument is required."
+
+        assert str(e.value) == error_msg
+
+    def test_convert_millisecond_fail_parameter_count_shortage_to_unit(self):
+        with pytest.raises(Exception) as e:
+            test_timeunit = timeunit.TimeUnit()
+            _ = test_timeunit.convert(24, from_unit="msec")
+
+        error_msg = "The 'to_unit' argument is required."
+
         assert str(e.value) == error_msg

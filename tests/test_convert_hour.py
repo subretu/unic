@@ -21,7 +21,7 @@ class TestConverterHour:
 
         assert result == 420
 
-    def test_convert_hour_min2(self):
+    def test_convert_hour_min_float(self):
         test_timeunit = timeunit.TimeUnit()
         result = test_timeunit.convert(7.5, from_unit="hour", to_unit="min")
 
@@ -43,11 +43,20 @@ to_unit
   Invalid to_unit name: hr. Allowed values are ['msec', 'sec', 'min', 'hour']. (type=value_error)"""
         assert str(e.value) == error_msg
 
-    def test_convert_hour_fail_parameter_count_shortage(self):
+    def test_convert_hour_fail_parameter_count_shortage_from_unit(self):
         with pytest.raises(Exception) as e:
             test_timeunit = timeunit.TimeUnit()
-            _ = test_timeunit.convert(24, to_unit="hour")
+            _ = test_timeunit.convert(24, to_unit="min")
 
         error_msg = "The 'from_unit' argument is required."
+
+        assert str(e.value) == error_msg
+
+    def test_convert_hour_fail_parameter_count_shortage_to_unit(self):
+        with pytest.raises(Exception) as e:
+            test_timeunit = timeunit.TimeUnit()
+            _ = test_timeunit.convert(24, from_unit="hour")
+
+        error_msg = "The 'to_unit' argument is required."
 
         assert str(e.value) == error_msg
