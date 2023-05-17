@@ -3,7 +3,7 @@
 [![black](https://github.com/subretu/unicorn/actions/workflows/format.yml/badge.svg)](https://github.com/subretu/unicorn/actions/workflows/format.yml)
 
 # unicorn
-- Unicorn is various units converting python library.
+- Unicorn is a Python package that can convert various units.
 - The current available conversion targets are as follows.
   - Time Unit
     - minute / second / milisecond → hour
