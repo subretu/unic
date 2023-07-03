@@ -48,7 +48,8 @@ class TestConverterSecond:
 
         error_msg = """1 validation error for TimeUnitModel
 to_unit
-  Invalid to_unit name: second. Allowed values are ['msec', 'sec', 'min', 'hour']. (type=value_error)"""
+  Value error, Invalid to_unit name: second. Allowed values are ['msec', 'sec', 'min', 'hour']. [type=value_error, input_value='second', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.0.1/v/value_error"""
         assert str(e.value) == error_msg
 
     def test_convert_second_fail_parameter_count_shortage(self):
