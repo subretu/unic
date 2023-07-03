@@ -2,7 +2,7 @@ from pydantic import (
     BaseModel,
     StrictFloat,
     ValidationError,
-    validator,
+    field_validator,
     StrictInt,
     StrictStr,
 )
@@ -17,7 +17,7 @@ class TimeUnitModel(BaseModel):
     from_unit: StrictStr
     to_unit: StrictStr
 
-    @validator("from_unit")
+    @field_validator("from_unit")
     def from_unit_check(cls, v):
         valid_units = ["msec", "sec", "min", "hour"]
         if v not in valid_units:
@@ -26,7 +26,7 @@ class TimeUnitModel(BaseModel):
             )
         return v
 
-    @validator("to_unit")
+    @field_validator("to_unit")
     def to_unit_check(cls, v):
         valid_units = ["msec", "sec", "min", "hour"]
         if v not in valid_units:
