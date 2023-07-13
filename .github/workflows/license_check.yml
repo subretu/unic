@@ -5,7 +5,7 @@ on:
 
 jobs:
   license-check:
-    name: License check
+    name: License Check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,11 +20,13 @@ jobs:
           echo "$HOME/.local/bin" >> $GITHUB_PATH
       - name: Install dependencies
         run: poetry install --no-interaction
+      - name: Run Licenses List
+        run: >
+          poetry run pip-licenses
+          --order=license
+          --format=markdown
       - name: Run Licenses Check
         run: >
           poetry run pip-licenses
           --with-system
-          --allow-only="
-            MIT License;
-            BSD License;
-            "
+          --allow-only=""
