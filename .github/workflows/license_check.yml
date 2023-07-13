@@ -1,0 +1,30 @@
+name: license_check
+
+on:
+  push:
+
+jobs:
+  license-check:
+    name: License check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+      - name: Install dependencies
+        run: poetry install --no-interaction
+      - name: Run Licenses Check
+        run: >
+          pip-licenses
+          --with-system
+          --allow-only="
+            MIT License;
+            BSD License;
+            "
