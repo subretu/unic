@@ -22,7 +22,7 @@ jobs:
         run: poetry install --no-interaction
       - name: Run Licenses Check
         run: >
-          pip-licenses
+          poetry run pip-licenses
           --with-system
           --allow-only="
             MIT License;
