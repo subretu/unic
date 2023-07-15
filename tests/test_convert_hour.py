@@ -1,5 +1,6 @@
 import pytest
 from unicorn.unit import timeunit
+import importlib
 
 
 class TestConverterHour:
@@ -38,10 +39,17 @@ class TestConverterHour:
             test_timeunit = timeunit.TimeUnit()
             _ = test_timeunit.convert(24, from_unit="hour", to_unit="hr")
 
-        error_msg = """1 validation error for TimeUnitModel
+        # パッケージ名
+        package_name = "pydantic_core"
+        # パッケージをインポート
+        package = importlib.import_module(package_name)
+        # パッケージのバージョンを取得
+        version = package.__version__
+
+        error_msg = f"""1 validation error for TimeUnitModel
 to_unit
   Value error, Invalid to_unit name: hr. Allowed values are ['msec', 'sec', 'min', 'hour']. [type=value_error, input_value='hr', input_type=str]
-    For further information visit https://errors.pydantic.dev/2.0.1/v/value_error"""
+    For further information visit https://errors.pydantic.dev/{version}/v/value_error"""
         assert str(e.value) == error_msg
 
     def test_convert_hour_fail_parameter_count_shortage_from_unit(self):

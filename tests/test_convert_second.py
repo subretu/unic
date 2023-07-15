@@ -1,5 +1,6 @@
 import pytest
 from unicorn.unit import timeunit
+import importlib
 
 
 class TestConverterSecond:
@@ -46,10 +47,17 @@ class TestConverterSecond:
             test_timeunit = timeunit.TimeUnit()
             _ = test_timeunit.convert(35, from_unit="sec", to_unit="second")
 
-        error_msg = """1 validation error for TimeUnitModel
+        # パッケージ名
+        package_name = "pydantic_core"
+        # パッケージをインポート
+        package = importlib.import_module(package_name)
+        # パッケージのバージョンを取得
+        version = package.__version__
+
+        error_msg = f"""1 validation error for TimeUnitModel
 to_unit
   Value error, Invalid to_unit name: second. Allowed values are ['msec', 'sec', 'min', 'hour']. [type=value_error, input_value='second', input_type=str]
-    For further information visit https://errors.pydantic.dev/2.0.1/v/value_error"""
+    For further information visit https://errors.pydantic.dev/{version}/v/value_error"""
         assert str(e.value) == error_msg
 
     def test_convert_second_fail_parameter_count_shortage(self):
