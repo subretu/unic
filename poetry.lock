@@ -208,13 +208,13 @@ test = ["docutils", "mypy", "pytest-cov", "pytest-pycodestyle", "pytest-runner"]
 
 [[package]]
 name = "pipdeptree"
-version = "2.9.5"
+version = "2.10.1"
 description = "Command line utility to show dependency tree of packages."
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "pipdeptree-2.9.5-py3-none-any.whl", hash = "sha256:65ddcb15b05a396fa2a0d6e1696881b80463942a8cef12071141898bfff24255"},
-    {file = "pipdeptree-2.9.5.tar.gz", hash = "sha256:47bfc150560709420b647bcc6293868d6f0848fb33a7d9ccbfc0abe343999953"},
+    {file = "pipdeptree-2.10.1-py3-none-any.whl", hash = "sha256:ee8ca065f9ce981e56084aeb3fb752efcbd1cf204b7823340a8b238ef66bb8d3"},
+    {file = "pipdeptree-2.10.1.tar.gz", hash = "sha256:ecf9c7a72dc45d9854b0d9925bac8028f9599bb2900cf5687e48fb79e19954fc"},
 ]
 
 [package.extras]
@@ -452,4 +452,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "8433093f29c9a7e9e2269b8f247c63f374fc95032df67c90318aa4645e36f654"
+content-hash = "e42805959b3aa0ce3e3aa62b75a4bfeb75ff7786efb8a39c15006f453381a9e7"
