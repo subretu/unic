@@ -42,7 +42,7 @@ class TimeUnit:
             self.check_parameter_count(from_unit, to_unit)
             input_data = TimeUnitModel(data=data, from_unit=from_unit, to_unit=to_unit)
         except ValidationError as e:
-            raise ValueError(str(e))
+            raise ValueError(e.errors()[0]['msg'])
 
         parameter = config_parser.parse_toml("unit")
         data = float(input_data.data * Fraction(parameter[from_unit][to_unit]))
