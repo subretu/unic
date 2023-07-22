@@ -20,6 +20,8 @@ jobs:
           echo "$HOME/.local/bin" >> $GITHUB_PATH
       - name: Install dependencies
         run: poetry install --no-interaction --no-dev
+      - name: Install pip-licenses
+        run: poetry add pip-licenses
       - name: Run Licenses List
         run: >
           poetry run pip-licenses
