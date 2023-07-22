@@ -9,7 +9,6 @@ license = "MIT"
 python = "^3.8"
 toml = "^0.10.2"
 pydantic = "^2.0"
-pandas = "^2.0.3"
 
 [tool.poetry.dev-dependencies]
 black = "^23.7.0"
