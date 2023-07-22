@@ -28,5 +28,4 @@ jobs:
       - name: Run Licenses Check
         run: >
           poetry run pip-licenses
-          --with-system
           --allow-only=""
