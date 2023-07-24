@@ -80,7 +80,7 @@ jobs:
 
       - name: Display NG Licenses
         run: |
-          if [ -sng-licenses2.json ]; then
+          if [ -s ng-licenses2.json ]; then
             echo "The following licenses are not valid:"
             echo "==================================="
             cat ng-licenses2.json
