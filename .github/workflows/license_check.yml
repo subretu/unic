@@ -55,4 +55,38 @@ jobs:
             done
           } | sed '$ s/,$//' | sed '1i{' | sed '$a}' > ng-licenses1.json
 
-          cat ng-licenses1.json
+      - name: Check Ignore Licenses
+        id: parse-licenses2
+        run: |
+          output=$(cat ng-licenses1.json)
+          keys=$(echo "$output" | jq -r 'keys[]')
+          ignore_librarys=$(cat ignore_librarys.txt)
+
+          declare -A ng_licenses
+
+          for key in $keys; do
+            license=$(echo "$output" | jq -r ".[\"$key\"]")
+            if [[ "$ignore_librarys" != *"$key"* ]]; then
+              ng_licenses["$key"]=$license
+            fi
+          done
+
+          {
+            for key in "${!ng_licenses[@]}"; do
+              license=${ng_licenses[$key]}
+              echo "\"$key\": \"$license\","
+            done
+          } | sed '$ s/,$//' | sed '1i{' | sed '$a}' > ng-licenses2.json
+
+      - name: Display NG Licenses
+        run: |
+          if [ -sng-licenses2.json ]; then
+            echo "The following licenses are not valid:"
+            echo "==================================="
+            cat ng-licenses2.json
+            echo "==================================="
+            echo "Exiting with error..."
+            exit 1
+          else
+            echo "No invalid licenses found."
+          fi
