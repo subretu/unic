@@ -27,5 +27,30 @@ jobs:
           --format=markdown
       - name: Run Licenses Check
         run: >
-          poetry run pip-licenses
-          --allow-only=""
+          poetry run pip-licenses --format=json --from=mixed --allow-only="" > licenses.json
+
+      - name: Check Allow Licenses
+        id: parse-licenses1
+        run: |
+          output=$(cat licenses.json)
+          keys=$(echo "$output" | jq -r 'keys[]')
+          allow_licenses=$(cat allow_licenses.txt)
+
+          declare -A ng_licenses
+
+          for key in $keys; do
+            license=$(echo "$output" | jq -r ".[\"$key\"].licenses")
+            if [[ "$allow_licenses" != *"$license"* ]]; then
+              name=$(echo "$output" | jq -r ".[\"$key\"].Name")
+              ng_licenses["$name"]=$license
+            fi
+          done
+
+          {
+            for key in "${!ng_licenses[@]}"; do
+              license=${ng_licenses[$key]}
+              echo "\"$key\": \"$license\","
+            done
+          } | sed '$ s/,$//' | sed '1i{' | sed '$a}' > ng-licenses1.json
+
+          cat ng-licenses1.json
