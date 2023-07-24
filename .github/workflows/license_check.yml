@@ -55,7 +55,7 @@ jobs:
             done
           } | sed '$ s/,$//' | sed '1i{' | sed '$a}' > ng-licenses1.json
 
-      - name: Check Ignore Licenses
+      - name: Check Ignore Librarys
         id: parse-licenses2
         run: |
           output=$(cat ng-licenses1.json)
