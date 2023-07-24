@@ -33,16 +33,17 @@ jobs:
         id: parse-licenses1
         run: |
           output=$(cat licenses.json)
-          cat licenses.json
           keys=$(echo "$output" | jq -r 'keys[]')
           allow_licenses=$(cat allow_licenses.txt)
 
           declare -A ng_licenses
 
-          for key in $keys; do
-            license=$(echo "$output" | jq -r ".[\"$key\"].licenses")
+          length=$(echo "$output" | jq 'length')
+
+          for (( i = 0; i < length; i++ )); do
+            license=$(echo "$output" | jq -r ".[$i].License")
+            name=$(echo "$output" | jq -r ".[$i].Name")
             if [[ "$allow_licenses" != *"$license"* ]]; then
-              name=$(echo "$output" | jq -r ".[\"$key\"].Name")
               ng_licenses["$name"]=$license
             fi
           done
