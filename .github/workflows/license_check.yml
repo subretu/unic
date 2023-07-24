@@ -33,6 +33,7 @@ jobs:
         id: parse-licenses1
         run: |
           output=$(cat licenses.json)
+          cat licenses.json
           keys=$(echo "$output" | jq -r 'keys[]')
           allow_licenses=$(cat allow_licenses.txt)
 
