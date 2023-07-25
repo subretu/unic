@@ -1,4 +1,4 @@
-from ..utils import config_parser
+from unicorn.utils import config_parser
 
 
 def check_number(parameter: dict) -> None:

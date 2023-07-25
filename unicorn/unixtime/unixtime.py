@@ -1,5 +1,5 @@
 from datetime import datetime, timezone, timedelta
-from ..utils import check_parameter, config_parser
+from unicorn.utils import check_parameter, config_parser
 
 
 class Unixtime:
