@@ -6,7 +6,7 @@ VERSION = unicorn.__version__
 setup(
     name="unicorn",
     version=VERSION,
-    description="Python library for converting various units.",
+    description="Python package for converting various units.",
     author="subretu",
     url="https://github.com/subretu/unicorn",
     packages=find_packages(),
