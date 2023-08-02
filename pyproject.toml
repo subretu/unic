@@ -1,9 +1,22 @@
 [tool.poetry]
 name = "unic"
-version = "0.3.0"
-description = ""
-authors = ["Subretu <subretu@example.com>"]
+version = "0.1.0"
+description = "Python package for converting various units."
+authors = ["Subretu"]
+maintainers = ["Subretu"]
 license = "MIT"
+readme = 'README.md'
+repository = 'https://github.com/subretu/unic'
+keywords = ['unit', 'convert', 'time', 'timestamp', 'unixtime']
+
+classifiers=[
+    'License :: OSI Approved :: MIT License',
+
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"
