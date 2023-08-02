@@ -1,6 +1,6 @@
 import pytest
 from datetime import datetime, timezone, timedelta
-from unicorn.timeobject import timeobject
+from unic.timeobject import timeobject
 
 
 class TestConvertDatetime:

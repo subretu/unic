@@ -1,5 +1,5 @@
 import pytest
-from unicorn.unit import timeunit
+from unic.unit import timeunit
 import importlib
 
 

@@ -1,9 +1,9 @@
 ![Python minimum version](https://img.shields.io/badge/Python-3.8%2B-brightgreen)
-[![pytest](https://github.com/subretu/unicorn/actions/workflows/pytest.yml/badge.svg)](https://github.com/subretu/unicorn/actions/workflows/pytest.yml)
-[![black](https://github.com/subretu/unicorn/actions/workflows/format.yml/badge.svg)](https://github.com/subretu/unicorn/actions/workflows/format.yml)
+[![pytest](https://github.com/subretu/unic/actions/workflows/pytest.yml/badge.svg)](https://github.com/subretu/unic/actions/workflows/pytest.yml)
+[![black](https://github.com/subretu/unic/actions/workflows/format.yml/badge.svg)](https://github.com/subretu/unic/actions/workflows/format.yml)
 
-# unicorn
-- Unicorn is a Python package that can convert various units.
+# unic
+- unic is a Python package that can convert various units.
 - The current available conversion targets are as follows.
   - Time Unit
     - minute / second / milisecond → hour
@@ -21,8 +21,8 @@
   - Local install using pip.
 
   ```
-  git clone https://github.com/subretu/unicorn.git
-  pip install ./unicorn/
+  git clone https://github.com/subretu/unic.git
+  pip install ./unic/
   ```
 
 
@@ -32,10 +32,10 @@
 ### Time Unit
 
 ```python
-import unicorn
+import unic
 
 
-converter = unicorn.TimeUnit()
+converter = unic.TimeUnit()
 # Convert hour to minute
 converte_min = converter.convert(2, from_unit="hour", to_unit="min")
 ```
@@ -43,10 +43,10 @@ converte_min = converter.convert(2, from_unit="hour", to_unit="min")
 ### Time Object
 
 ```python
-import unicorn
+import unic
 
 
-converter = unicorn.TimeObject()
+converter = unic.TimeObject()
 # Convert to datatime
 converte_datetime = converter.convert(1577841753, target="datetime")
 ```
@@ -54,10 +54,10 @@ converte_datetime = converter.convert(1577841753, target="datetime")
 ### Unix Time
 
 ```python
-import unicorn
+import unic
 
 
-converter = unicorn.Unixtime()
+converter = unic.Unixtime()
 # Specify time zone
 converte_unixtime = converter.convert("2023-05-12 10:15:20", tz="Asia/Tokyo")
 ```

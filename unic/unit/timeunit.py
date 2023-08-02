@@ -6,7 +6,7 @@ from pydantic import (
     StrictInt,
     StrictStr,
 )
-from unicorn.utils import config_parser
+from unic.utils import config_parser
 from fractions import Fraction
 from typing import Union
 

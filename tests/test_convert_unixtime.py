@@ -1,5 +1,5 @@
 import pytest
-from unicorn.unixtime import unixtime
+from unic.unixtime import unixtime
 
 
 class TestConvertUnixtime:

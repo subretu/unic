@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "unicorn"
-version = "0.1.0"
+name = "unic"
+version = "0.3.0"
 description = ""
 authors = ["Subretu <subretu@example.com>"]
 license = "MIT"

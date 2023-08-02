@@ -1,14 +1,14 @@
 from setuptools import setup, find_packages
-import unicorn
+import unic
 
-VERSION = unicorn.__version__
+VERSION = unic.__version__
 
 setup(
-    name="unicorn",
+    name="unic",
     version=VERSION,
     description="Python package for converting various units.",
     author="subretu",
-    url="https://github.com/subretu/unicorn",
+    url="https://github.com/subretu/unic",
     packages=find_packages(),
     zip_safe=False,
     setup_requires=["pytest-runner"],
