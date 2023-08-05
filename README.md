@@ -18,11 +18,8 @@
 
 ## Installing
 
-  - Local install using pip.
-
   ```
-  git clone https://github.com/subretu/unic.git
-  pip install ./unic/
+  pip install unic
   ```
 
 
