@@ -12,7 +12,7 @@ from typing import Union
 
 
 class TimeUnitModel(BaseModel):
-    # 自動変換を防ぐ型で定義
+    # Prevent automatic conversion
     data: Union[StrictInt, StrictFloat]
     from_unit: StrictStr
     to_unit: StrictStr
