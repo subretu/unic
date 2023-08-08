@@ -2,7 +2,7 @@ from datetime import date, datetime, timezone, timedelta
 from unic.utils import check_parameter, config_parser
 
 
-class TimeObject:
+class Datetime:
     def convert(self, data: int, **kwargs: any) -> date:
         self.check_parameter_name(kwargs)
         tz = kwargs.get("tz", None)
