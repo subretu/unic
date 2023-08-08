@@ -7,7 +7,7 @@ unic is a Python package that can convert various units.
 
 ## Conversion Targets
 - The current available conversion targets are as follows.
-### Time Units
+### Time Unit
   - Time
     - minute / second / milisecond → hour
     - hour / second / milisecond → minute
@@ -28,7 +28,7 @@ unic is a Python package that can convert various units.
 
 
 ## Example
-### Time Units
+### Time Unit
 #### Time
 
 ```python
@@ -46,7 +46,7 @@ converte_min = converter.convert(2, from_unit="hour", to_unit="min")
 import unic
 
 
-converter = unic.TimeObject()
+converter = unic.Datetime()
 # Convert to datatime
 converte_datetime = converter.convert(1577841753, target="datetime")
 ```
