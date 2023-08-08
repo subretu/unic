@@ -3,17 +3,20 @@
 [![black](https://github.com/subretu/unic/actions/workflows/format.yml/badge.svg)](https://github.com/subretu/unic/actions/workflows/format.yml)
 
 # unic
-- unic is a Python package that can convert various units.
+unic is a Python package that can convert various units.
+
+## Conversion Targets
 - The current available conversion targets are as follows.
-  - Time Unit
+### Time Units
+  - Time
     - minute / second / milisecond → hour
     - hour / second / milisecond → minute
     - hour / minute / milisecond → second
     - hour / minute / second → milisecond
-  - Time Object
+  - Datetime
     - unixtime / unixtime+timezone → datetime.datetime
     - unixtime / unixtime+timezone → datetime.date
-  - Unix Time
+  - Unixtime
     - string(yyyy-mm-dd hh:mm:ss) / string(yyyy-mm-dd hh:mm:ss)+timezone → unixtime
 
 ## Installing
@@ -25,8 +28,8 @@
 
 
 ## Example
-
-### Time Unit
+### Time Units
+#### Time
 
 ```python
 import unic
@@ -37,7 +40,7 @@ converter = unic.TimeUnit()
 converte_min = converter.convert(2, from_unit="hour", to_unit="min")
 ```
 
-### Time Object
+#### Datetime
 
 ```python
 import unic
@@ -48,7 +51,7 @@ converter = unic.TimeObject()
 converte_datetime = converter.convert(1577841753, target="datetime")
 ```
 
-### Unix Time
+#### Unixtime
 
 ```python
 import unic
