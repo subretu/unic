@@ -35,7 +35,7 @@ unic is a Python package that can convert various units.
 import unic
 
 
-converter = unic.TimeUnit()
+converter = unic.TimeModel()
 # Convert hour to minute
 convert_min = converter.convert(2, from_unit="hour", to_unit="min")
 ```
