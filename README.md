@@ -37,7 +37,7 @@ import unic
 
 converter = unic.TimeUnit()
 # Convert hour to minute
-converte_min = converter.convert(2, from_unit="hour", to_unit="min")
+convert_min = converter.convert(2, from_unit="hour", to_unit="min")
 ```
 
 #### Datetime
@@ -46,9 +46,9 @@ converte_min = converter.convert(2, from_unit="hour", to_unit="min")
 import unic
 
 
-converter = unic.Datetime()
+converter = unic.DatetimeModel()
 # Convert to datatime
-converte_datetime = converter.convert(1577841753, target="datetime")
+convert_datetime = converter.convert(1577841753, target="datetime")
 ```
 
 #### Unixtime
@@ -59,5 +59,5 @@ import unic
 
 converter = unic.Unixtime()
 # Specify time zone
-converte_unixtime = converter.convert("2023-05-12 10:15:20", tz="Asia/Tokyo")
+convert_unixtime = converter.convert("2023-05-12 10:15:20", tz="Asia/Tokyo")
 ```
