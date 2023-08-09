@@ -57,7 +57,7 @@ convert_datetime = converter.convert(1577841753, target="datetime")
 import unic
 
 
-converter = unic.Unixtime()
+converter = unic.UnixtimeModel()
 # Specify time zone
 convert_unixtime = converter.convert("2023-05-12 10:15:20", tz="Asia/Tokyo")
 ```

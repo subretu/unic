@@ -2,7 +2,7 @@ from datetime import datetime, timezone, timedelta
 from unic.utils import check_parameter, config_parser
 
 
-class Unixtime:
+class UnixtimeModel:
     def convert(self, data: str, **kwargs: any) -> int:
         check_parameter.check_number(kwargs)
 
