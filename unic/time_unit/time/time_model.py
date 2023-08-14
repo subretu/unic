@@ -40,7 +40,9 @@ class TimeModel:
     def convert(self, data: int, *, from_unit: str = None, to_unit: str = None) -> int:
         try:
             self.check_parameter_count(from_unit, to_unit)
-            input_data = UnitValidationModel(data=data, from_unit=from_unit, to_unit=to_unit)
+            input_data = UnitValidationModel(
+                data=data, from_unit=from_unit, to_unit=to_unit
+            )
         except ValidationError as e:
             raise ValueError(e.errors()[0]["msg"])
 
