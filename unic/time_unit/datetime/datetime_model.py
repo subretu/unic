@@ -4,7 +4,9 @@ from unic.utils import check_parameter, config_parser
 
 class DatetimeModel:
     def convert(self, data: int, **kwargs: any) -> date:
+        digits = self.count_digits(data)
         self.check_parameter_name(kwargs)
+
         tz = kwargs.get("tz", None)
         target = kwargs["target"]
 
@@ -14,8 +16,6 @@ class DatetimeModel:
             timezone_hour = parameter[tz]["value"]
         else:
             timezone_hour = 0
-
-        digits = self.count_digits(data)
 
         dt_timestamp = self.convert_timestamp_by_digits(data, digits, timezone_hour)
 
