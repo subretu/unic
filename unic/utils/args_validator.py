@@ -20,7 +20,7 @@ class TimeModelValidator(BaseModel):
         valid_units = ["msec", "sec", "min", "hour"]
         if v not in valid_units:
             raise ValueError(
-                f"Invalid from_unit name: {v}. Allowed values are {valid_units}."
+                f"{v} is Invalid value for parameter:from_unit. Allowed values are {valid_units}."
             )
         return v
 
@@ -29,7 +29,7 @@ class TimeModelValidator(BaseModel):
         valid_units = ["msec", "sec", "min", "hour"]
         if v not in valid_units:
             raise ValueError(
-                f"Invalid to_unit name: {v}. Allowed values are {valid_units}."
+                f"{v} is Invalid value for parameter:to_unit. Allowed values are {valid_units}."
             )
         return v
 
