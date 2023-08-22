@@ -38,7 +38,7 @@ class TestConverterHour:
             test_timeunit = time_model.TimeModel()
             _ = test_timeunit.convert(24, from_unit="hour", to_unit="hr")
 
-        error_msg = "Value error, Invalid to_unit name: hr. Allowed values are ['msec', 'sec', 'min', 'hour']."
+        error_msg = "Value error, hr is Invalid value for parameter:to_unit. Allowed values are ['msec', 'sec', 'min', 'hour']."
         assert str(e.value) == error_msg
 
     def test_convert_hour_fail_parameter_count_shortage_from_unit(self):
