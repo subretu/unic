@@ -31,12 +31,23 @@ class TestConvertDate:
 
         assert str(e.value) == "Invalid parameter name."
 
-    def test_convert_datetime_parameter_value_error(self):
+    def test_convert_date_parameter_value_error_patarn1(self):
         with pytest.raises(Exception) as e:
             test_timeobject = datetime_model.DatetimeModel()
             _ = test_timeobject.convert(1657985494, target="date", tz="Asia/Osaka")
 
-        assert str(e.value) == "Invalid parameter value."
+        assert (
+            str(e.value) == "Value error, Asia/Osaka is Invalid value for parameter:tz."
+        )
+
+    def test_convert_date_parameter_value_error_patarn2(self):
+        with pytest.raises(Exception) as e:
+            test_timeobject = datetime_model.DatetimeModel()
+            _ = test_timeobject.convert(1657985494129, target="data")
+
+        error_msg = "Value error, data is Invalid value for parameter:target. Allowed values are ['datetime', 'date']."
+
+        assert str(e.value) == error_msg
 
     def test_convert_date_parameter_number_error(self):
         with pytest.raises(Exception) as e:
