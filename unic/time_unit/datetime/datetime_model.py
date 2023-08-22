@@ -1,30 +1,39 @@
+from pydantic import ValidationError
 from datetime import date, datetime, timezone, timedelta
-from unic.utils import check_parameter, config_parser
+from unic.utils import check_parameter, config_parser, args_validator
 
 
 class DatetimeModel:
     def convert(self, data: int, **kwargs: any) -> date:
-        digits = self.count_digits(data)
-        self.check_parameter_name(kwargs)
+        try:
+            digits = self.count_digits(data)
 
-        tz = kwargs.get("tz", None)
-        target = kwargs["target"]
+            self.check_parameter_name(kwargs)
+
+            tz = kwargs.get("tz", None)
+
+            target = kwargs["target"]
+
+            input_data = args_validator.DatetimeModelValidator(
+                data=data, target=target, tz=tz
+            )
+        except ValidationError as e:
+            raise ValueError(e.errors()[0]["msg"])
 
         if tz:
-            check_parameter.check_value(tz)
             parameter = config_parser.parse_toml("timezone")
             timezone_hour = parameter[tz]["value"]
         else:
             timezone_hour = 0
 
-        dt_timestamp = self.convert_timestamp_by_digits(data, digits, timezone_hour)
+        dt_timestamp = self.convert_timestamp_by_digits(
+            input_data.data, digits, timezone_hour
+        )
 
         if target == "datetime":
             return dt_timestamp
         elif target == "date":
             return dt_timestamp.date()
-        else:
-            raise ValueError("Invalid target")
 
     def count_digits(self, data: int) -> int:
         digits = len(str(abs(data)))

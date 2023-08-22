@@ -6,6 +6,7 @@ from pydantic import (
     StrictStr,
 )
 from typing import Union
+from unic.utils import config_parser
 
 
 class TimeModelValidator(BaseModel):
@@ -30,4 +31,27 @@ class TimeModelValidator(BaseModel):
             raise ValueError(
                 f"Invalid to_unit name: {v}. Allowed values are {valid_units}."
             )
+        return v
+
+
+class DatetimeModelValidator(BaseModel):
+    # Prevent automatic conversion
+    data: StrictInt
+    target: StrictStr
+    tz: Union[StrictStr, None]
+
+    @field_validator("target")
+    def target_check(cls, v):
+        valid_targets = ["datetime", "date"]
+        if v not in valid_targets:
+            raise ValueError(
+                f"{v} is Invalid value for parameter:target. Allowed values are {valid_targets}."
+            )
+        return v
+
+    @field_validator("tz")
+    def timezone_check(cls, v):
+        valid_timezones = config_parser.parse_toml("timezone")
+        if v not in valid_timezones.keys() and v is not None:
+            raise ValueError(f"{v} is Invalid value for parameter:tz.")
         return v
