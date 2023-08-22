@@ -38,7 +38,9 @@ class TestConvertDatetime:
             test_timeobject = datetime_model.DatetimeModel()
             _ = test_timeobject.convert(1657985494, target="datetime", tz="Asia/Osaka")
 
-        assert str(e.value) == "Value error, Asia/Osaka is Invalid value for parameter:tz."
+        assert (
+            str(e.value) == "Value error, Asia/Osaka is Invalid value for parameter:tz."
+        )
 
     def test_convert_datetime_parameter_value_error_patarn2(self):
         with pytest.raises(Exception) as e:
