@@ -37,7 +37,8 @@ class TestConvertDate:
             _ = test_timeobject.convert(1657985494, target="date", tz="Asia/Osaka")
 
         assert (
-            str(e.value) == "Value error, Asia/Osaka is invalid value for parameter: tz."
+            str(e.value)
+            == "Value error, Asia/Osaka is invalid value for parameter: tz."
         )
 
     def test_convert_date_parameter_value_error_patarn2(self):
