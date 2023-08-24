@@ -46,7 +46,7 @@ class TestConverterSecond:
             test_timeunit = time_model.TimeModel()
             _ = test_timeunit.convert(35, from_unit="sec", to_unit="second")
 
-        error_msg = "Value error, second is Invalid value for parameter:to_unit. Allowed values are ['msec', 'sec', 'min', 'hour']."
+        error_msg = "Value error, second is invalid value for parameter: to_unit. Allowed values are ['msec', 'sec', 'min', 'hour']."
 
         assert str(e.value) == error_msg
 

@@ -38,7 +38,7 @@ class TestConverterMinute:
             test_timeunit = time_model.TimeModel()
             _ = test_timeunit.convert(60, from_unit="min", to_unit="minute")
 
-        error_msg = "Value error, minute is Invalid value for parameter:to_unit. Allowed values are ['msec', 'sec', 'min', 'hour']."
+        error_msg = "Value error, minute is invalid value for parameter: to_unit. Allowed values are ['msec', 'sec', 'min', 'hour']."
 
         assert str(e.value) == error_msg
 

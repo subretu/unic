@@ -20,7 +20,7 @@ class TimeModelValidator(BaseModel):
         valid_units = ["msec", "sec", "min", "hour"]
         if v not in valid_units:
             raise ValueError(
-                f"{v} is Invalid value for parameter:from_unit. Allowed values are {valid_units}."
+                f"{v} is invalid value for parameter: from_unit. Allowed values are {valid_units}."
             )
         return v
 
@@ -29,7 +29,7 @@ class TimeModelValidator(BaseModel):
         valid_units = ["msec", "sec", "min", "hour"]
         if v not in valid_units:
             raise ValueError(
-                f"{v} is Invalid value for parameter:to_unit. Allowed values are {valid_units}."
+                f"{v} is invalid value for parameter: to_unit. Allowed values are {valid_units}."
             )
         return v
 
@@ -45,7 +45,7 @@ class DatetimeModelValidator(BaseModel):
         valid_targets = ["datetime", "date"]
         if v not in valid_targets:
             raise ValueError(
-                f"{v} is Invalid value for parameter:target. Allowed values are {valid_targets}."
+                f"{v} is invalid value for parameter: target. Allowed values are {valid_targets}."
             )
         return v
 
@@ -53,5 +53,5 @@ class DatetimeModelValidator(BaseModel):
     def timezone_check(cls, v):
         valid_timezones = config_parser.parse_toml("timezone")
         if v not in valid_timezones.keys() and v is not None:
-            raise ValueError(f"{v} is Invalid value for parameter:tz.")
+            raise ValueError(f"{v} is invalid value for parameter: tz.")
         return v

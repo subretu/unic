@@ -38,7 +38,7 @@ class TestConverterMillisecond:
             test_timeunit = time_model.TimeModel()
             _ = test_timeunit.convert(15, from_unit="msec", to_unit="millisec")
 
-        error_msg = "Value error, millisec is Invalid value for parameter:to_unit. Allowed values are ['msec', 'sec', 'min', 'hour']."
+        error_msg = "Value error, millisec is invalid value for parameter: to_unit. Allowed values are ['msec', 'sec', 'min', 'hour']."
 
         assert str(e.value) == error_msg
 

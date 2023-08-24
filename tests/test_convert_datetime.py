@@ -39,7 +39,7 @@ class TestConvertDatetime:
             _ = test_timeobject.convert(1657985494, target="datetime", tz="Asia/Osaka")
 
         assert (
-            str(e.value) == "Value error, Asia/Osaka is Invalid value for parameter:tz."
+            str(e.value) == "Value error, Asia/Osaka is invalid value for parameter: tz."
         )
 
     def test_convert_datetime_parameter_value_error_patarn2(self):
@@ -47,7 +47,7 @@ class TestConvertDatetime:
             test_timeobject = datetime_model.DatetimeModel()
             _ = test_timeobject.convert(1657985494129, target="datatime")
 
-        error_msg = "Value error, datatime is Invalid value for parameter:target. Allowed values are ['datetime', 'date']."
+        error_msg = "Value error, datatime is invalid value for parameter: target. Allowed values are ['datetime', 'date']."
 
         assert str(e.value) == error_msg
 
