@@ -1,6 +1,6 @@
 from pydantic import ValidationError
 from datetime import date, datetime, timezone, timedelta
-from unic.utils import check_parameter, config_parser, args_validator
+from unic.utils import config_parser, args_validator
 
 
 class DatetimeModel:

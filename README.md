@@ -3,7 +3,7 @@
 [![black](https://github.com/subretu/unic/actions/workflows/format.yml/badge.svg)](https://github.com/subretu/unic/actions/workflows/format.yml)
 
 # unic
-unic is a Python package that can convert various units.
+unic is a python package that can convert various units.
 
 ## Conversion Targets
 - The current available conversion targets are as follows.
