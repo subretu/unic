@@ -4,11 +4,11 @@ from unic.utils import check_parameter, config_parser
 
 class UnixtimeModel:
     def convert(self, data: str, **kwargs: any) -> int:
-        check_parameter.check_number(kwargs)
+        check_parameter.check_parameter_count(kwargs)
 
         if len(kwargs) == 1:
             tz = kwargs.get("tz", None)
-            check_parameter.check_value(tz)
+            check_parameter.check_parameter_value(tz)
             parameter = config_parser.parse_toml("timezone")
             timezone_hour = parameter[tz]["value"]
         else:
