@@ -73,7 +73,7 @@ class UnixtimeModelValidator(BaseModel):
             except ValueError:
                 continue
         raise ValueError(
-            f"Input string '{v}' is not in a valid date format. Allowed formats are {date_formats}."
+            f"'{v}' is invalid date format. Allowed formats are {date_formats}."
         )
 
     @field_validator("tz")

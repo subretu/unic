@@ -38,9 +38,6 @@ class TestConvertUnixtime:
             test_unixtime = unixtime_model.UnixtimeModel()
             _ = test_unixtime.convert("2022/07/18 13:49:00", tz="Asia/Tokyo")
 
-        error_msg = """1 validation error for UnixtimeModelValidator
-data
-  Value error, Input string '2022/07/18 13:49:00' is not in a valid date format. Allowed formats are ['%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M:%S.%f']. [type=value_error, input_value='2022/07/18 13:49:00', input_type=str]
-    For further information visit https://errors.pydantic.dev/2.2/v/value_error"""
+        error_msg = "Value error, '2022/07/18 13:49:00' is invalid date format. Allowed formats are ['%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M:%S.%f']."
         print(e.value)
         assert str(e.value) == error_msg
