@@ -1,21 +1,21 @@
 from datetime import datetime, timezone, timedelta
-from unic.utils import check_parameter, config_parser
+from unic.utils import check_parameter, config_parser, args_validator
 
 
 class UnixtimeModel:
     def convert(self, data: str, **kwargs: any) -> int:
         check_parameter.check_parameter_count(kwargs)
 
+        timezone_hour = 0
+        tz = kwargs.get("tz", None)
+        input_data = args_validator.UnixtimeModelValidator(data=data, tz=tz)
+
         if len(kwargs) == 1:
-            tz = kwargs.get("tz", None)
-            check_parameter.check_parameter_value(tz)
             parameter = config_parser.parse_toml("timezone")
             timezone_hour = parameter[tz]["value"]
-        else:
-            timezone_hour = 0
 
-        except_milisecond = data[0:19]
-        milisecond = data[20:23]
+        except_milisecond = input_data.data[0:19]
+        milisecond = input_data.data[20:23]
 
         dt_timestamp = datetime.strptime(
             except_milisecond, "%Y-%m-%d %H:%M:%S"

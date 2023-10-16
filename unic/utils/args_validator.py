@@ -6,6 +6,7 @@ from pydantic import (
     StrictStr,
 )
 from typing import Union
+from datetime import datetime
 from unic.utils import config_parser
 
 
@@ -48,6 +49,32 @@ class DatetimeModelValidator(BaseModel):
                 f"{v} is invalid value for parameter: target. Allowed values are {valid_targets}."
             )
         return v
+
+    @field_validator("tz")
+    def timezone_check(cls, v):
+        valid_timezones = config_parser.parse_toml("timezone")
+        if v not in valid_timezones.keys() and v is not None:
+            raise ValueError(f"{v} is invalid value for parameter: tz.")
+        return v
+
+
+class UnixtimeModelValidator(BaseModel):
+    # Prevent automatic conversion
+    data: StrictStr
+    tz: Union[StrictStr, None]
+
+    @field_validator("data")
+    def data_check(cls, v):
+        date_formats = ["%Y-%m-%d %H:%M:%S", "%Y-%m-%d %H:%M:%S.%f"]
+        for date_format in date_formats:
+            try:
+                datetime.strptime(v, date_format)
+                return v  # 一致したフォーマットが見つかれば終了
+            except ValueError:
+                continue  # 一致しない場合、次のフォーマットを試す
+        raise ValueError(
+            f"Input string '{v}' is not in a valid date format. Allowed formats are {date_formats}."
+        )
 
     @field_validator("tz")
     def timezone_check(cls, v):
