@@ -69,9 +69,9 @@ class UnixtimeModelValidator(BaseModel):
         for date_format in date_formats:
             try:
                 datetime.strptime(v, date_format)
-                return v  # 一致したフォーマットが見つかれば終了
+                return v
             except ValueError:
-                continue  # 一致しない場合、次のフォーマットを試す
+                continue
         raise ValueError(
             f"Input string '{v}' is not in a valid date format. Allowed formats are {date_formats}."
         )
