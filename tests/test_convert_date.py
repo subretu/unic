@@ -64,18 +64,18 @@ class TestConvertDate:
             test_timeobject = datetime_model.DatetimeModel()
             _ = test_timeobject.convert(16579854949, target="date")
 
-        assert str(e.value) == "Unixtime digits is 10 or 13."
+        assert str(e.value) == "Value error, Unixtime digits is 10 or 13."
 
     def test_convert_date_digits_error_patarn2(self):
         with pytest.raises(Exception) as e:
             test_timeobject = datetime_model.DatetimeModel()
             _ = test_timeobject.convert(165798549412, target="date")
 
-        assert str(e.value) == "Unixtime digits is 10 or 13."
+        assert str(e.value) == "Value error, Unixtime digits is 10 or 13."
 
     def test_convert_date_digits_error_patarn3(self):
         with pytest.raises(Exception) as e:
             test_timeobject = datetime_model.DatetimeModel()
             _ = test_timeobject.convert(165798549, target="date", tz="Asia/Tokyo")
 
-        assert str(e.value) == "Unixtime digits is 10 or 13."
+        assert str(e.value) == "Value error, Unixtime digits is 10 or 13."

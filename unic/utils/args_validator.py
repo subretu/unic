@@ -41,6 +41,15 @@ class DatetimeModelValidator(BaseModel):
     target: StrictStr
     tz: Union[StrictStr, None]
 
+    @field_validator("data")
+    def data_check(cls, v):
+        digits = len(str(abs(v)))
+
+        if digits == 10 or digits == 13:
+            return v
+        else:
+            raise ValueError("Unixtime digits is 10 or 13.")
+
     @field_validator("target")
     def target_check(cls, v):
         valid_targets = ["datetime", "date"]
