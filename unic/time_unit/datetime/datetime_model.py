@@ -1,6 +1,6 @@
 from pydantic import ValidationError
 from datetime import date, datetime, timezone, timedelta
-from unic.utils import config_parser, args_validator
+from unic.utils import config_parser, validators
 from typing import Union
 
 
@@ -13,17 +13,17 @@ class DatetimeModel:
 
             target = kwargs["target"]
 
-            input_data = args_validator.DatetimeModelValidator(
+            input_data = validators.DatetimeModelValidator(
                 data=data, target=target, tz=tz
             )
         except ValidationError as e:
             raise ValueError(e.errors()[0]["msg"])
 
+        timezone_hour = 0
+
         if tz:
             parameter = config_parser.parse_toml("timezone")
             timezone_hour = parameter[tz]["value"]
-        else:
-            timezone_hour = 0
 
         dt_timestamp = self.convert_timestamp_by_digits(input_data.data, timezone_hour)
 
@@ -34,6 +34,7 @@ class DatetimeModel:
 
     def convert_timestamp_by_digits(self, data: int, timezone_hour: int) -> datetime:
         digits = len(str(abs(data)))
+
         if digits == 10:
             dt_timestamp = datetime.fromtimestamp(
                 data,
