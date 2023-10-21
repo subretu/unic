@@ -1,5 +1,5 @@
 from pydantic import ValidationError
-from unic.utils import config_parser, args_validator
+from unic.utils import config_parser, validators
 from fractions import Fraction
 
 
@@ -7,7 +7,7 @@ class TimeModel:
     def convert(self, data: int, *, from_unit: str = None, to_unit: str = None) -> int:
         try:
             self.check_parameter_count(from_unit, to_unit)
-            input_data = args_validator.TimeModelValidator(
+            input_data = validators.TimeModelValidator(
                 data=data, from_unit=from_unit, to_unit=to_unit
             )
         except ValidationError as e:

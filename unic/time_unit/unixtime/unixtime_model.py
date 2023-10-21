@@ -1,6 +1,6 @@
 from pydantic import ValidationError
 from datetime import datetime, timezone, timedelta
-from unic.utils import check_parameter, config_parser, args_validator
+from unic.utils import check_parameter, config_parser, validators
 
 
 class UnixtimeModel:
@@ -11,7 +11,7 @@ class UnixtimeModel:
         tz = kwargs.get("tz", None)
 
         try:
-            input_data = args_validator.UnixtimeModelValidator(data=data, tz=tz)
+            input_data = validators.UnixtimeModelValidator(data=data, tz=tz)
         except ValidationError as e:
             raise ValueError(e.errors()[0]["msg"])
 
