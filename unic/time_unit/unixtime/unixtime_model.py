@@ -1,11 +1,11 @@
 from pydantic import ValidationError
 from datetime import datetime, timezone, timedelta
-from unic.utils import check_parameter, config_parser, validators
+from unic.utils import config_parser, validators
 
 
 class UnixtimeModel:
     def convert(self, data: str, **kwargs: any) -> int:
-        check_parameter.check_parameter_count(kwargs)
+        self.check_parameter_count(kwargs)
 
         timezone_hour = 0
         tz = kwargs.get("tz", None)
@@ -31,3 +31,11 @@ class UnixtimeModel:
         ) + milisecond
 
         return int(dt_unixtime)
+
+    def check_parameter_count(self, parameter: dict) -> None:
+        if len(parameter) <= 1:
+            return
+        else:
+            raise ValueError(
+                "Too many parameter.If specify parameters to the function,the number should be one."
+            )
