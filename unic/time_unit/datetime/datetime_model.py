@@ -27,28 +27,30 @@ class DatetimeModel:
 
         dt_timestamp = self.convert_timestamp_by_digits(input_data.data, timezone_hour)
 
-        actions = {
-            "datetime": lambda: dt_timestamp,
-            "date": lambda: dt_timestamp.date(),
-        }
-
-        return actions.get(target, lambda: None)()
+        if target == "datetime":
+            return dt_timestamp
+        elif target == "date":
+            return dt_timestamp.date()
+        else:
+            raise ValueError("Invalid parameter value.")
 
     def convert_timestamp_by_digits(self, data: int, timezone_hour: int) -> datetime:
         digits = len(str(abs(data)))
 
-        actions = {
-            10: lambda: datetime.fromtimestamp(
+        if digits == 10:
+            dt_timestamp = datetime.fromtimestamp(
                 data,
                 timezone(timedelta(hours=timezone_hour)),
-            ),
-            13: lambda: datetime.fromtimestamp(
+            )
+            return dt_timestamp
+        elif digits == 13:
+            dt_timestamp = datetime.fromtimestamp(
                 data / 1000,
                 timezone(timedelta(hours=timezone_hour)),
-            ),
-        }
-
-        return actions.get(digits, lambda: None)()
+            )
+            return dt_timestamp
+        else:
+            raise ValueError("Invalid parameter value.")
 
     def check_parameter_name(self, parameter_name: dict) -> None:
         if (len(parameter_name) == 1) and ("target" in parameter_name):
