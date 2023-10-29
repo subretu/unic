@@ -25,41 +25,36 @@ class DatetimeModel:
             parameter = config_parser.parse_toml("timezone")
             timezone_hour = parameter[tz]["value"]
 
-        dt_timestamp = self.convert_timestamp_by_digits(input_data.data, timezone_hour)
+        converted_data = self.convert_timestamp_by_digits(
+            input_data.data, timezone_hour, target
+        )
 
-        if target == "datetime":
-            return dt_timestamp
-        elif target == "date":
-            return dt_timestamp.date()
-        else:
-            raise ValueError("Invalid parameter value.")
+        return converted_data
 
-    def convert_timestamp_by_digits(self, data: int, timezone_hour: int) -> datetime:
+    def convert_timestamp_by_digits(
+        self, data: int, timezone_hour: int, target: str
+    ) -> Union[date, datetime]:
         digits = len(str(abs(data)))
 
-        if digits == 10:
-            dt_timestamp = datetime.fromtimestamp(
-                data,
-                timezone(timedelta(hours=timezone_hour)),
-            )
-            return dt_timestamp
-        elif digits == 13:
-            dt_timestamp = datetime.fromtimestamp(
-                data / 1000,
-                timezone(timedelta(hours=timezone_hour)),
-            )
-            return dt_timestamp
-        else:
-            raise ValueError("Invalid parameter value.")
+        processed_data = data if digits == 10 else data / 1000
+
+        timestamp_data = datetime.fromtimestamp(
+            processed_data,
+            timezone(timedelta(hours=timezone_hour)),
+        )
+
+        result = timestamp_data if target == "datetime" else timestamp_data.date()
+
+        return result
 
     def check_parameter_name(self, parameter_name: dict) -> None:
         if (len(parameter_name) == 1) and ("target" in parameter_name):
-            return
+            pass
         elif (
             (len(parameter_name) == 2)
             and ("target" in parameter_name)
             and ("tz" in parameter_name)
         ):
-            return
+            pass
         else:
             raise ValueError("Invalid parameter name.")
