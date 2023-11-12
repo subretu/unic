@@ -16,5 +16,5 @@ def load_model(
     try:
         convert_model = _convert_model_list[name]
         return convert_model
-    except:
+    except KeyError:
         raise ValueError("Invalid model name.")
