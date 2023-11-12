@@ -217,7 +217,7 @@ testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
 name = "pydantic"
-version = "2.4.2"
+version = "2.5.0"
 description = "Data validation using Python type hints"
 optional = false
 python-versions = ">=3.7"

@@ -35,9 +35,9 @@ unic is a python package that can convert various units.
 import unic
 
 
-converter = unic.TimeModel()
+convert_model = unic.load_model("time")
 # Convert hour to minute
-convert_min = converter.convert(2, from_unit="hour", to_unit="min")
+convert_min = convert_model.convert(2, from_unit="hour", to_unit="min")
 ```
 
 #### Datetime
@@ -46,9 +46,11 @@ convert_min = converter.convert(2, from_unit="hour", to_unit="min")
 import unic
 
 
-converter = unic.DatetimeModel()
+convert_model = unic.load_model("datetime")
 # Convert to datatime
-convert_datetime = converter.convert(1577841753, target="datetime")
+convert_datetime = convert_model.convert(1577841753, target="datetime")
+# Convert to date
+convert_datetime = convert_model.convert(1577841753, target="date")
 ```
 
 #### Unixtime
@@ -57,7 +59,7 @@ convert_datetime = converter.convert(1577841753, target="datetime")
 import unic
 
 
-converter = unic.UnixtimeModel()
+convert_model = unic.load_model("unixtime")
 # Specify time zone
-convert_unixtime = converter.convert("2023-05-12 10:15:20", tz="Asia/Tokyo")
+convert_unixtime = convert_model.convert("2023-05-12 10:15:20", tz="Asia/Tokyo")
 ```
