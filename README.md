@@ -25,7 +25,8 @@ unic is a python package that can convert various units.
   pip install unic
   ```
 
-
+## How to
+- See the [UserGuide](docs/UserGuide.md).
 
 ## Example
 ### Time Unit
