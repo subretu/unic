@@ -1,43 +1,55 @@
-# UserGuide
+# User Guide for unic
 
-- The convert procedures using unic are as follows.
+This guide provides instructions on utilizing the `unic`.
 
-## Time Unit
+## Installation
+
+`unic` is installed by executing the following command:
+
+```bash
+pip install unic
+```
+
+
+## Time Unit Conversion
 ### TimeModel
 
 ```python
 import unic
 
-
+# Load the TimeModel from unic
 convert_model = unic.load_model("time")
 
-# Convert hour to minute
+# Examples of TimeUnit Conversion:
+
+# hour to minute
 convert_min = convert_model.convert(2, from_unit="hour", to_unit="min")
-# Convert hour to second
+# hour to second
 convert_sec = convert_model.convert(2, from_unit="hour", to_unit="sec")
-# Convert hour to milisecond
+# hour to millisecond
 convert_msec = convert_model.convert(2, from_unit="hour", to_unit="msec")
 
-# Convert minute to hour
+# minute to hour
 convert_hour = convert_model.convert(2, from_unit="min", to_unit="hour")
-# Convert minute to second
+# minute to second
 convert_sec = convert_model.convert(2, from_unit="min", to_unit="sec")
-# Convert minute to milisecond
+# minute to millisecond
 convert_msec = convert_model.convert(2, from_unit="min", to_unit="msec")
 
-# Convert second to hour
+# second to hour
 convert_hour = convert_model.convert(2, from_unit="sec", to_unit="hour")
-# Convert second to minute
+# second to minute
 convert_min = convert_model.convert(2, from_unit="sec", to_unit="min")
-# Convert second to milisecond
+# second to millisecond
 convert_msec = convert_model.convert(2, from_unit="sec", to_unit="msec")
 
-# Convert milisecond to hour
+# millisecond to hour
 convert_hour = convert_model.convert(2, from_unit="msec", to_unit="hour")
-# Convert milisecond to minute
+# millisecond to minute
 convert_min = convert_model.convert(2, from_unit="msec", to_unit="min")
-# Convert milisecond to second
+# millisecond to second
 convert_sec = convert_model.convert(2, from_unit="msec", to_unit="sec")
+
 ```
 
 ### DatetimeModel
@@ -45,18 +57,21 @@ convert_sec = convert_model.convert(2, from_unit="msec", to_unit="sec")
 ```python
 import unic
 
-
+# Load the DatetimeModel from unic
 convert_model = unic.load_model("datetime")
 
-# Convert to datatime
+# Examples of DateTime Conversion:
+
+# to datetime
 convert_datetime = convert_model.convert(1577841753, target="datetime")
-# Convert to datatime with timezone
+# to datetime with timezone
 convert_datetime = convert_model.convert(1577841753, target="datetime", tz="Asia/Tokyo")
 
-# Convert to date
+# to date
 convert_date = convert_model.convert(1577841753, target="date")
-# Convert to date with timezone
+# to date with timezone
 convert_date = convert_model.convert(1577841753, target="date", tz="Asia/Tokyo")
+
 ```
 
 ### UnixtimeModel
@@ -64,11 +79,14 @@ convert_date = convert_model.convert(1577841753, target="date", tz="Asia/Tokyo")
 ```python
 import unic
 
-
+# Load the UnixtimeModel from unic
 convert_model = unic.load_model("unixtime")
 
-# Convert to unixtime
+# Examples of Unixtime Conversion:
+
+# to unixtime
 convert_unixtime = convert_model.convert("2023-05-12 10:15:20")
-# Convert to unixtime with timezone
+# to unixtime with timezone
 convert_unixtime = convert_model.convert("2023-05-12 10:15:20", tz="Asia/Tokyo")
+
 ```
