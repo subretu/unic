@@ -13,7 +13,7 @@ class MetricSystemModel:
         except ValidationError as e:
             raise ValueError(e.errors()[0]["msg"])
 
-        parameter = config_parser.parse_toml("timeunit")
+        parameter = config_parser.parse_toml("metirc_system")
         data = float(input_data.data * Fraction(parameter[from_unit][to_unit]))
 
         return data

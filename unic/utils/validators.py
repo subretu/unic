@@ -101,7 +101,7 @@ class MetricSystemModelValidator(BaseModel):
 
     @field_validator("from_unit")
     def from_unit_check(cls, v):
-        valid_units = ["nm", "μm", "mm", "cm", "m", "km", "Mm", "Gm", "Tm"]
+        valid_units = ["nm", "um", "mm", "cm", "m", "km", "Mm", "Gm", "Tm"]
         if v not in valid_units:
             raise ValueError(
                 f"{v} is invalid value for parameter: from_unit. Allowed values are {valid_units}."
@@ -110,7 +110,7 @@ class MetricSystemModelValidator(BaseModel):
 
     @field_validator("to_unit")
     def to_unit_check(cls, v):
-        valid_units = ["nm", "μm", "mm", "cm", "m", "km", "Mm", "Gm", "Tm"]
+        valid_units = ["nm", "um", "mm", "cm", "m", "km", "Mm", "Gm", "Tm"]
         if v not in valid_units:
             raise ValueError(
                 f"{v} is invalid value for parameter: to_unit. Allowed values are {valid_units}."
