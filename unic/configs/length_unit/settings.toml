@@ -1,0 +1,98 @@
+[nm]
+nm = 1
+μm = 1e-3
+mm = 1e-6
+cm = 1e-7
+m = 1e-9
+km = 1e-12
+Mm = 1e-18
+Gm = 1e-21
+Tm = 1e-24
+
+[μm]
+nm = 1e3
+μm = 1
+mm = 1e-3
+cm = 1e-4
+m = 1e-6
+km = 1e-9
+Mm = 1e-15
+Gm = 1e-18
+Tm = 1e-21
+
+[mm]
+nm = 1e6
+μm = 1e3
+mm = 1
+cm = 0.1
+m = 1e-3
+km = 1e-6
+Mm = 1e-12
+Gm = 1e-15
+Tm = 1e-18
+
+[cm]
+nm = 1e7
+μm = 1e4
+mm = 10
+cm = 1
+m = 1e-2
+km = 1e-5
+Mm = 1e-11
+Gm = 1e-14
+Tm = 1e-17
+
+[m]
+nm = 1e9
+μm = 1e6
+mm = 1e3
+cm = 100
+m = 1
+km = 1e-3
+Mm = 1e-9
+Gm = 1e-12
+Tm = 1e-15
+
+[km]
+nm = 1e12
+μm = 1e9
+mm = 1e6
+cm = 1e5
+m = 1e3
+km = 1
+Mm = 1e-6
+Gm = 1e-9
+Tm = 1e-12
+
+[Mm]
+nm = 1e15
+μm = 1e12
+mm = 1e9
+cm = 1e8
+m = 1e6
+km = 1e3
+Mm = 1
+Gm = 1e-3
+Tm = 1e-6
+
+[Gm]
+nm = 1e18
+μm = 1e15
+mm = 1e12
+cm = 1e11
+m = 1e9
+km = 1e6
+Mm = 1e3
+Gm = 1
+Tm = 1e-3
+
+[Tm]
+nm = 1e21
+μm = 1e18
+mm = 1e15
+cm = 1e14
+m = 1e12
+km = 1e9
+Mm = 1e6
+Gm = 1e3
+Tm = 1
