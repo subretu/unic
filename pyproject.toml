@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "unic"
-version = "0.3.0"
+version = "0.4.0"
 description = "Python package for converting various units."
 authors = ["Subretu"]
 maintainers = ["Subretu"]
 license = "MIT"
 readme = 'README.md'
 repository = 'https://github.com/subretu/unic'
-keywords = ['unit', 'convert', 'time', 'timestamp', 'unixtime']
+keywords = ['unit', 'convert', 'time', 'timestamp', 'length']
 
 classifiers=[
     'License :: OSI Approved :: MIT License',
