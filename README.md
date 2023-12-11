@@ -7,17 +7,35 @@
 
 ## Conversion Targets
 - The current available conversion targets are as follows.
-### Time Unit
-  - TimeModel
-    - minute / second / milisecond → hour
-    - hour / second / milisecond → minute
-    - hour / minute / milisecond → second
-    - hour / minute / second → milisecond
-  - DatetimeModel
-    - unixtime / unixtime+timezone → datetime.datetime
-    - unixtime / unixtime+timezone → datetime.date
-  - UnixtimeModel
-    - string(yyyy-mm-dd hh:mm:ss) / string(yyyy-mm-dd hh:mm:ss)+timezone → unixtime
+
+  <details>
+  <summary>Time Unit</summary>
+
+    - TimeModel
+      - minute / second / milisecond → hour
+      - hour / second / milisecond → minute
+      - hour / minute / milisecond → second
+      - hour / minute / second → milisecond
+    - DatetimeModel
+      - unixtime / unixtime+timezone → datetime.datetime
+      - unixtime / unixtime+timezone → datetime.date
+    - UnixtimeModel
+      - string(yyyy-mm-dd hh:mm:ss) / string(yyyy-mm-dd hh:mm:ss)+timezone → unixtime
+  </details>
+
+  <details>
+  <summary>Length Unit</summary>
+
+    - MetricSystemModel
+      -  Target Metric System Units
+
+         ```
+         nm, um*, mm, cm, m, km, Mm, Gm, Tm
+         ```
+         ※ um represents ㎛.
+       -  The target metric system units are can be converted to each other.
+
+  </details>
 
 ## Installing
 
@@ -63,4 +81,16 @@ import unic
 convert_model = unic.load_model("unixtime")
 # Specify time zone
 convert_unixtime = convert_model.convert("2023-05-12 10:15:20", tz="Asia/Tokyo")
+```
+
+### Length Unit
+#### MetricSystemModel
+
+```python
+import unic
+
+
+convert_model = unic.load_model("metric_system")
+# Convert cm to m
+convert_min = convert_model.convert(20, from_unit="cm", to_unit="m")
 ```
