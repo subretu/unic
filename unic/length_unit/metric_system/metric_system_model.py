@@ -18,12 +18,8 @@ class MetricSystemModel:
 
         return data
 
-    def check_parameter_count(self, from_unit: str, to_unit: str) -> bool:
+    def check_parameter_count(self, from_unit: str, to_unit: str) -> None:
         if from_unit is None and to_unit is None:
             raise ValueError("Both 'from_unit' and 'to_unit' arguments are required.")
-        elif from_unit is None:
-            raise ValueError("The 'from_unit' argument is required.")
-        elif to_unit is None:
-            raise ValueError("The 'to_unit' argument is required.")
-        else:
-            return
+        if from_unit is None or to_unit is None:
+            raise ValueError(f"The '{'from_unit' if from_unit is None else 'to_unit'}' argument is required.")
