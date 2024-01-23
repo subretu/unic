@@ -22,4 +22,6 @@ class MetricSystemModel:
         if from_unit is None and to_unit is None:
             raise ValueError("Both 'from_unit' and 'to_unit' arguments are required.")
         if from_unit is None or to_unit is None:
-            raise ValueError(f"The '{'from_unit' if from_unit is None else 'to_unit'}' argument is required.")
+            raise ValueError(
+                f"The '{'from_unit' if from_unit is None else 'to_unit'}' argument is required."
+            )
