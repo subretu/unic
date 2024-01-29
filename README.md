@@ -67,9 +67,9 @@ import unic
 
 convert_model = unic.load_model("datetime")
 # Convert to datatime
-convert_datetime = convert_model.convert(1577841753, target="datetime")
+convert_datetime = convert_model.convert(1577841753, format="datetime")
 # Convert to date
-convert_datetime = convert_model.convert(1577841753, target="date")
+convert_datetime = convert_model.convert(1577841753, format="date")
 ```
 
 #### UnixtimeModel

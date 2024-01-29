@@ -11,10 +11,10 @@ class DatetimeModel:
 
             tz = kwargs.get("tz", None)
 
-            target = kwargs["target"]
+            format = kwargs["format"]
 
             input_data = validators.DatetimeModelValidator(
-                data=data, target=target, tz=tz
+                data=data, format=format, tz=tz
             )
         except ValidationError as e:
             raise ValueError(e.errors()[0]["msg"])
@@ -26,13 +26,13 @@ class DatetimeModel:
             timezone_hour = parameter[tz]["value"]
 
         converted_data = self.convert_timestamp_by_digits(
-            input_data.data, timezone_hour, target
+            input_data.data, timezone_hour, format
         )
 
         return converted_data
 
     def convert_timestamp_by_digits(
-        self, data: int, timezone_hour: int, target: str
+        self, data: int, timezone_hour: int, format: str
     ) -> Union[date, datetime]:
         digits = len(str(abs(data)))
 
@@ -43,16 +43,16 @@ class DatetimeModel:
             timezone(timedelta(hours=timezone_hour)),
         )
 
-        result = timestamp_data if target == "datetime" else timestamp_data.date()
+        result = timestamp_data if format == "datetime" else timestamp_data.date()
 
         return result
 
     def check_parameter_name(self, parameter_name: dict) -> None:
-        if (len(parameter_name) == 1) and ("target" in parameter_name):
+        if (len(parameter_name) == 1) and ("format" in parameter_name):
             pass
         elif (
             (len(parameter_name) == 2)
-            and ("target" in parameter_name)
+            and ("format" in parameter_name)
             and ("tz" in parameter_name)
         ):
             pass

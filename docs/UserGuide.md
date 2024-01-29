@@ -63,14 +63,14 @@ convert_model = unic.load_model("datetime")
 # Examples of DateTime Conversion:
 
 # to datetime
-convert_datetime = convert_model.convert(1577841753, target="datetime")
+convert_datetime = convert_model.convert(1577841753, format="datetime")
 # to datetime with timezone
-convert_datetime = convert_model.convert(1577841753, target="datetime", tz="Asia/Tokyo")
+convert_datetime = convert_model.convert(1577841753, format="datetime", tz="Asia/Tokyo")
 
 # to date
-convert_date = convert_model.convert(1577841753, target="date")
+convert_date = convert_model.convert(1577841753, format="date")
 # to date with timezone
-convert_date = convert_model.convert(1577841753, target="date", tz="Asia/Tokyo")
+convert_date = convert_model.convert(1577841753, format="date", tz="Asia/Tokyo")
 
 ```
 

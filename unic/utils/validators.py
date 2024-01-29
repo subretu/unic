@@ -38,7 +38,7 @@ class TimeModelValidator(BaseModel):
 class DatetimeModelValidator(BaseModel):
     # Prevent automatic conversion
     data: StrictInt
-    target: StrictStr
+    format: StrictStr
     tz: Union[StrictStr, None]
 
     @field_validator("data")
@@ -50,12 +50,12 @@ class DatetimeModelValidator(BaseModel):
         else:
             raise ValueError("Unixtime digits is 10 or 13.")
 
-    @field_validator("target")
-    def target_check(cls, v):
-        valid_targets = ["datetime", "date"]
-        if v not in valid_targets:
+    @field_validator("format")
+    def format_check(cls, v):
+        valid_formats = ["datetime", "date"]
+        if v not in valid_formats:
             raise ValueError(
-                f"{v} is invalid value for parameter: target. Allowed values are {valid_targets}."
+                f"{v} is invalid value for parameter: format. Allowed values are {valid_formats}."
             )
         return v
 
