@@ -33,9 +33,7 @@ class UnixtimeModel:
         return int(dt_unixtime)
 
     def check_parameter_count(self, parameter: dict) -> None:
-        if len(parameter) <= 1:
-            return
-        else:
+        if len(parameter) > 1:
             raise ValueError(
                 "Too many parameter.If specify parameters to the function,the number should be one."
             )
