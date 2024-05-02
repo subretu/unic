@@ -11,10 +11,10 @@ class DatetimeModel:
 
             tz = kwargs.get("tz", None)
 
-            format = kwargs["format"]
+            target_format = kwargs["format"]
 
             input_data = validators.DatetimeModelValidator(
-                data=data, format=format, tz=tz
+                data=data, format=target_format, tz=tz
             )
         except ValidationError as e:
             raise ValueError(e.errors()[0]["msg"])
