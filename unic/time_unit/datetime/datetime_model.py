@@ -43,7 +43,9 @@ class DatetimeModel:
             timezone(timedelta(hours=timezone_hour)),
         )
 
-        result = timestamp_data if target_format == "datetime" else timestamp_data.date()
+        result = (
+            timestamp_data if target_format == "datetime" else timestamp_data.date()
+        )
 
         return result
 
