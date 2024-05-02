@@ -26,13 +26,13 @@ class DatetimeModel:
             timezone_hour = parameter[tz]["value"]
 
         converted_data = self.convert_timestamp_by_digits(
-            input_data.data, timezone_hour, format
+            input_data.data, timezone_hour, target_format
         )
 
         return converted_data
 
     def convert_timestamp_by_digits(
-        self, data: int, timezone_hour: int, format: str
+        self, data: int, timezone_hour: int, target_format: str
     ) -> Union[date, datetime]:
         digits = len(str(abs(data)))
 
@@ -43,7 +43,7 @@ class DatetimeModel:
             timezone(timedelta(hours=timezone_hour)),
         )
 
-        result = timestamp_data if format == "datetime" else timestamp_data.date()
+        result = timestamp_data if target_format == "datetime" else timestamp_data.date()
 
         return result
 
