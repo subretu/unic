@@ -29,7 +29,10 @@ class TestConvertDate:
                 1657985494, format="date", timezone="Asia/Tokyo"
             )
 
-        assert str(e.value) == "Invalid parameter name."
+        assert (
+            str(e.value)
+            == "DatetimeModel.convert() got an unexpected keyword argument 'timezone'"
+        )
 
     def test_convert_date_parameter_value_error_patarn1(self):
         with pytest.raises(Exception) as e:
@@ -57,7 +60,20 @@ class TestConvertDate:
                 1657985494, format="date", tz="Asia/Tokyo", hoge=123456
             )
 
-        assert str(e.value) == "Invalid parameter name."
+        assert (
+            str(e.value)
+            == "DatetimeModel.convert() got an unexpected keyword argument 'hoge'"
+        )
+
+    def test_convert_date_required_parameter_error(self):
+        with pytest.raises(Exception) as e:
+            test_timeobject = unic.load_model("datetime")
+            _ = test_timeobject.convert(1657985494, tz="Asia/Tokyo")
+
+        assert (
+            str(e.value)
+            == "DatetimeModel.convert() missing 1 required positional argument: 'format'"
+        )
 
     def test_convert_date_digits_error_patarn1(self):
         with pytest.raises(Exception) as e:
