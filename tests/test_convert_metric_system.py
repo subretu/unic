@@ -38,15 +38,17 @@ class TestConverterMetricSystem:
             test_metric_system_unit = unic.load_model("metric_system")
             _ = test_metric_system_unit.convert(10, to_unit="cm")
 
-        error_msg = "The 'from_unit' argument is required."
-
-        assert str(e.value) == error_msg
+        assert str(e.value) in [
+            "MetricSystemModel.convert() missing 1 required keyword-only argument: 'from_unit'",
+            "convert() missing 1 required keyword-only argument: 'from_unit'",
+        ]
 
     def test_convert_metric_system_fail_parameter_count_shortage_to_unit(self):
         with pytest.raises(Exception) as e:
             test_metric_system_unit = unic.load_model("metric_system")
             _ = test_metric_system_unit.convert(100, from_unit="m")
 
-        error_msg = "The 'to_unit' argument is required."
-
-        assert str(e.value) == error_msg
+        assert str(e.value) in [
+            "MetricSystemModel.convert() missing 1 required keyword-only argument: 'to_unit'",
+            "convert() missing 1 required keyword-only argument: 'to_unit'",
+        ]
