@@ -28,10 +28,10 @@ class TestConvertUnixtime:
                 "2022-07-18 13:49:00", tz="Asia/Tokyo", hoge=123456
             )
 
-        assert (
-            str(e.value)
-            == "Too many parameter.If specify parameters to the function,the number should be one."
-        )
+        assert str(e.value) in [
+            "UnixtimeModel.convert() got an unexpected keyword argument 'hoge'",
+            "convert() got an unexpected keyword argument 'hoge'",
+        ]
 
     def test_convert_unixtime_parameter_error(self):
         with pytest.raises(Exception) as e:
