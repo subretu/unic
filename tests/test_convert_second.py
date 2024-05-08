@@ -55,15 +55,17 @@ class TestConverterSecond:
             test_timeunit = unic.load_model("time")
             _ = test_timeunit.convert(24, to_unit="hour")
 
-        error_msg = "The 'from_unit' argument is required."
-
-        assert str(e.value) == error_msg
+        assert str(e.value) in [
+            "TimeModel.convert() missing 1 required keyword-only argument: 'from_unit'",
+            "convert() missing 1 required keyword-only argument: 'from_unit'",
+        ]
 
     def test_convert_second_fail_parameter_count_shortage_to_unit(self):
         with pytest.raises(Exception) as e:
             test_timeunit = unic.load_model("time")
             _ = test_timeunit.convert(24, from_unit="second")
 
-        error_msg = "The 'to_unit' argument is required."
-
-        assert str(e.value) == error_msg
+        assert str(e.value) in [
+            "TimeModel.convert() missing 1 required keyword-only argument: 'to_unit'",
+            "convert() missing 1 required keyword-only argument: 'to_unit'",
+        ]
