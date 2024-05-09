@@ -2,6 +2,7 @@ from pydantic import ValidationError
 from datetime import date, datetime, timezone, timedelta
 from unic.utils import config_parser, validators
 from typing import Union
+import math
 
 
 class DatetimeModel:
@@ -27,12 +28,10 @@ class DatetimeModel:
     def convert_timestamp_by_digits(
         self, data: int, timezone_hour: int, target_format: str
     ) -> Union[date, datetime]:
-        digits = len(str(abs(data)))
-
-        processed_data = data if digits == 10 else data / 1000
+        digits = math.floor(math.log10(abs(data))) + 1
 
         timestamp_data = datetime.fromtimestamp(
-            processed_data,
+            data,
             timezone(timedelta(hours=timezone_hour)),
         )
 

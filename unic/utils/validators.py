@@ -2,6 +2,7 @@ from pydantic import BaseModel, StrictFloat, field_validator, StrictInt, StrictS
 from typing import Union
 from datetime import datetime
 from unic.utils import config_parser
+import math
 
 
 class ValidatorMixin:
@@ -42,9 +43,11 @@ class DatetimeModelValidator(BaseModel, ValidatorMixin):
 
     @field_validator("data")
     def data_check(cls, v):
-        digits = len(str(abs(v)))
-        if digits == 10 or digits == 13:
+        digits = math.floor(math.log10(abs(v))) + 1
+        if digits == 10:
             return v
+        if digits == 13:
+            return v / 1000
         else:
             raise ValueError("Unixtime digits is 10 or 13.")
 
