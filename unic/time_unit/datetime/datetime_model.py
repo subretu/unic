@@ -28,8 +28,6 @@ class DatetimeModel:
     def convert_timestamp_by_digits(
         self, data: int, timezone_hour: int, target_format: str
     ) -> Union[date, datetime]:
-        digits = math.floor(math.log10(abs(data))) + 1
-
         timestamp_data = datetime.fromtimestamp(
             data,
             timezone(timedelta(hours=timezone_hour)),
