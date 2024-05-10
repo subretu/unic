@@ -80,21 +80,3 @@ class UnixtimeModelValidator(BaseModel, ValidatorMixin):
     @field_validator("tz")
     def timezone_check(cls, v):
         return cls.validate_timezone(v)
-
-
-class MetricSystemModelValidator(BaseModel, ValidatorMixin):
-    data: Union[StrictInt, StrictFloat]
-    from_unit: StrictStr
-    to_unit: StrictStr
-
-    @field_validator("from_unit")
-    def from_unit_check(cls, v):
-        return cls.validate_units(
-            v, ["nm", "um", "mm", "cm", "m", "km", "Mm", "Gm", "Tm"], "from_unit"
-        )
-
-    @field_validator("to_unit")
-    def to_unit_check(cls, v):
-        return cls.validate_units(
-            v, ["nm", "um", "mm", "cm", "m", "km", "Mm", "Gm", "Tm"], "to_unit"
-        )

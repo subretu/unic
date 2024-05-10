@@ -1,5 +1,6 @@
 from pydantic import ValidationError
-from unic.utils import config_parser, validators
+from unic.utils import config_parser
+from unic.time_unit.validators import validators
 from fractions import Fraction
 
 
