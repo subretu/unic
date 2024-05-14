@@ -1,4 +1,4 @@
-import toml
+import tomli
 import os
 
 
@@ -17,6 +17,6 @@ def get_path(key):
 def parse_toml(key):
     file_path = get_path(key)
 
-    with open(file_path) as f:
-        obj = toml.load(f)
+    with open(file_path, "rb") as f:
+        obj = tomli.load(f)
         return obj
