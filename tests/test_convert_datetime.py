@@ -97,3 +97,15 @@ class TestConvertDatetime:
             _ = test_timeobject.convert(165798549, format="datetime", tz="Asia/Tokyo")
 
         assert str(e.value) == "Value error, Unixtime digits is 10 or 13."
+
+    def test_convert_datetime_compound_error(self):
+        with pytest.raises(Exception) as e:
+            test_timeobject = unic.load_model("datetime")
+            _ = test_timeobject.convert(
+                1657111198549444, format="datatime", tz="Asia/Tokyo"
+            )
+
+        assert (
+            str(e.value)
+            == "Value error, Unixtime digits is 10 or 13.; Value error, datatime is invalid value for parameter: format. Allowed values are ['datetime', 'date']."
+        )
