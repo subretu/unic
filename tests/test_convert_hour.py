@@ -60,3 +60,11 @@ class TestConverterHour:
             "TimeModel.convert() missing 1 required keyword-only argument: 'to_unit'",
             "convert() missing 1 required keyword-only argument: 'to_unit'",
         ]
+
+    def test_convert_hour_compound_error(self):
+        with pytest.raises(Exception) as e:
+            test_timeunit = unic.load_model("time")
+            _ = test_timeunit.convert(24, from_unit="hr", to_unit="second")
+
+        error_msg = "Value error, hr is invalid value for parameter: from_unit. Allowed values are ['msec', 'sec', 'min', 'hour'].; Value error, second is invalid value for parameter: to_unit. Allowed values are ['msec', 'sec', 'min', 'hour']."
+        assert str(e.value) == error_msg

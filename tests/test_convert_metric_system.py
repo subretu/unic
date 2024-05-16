@@ -52,3 +52,12 @@ class TestConverterMetricSystem:
             "MetricSystemModel.convert() missing 1 required keyword-only argument: 'to_unit'",
             "convert() missing 1 required keyword-only argument: 'to_unit'",
         ]
+
+    def test_convert_metric_system_compound_error(self):
+        with pytest.raises(Exception) as e:
+            test_metric_system_unit = unic.load_model("metric_system")
+            _ = test_metric_system_unit.convert(35, from_unit="CM", to_unit="MM")
+
+        error_msg = "Value error, CM is invalid value for parameter: from_unit. Allowed values are ['nm', 'um', 'mm', 'cm', 'm', 'km', 'Mm', 'Gm', 'Tm'].; Value error, MM is invalid value for parameter: to_unit. Allowed values are ['nm', 'um', 'mm', 'cm', 'm', 'km', 'Mm', 'Gm', 'Tm']."
+
+        assert str(e.value) == error_msg

@@ -39,5 +39,12 @@ class TestConvertUnixtime:
             _ = test_unixtime.convert("2022/07/18 13:49:00", tz="Asia/Tokyo")
 
         error_msg = "Value error, '2022/07/18 13:49:00' is invalid date format. Allowed formats are ['%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M:%S.%f']."
-        print(e.value)
+        assert str(e.value) == error_msg
+
+    def test_convert_unixtime_compound_error(self):
+        with pytest.raises(Exception) as e:
+            test_unixtime = unic.load_model("unixtime")
+            _ = test_unixtime.convert("2022/07/18 13:49:00", tz="Asia/Osaka")
+
+        error_msg = "Value error, '2022/07/18 13:49:00' is invalid date format. Allowed formats are ['%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M:%S.%f'].; Value error, Asia/Osaka is invalid value for parameter: tz."
         assert str(e.value) == error_msg

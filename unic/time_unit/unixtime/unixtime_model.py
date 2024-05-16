@@ -12,7 +12,8 @@ class UnixtimeModel:
         try:
             input_data = validators.UnixtimeModelValidator(data=data, tz=tz)
         except ValidationError as e:
-            raise ValueError(e.errors()[0]["msg"])
+            error_messages = "; ".join(err["msg"] for err in e.errors())
+            raise ValueError(error_messages)
 
         timezone_hour = self.timezone_parameters.get(tz, {}).get("value", 0)
 

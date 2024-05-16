@@ -11,7 +11,8 @@ class MetricSystemModel:
                 data=data, from_unit=from_unit, to_unit=to_unit
             )
         except ValidationError as e:
-            raise ValueError(e.errors()[0]["msg"])
+            error_messages = "; ".join(err["msg"] for err in e.errors())
+            raise ValueError(error_messages)
 
         parameter = config_parser.parse_toml("metirc_system")
         data = float(input_data.data * Fraction(parameter[from_unit][to_unit]))
