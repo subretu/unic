@@ -4,6 +4,16 @@ from datetime import datetime
 from unic.utils import config_parser
 
 
+class TimezoneConfigCache:
+    _timezone_cache = None
+
+    @classmethod
+    def get_valid_timezones(cls):
+        if cls._timezone_cache is None:
+            cls._timezone_cache = config_parser.parse_toml("timezone")
+        return cls._timezone_cache
+
+
 class ValidatorMixin:
     @classmethod
     def validate_units(cls, v, valid_units, parameter):
@@ -15,7 +25,7 @@ class ValidatorMixin:
 
     @classmethod
     def validate_timezone(cls, v):
-        valid_timezones = config_parser.parse_toml("timezone")
+        valid_timezones = TimezoneConfigCache.get_valid_timezones()
         if v not in valid_timezones.keys() and v is not None:
             raise ValueError(f"{v} is invalid value for parameter: tz.")
         return v
