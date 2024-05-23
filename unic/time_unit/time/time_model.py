@@ -5,6 +5,9 @@ from fractions import Fraction
 
 
 class TimeModel:
+    def __init__(self):
+        self.time_unit_parameter = config_parser.parse_toml("timeunit")
+
     def convert(self, data: int, *, from_unit: str, to_unit: str) -> int:
         try:
             input_data = validators.TimeModelValidator(
@@ -14,7 +17,7 @@ class TimeModel:
             error_messages = "; ".join(err["msg"] for err in e.errors())
             raise ValueError(error_messages)
 
-        parameter = config_parser.parse_toml("timeunit")
-        data = float(input_data.data * Fraction(parameter[from_unit][to_unit]))
+        parameter = self.time_unit_parameter.get(from_unit, {}).get(to_unit, None)
+        data = float(input_data.data * Fraction(parameter))
 
         return data
