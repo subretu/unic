@@ -17,15 +17,21 @@ class UnixtimeModel:
 
         timezone_hour = self.timezone_parameters.get(tz, {}).get("value", 0)
 
-        except_milisecond = input_data.data[0:19]
+        year = int(input_data.data[:4])
+        month = int(input_data.data[5:7])
+        day = int(input_data.data[8:10])
+        hour = int(input_data.data[11:13])
+        minute = int(input_data.data[14:16])
+        second = int(input_data.data[17:19])
         milisecond = input_data.data[20:23]
 
-        dt_timestamp = datetime.strptime(
-            except_milisecond, "%Y-%m-%d %H:%M:%S"
-        ) + timedelta(hours=timezone_hour)
+        dt_timestamp = (
+            datetime(year, month, day, hour, minute, second)
+            .replace(tzinfo=timezone.utc)
+            .timestamp()
+            + timezone_hour * 3600
+        )
 
-        dt_unixtime = (
-            str(int(dt_timestamp.replace(tzinfo=timezone.utc).timestamp()))
-        ) + milisecond
+        dt_unixtime = str(int(dt_timestamp)) + milisecond
 
         return int(dt_unixtime)
