@@ -5,6 +5,9 @@ from fractions import Fraction
 
 
 class MetricSystemModel:
+    def __init__(self):
+        self.metric_system_parameter = config_parser.parse_toml("metirc_system")
+
     def convert(self, data: int, *, from_unit: str, to_unit: str) -> int:
         try:
             input_data = validators.MetricSystemModelValidator(
@@ -14,7 +17,7 @@ class MetricSystemModel:
             error_messages = "; ".join(err["msg"] for err in e.errors())
             raise ValueError(error_messages)
 
-        parameter = config_parser.parse_toml("metirc_system")
-        data = float(input_data.data * Fraction(parameter[from_unit][to_unit]))
+        parameter = self.metric_system_parameter.get(from_unit, {}).get(to_unit, None)
+        data = float(input_data.data * Fraction(parameter))
 
         return data
