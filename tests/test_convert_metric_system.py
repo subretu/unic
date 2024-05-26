@@ -4,7 +4,7 @@ import unic
 
 class TestConverterMetricSystem:
     @pytest.mark.parametrize(
-        "data, from_unit, to_unit,  expect",
+        "input_data, from_unit, to_unit,  expect",
         [
             (1, "nm", "mm", 0.000001),
             (3, "um", "cm", 0.00030000000000000003),
@@ -16,20 +16,39 @@ class TestConverterMetricSystem:
             (50, "m", "cm", 5000),
         ],
     )
-    def test_convert_metric_system(self, data, from_unit, to_unit, expect):
+    def test_convert_metric_system_normal(self, input_data, from_unit, to_unit, expect):
         test_metric_system_unit = unic.load_model("metric_system")
         result = test_metric_system_unit.convert(
-            data, from_unit=from_unit, to_unit=to_unit
+            input_data, from_unit=from_unit, to_unit=to_unit
         )
 
         assert result == expect
 
-    def test_convert_metric_system_fail(self):
+    @pytest.mark.parametrize(
+        "input_data, from_unit, to_unit,  error_msg",
+        [
+            (
+                35,
+                "mm",
+                "MM",
+                "Value error, MM is invalid value for parameter: to_unit. Allowed values are ['nm', 'um', 'mm', 'cm', 'm', 'km', 'Mm', 'Gm', 'Tm'].",
+            ),
+            (
+                35,
+                "CM",
+                "MM",
+                "Value error, CM is invalid value for parameter: from_unit. Allowed values are ['nm', 'um', 'mm', 'cm', 'm', 'km', 'Mm', 'Gm', 'Tm'].; Value error, MM is invalid value for parameter: to_unit. Allowed values are ['nm', 'um', 'mm', 'cm', 'm', 'km', 'Mm', 'Gm', 'Tm'].",
+            ),
+        ],
+    )
+    def test_convert_unixtime_error_cases(
+        self, input_data, from_unit, to_unit, error_msg
+    ):
         with pytest.raises(Exception) as e:
             test_metric_system_unit = unic.load_model("metric_system")
-            _ = test_metric_system_unit.convert(35, from_unit="mm", to_unit="MM")
-
-        error_msg = "Value error, MM is invalid value for parameter: to_unit. Allowed values are ['nm', 'um', 'mm', 'cm', 'm', 'km', 'Mm', 'Gm', 'Tm']."
+            _ = test_metric_system_unit.convert(
+                input_data, from_unit=from_unit, to_unit=to_unit
+            )
 
         assert str(e.value) == error_msg
 
@@ -52,12 +71,3 @@ class TestConverterMetricSystem:
             "MetricSystemModel.convert() missing 1 required keyword-only argument: 'to_unit'",
             "convert() missing 1 required keyword-only argument: 'to_unit'",
         ]
-
-    def test_convert_metric_system_compound_error(self):
-        with pytest.raises(Exception) as e:
-            test_metric_system_unit = unic.load_model("metric_system")
-            _ = test_metric_system_unit.convert(35, from_unit="CM", to_unit="MM")
-
-        error_msg = "Value error, CM is invalid value for parameter: from_unit. Allowed values are ['nm', 'um', 'mm', 'cm', 'm', 'km', 'Mm', 'Gm', 'Tm'].; Value error, MM is invalid value for parameter: to_unit. Allowed values are ['nm', 'um', 'mm', 'cm', 'm', 'km', 'Mm', 'Gm', 'Tm']."
-
-        assert str(e.value) == error_msg
