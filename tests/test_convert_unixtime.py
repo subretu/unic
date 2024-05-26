@@ -2,24 +2,23 @@ import pytest
 import unic
 
 
+@pytest.fixture
+def test_unixtime():
+    return unic.load_model("unixtime")
+
+
 class TestConvertUnixtime:
-    def test_convert_unixtime_utc(self):
-        test_unixtime = unic.load_model("unixtime")
-        result = test_unixtime.convert("2022-07-18 13:49:00")
-
-        assert result == 1658152140
-
-    def test_convert_unixtime_except_milisecond_utc(self):
-        test_unixtime = unic.load_model("unixtime")
-        result = test_unixtime.convert("2022-07-18 13:49:00.123")
-
-        assert result == 1658152140123
-
-    def test_convert_unixtime_jst(self):
-        test_unixtime = unic.load_model("unixtime")
-        result = test_unixtime.convert("2022-07-18 13:49:00", tz="Asia/Tokyo")
-
-        assert result == 1658184540
+    @pytest.mark.parametrize(
+        "input_time, tz, expected",
+        [
+            ("2022-07-18 13:49:00", None, 1658152140),
+            ("2022-07-18 13:49:00.123", None, 1658152140123),
+            ("2022-07-18 13:49:00", "Asia/Tokyo", 1658184540),
+        ],
+    )
+    def test_convert_unixtime_normal(self, test_unixtime, input_time, tz, expected):
+        result = test_unixtime.convert(input_time, tz=tz)
+        assert result == expected
 
     def test_convert_unixtime_parameter_number_error(self):
         with pytest.raises(Exception) as e:
@@ -33,18 +32,24 @@ class TestConvertUnixtime:
             "convert() got an unexpected keyword argument 'hoge'",
         ]
 
-    def test_convert_unixtime_parameter_error(self):
+    @pytest.mark.parametrize(
+        "input_time, tz, error_msg",
+        [
+            (
+                "2022/07/18 13:49:00",
+                "Asia/Tokyo",
+                "Value error, '2022/07/18 13:49:00' is invalid date format. Allowed formats are ['%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M:%S.%f'].",
+            ),
+            (
+                "2022/07/18 13:49:00",
+                "Asia/Osaka",
+                "Value error, '2022/07/18 13:49:00' is invalid date format. Allowed formats are ['%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M:%S.%f'].; Value error, Asia/Osaka is invalid value for parameter: tz.",
+            ),
+        ],
+    )
+    def test_convert_unixtime_error_cases(
+        self, test_unixtime, input_time, tz, error_msg
+    ):
         with pytest.raises(Exception) as e:
-            test_unixtime = unic.load_model("unixtime")
-            _ = test_unixtime.convert("2022/07/18 13:49:00", tz="Asia/Tokyo")
-
-        error_msg = "Value error, '2022/07/18 13:49:00' is invalid date format. Allowed formats are ['%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M:%S.%f']."
-        assert str(e.value) == error_msg
-
-    def test_convert_unixtime_compound_error(self):
-        with pytest.raises(Exception) as e:
-            test_unixtime = unic.load_model("unixtime")
-            _ = test_unixtime.convert("2022/07/18 13:49:00", tz="Asia/Osaka")
-
-        error_msg = "Value error, '2022/07/18 13:49:00' is invalid date format. Allowed formats are ['%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M:%S.%f'].; Value error, Asia/Osaka is invalid value for parameter: tz."
+            _ = test_unixtime.convert(input_time, tz=tz)
         assert str(e.value) == error_msg
