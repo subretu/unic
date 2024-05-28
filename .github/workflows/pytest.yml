@@ -34,7 +34,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Unit Test Results
-          path: results/pytest-${{ matrix.python-version }}.xml
+          path: results/*.xml
       - name: Download Artifacts
         if: success() || failure()
         uses: actions/download-artifact@v4
