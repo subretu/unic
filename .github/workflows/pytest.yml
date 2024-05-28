@@ -19,7 +19,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
-
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
@@ -33,14 +32,14 @@ jobs:
         run: poetry install --no-interaction
 
       - name: Test
-        run: poetry run pytest ./tests --junitxml=junit/pytest-${{ matrix.python-version }}.xml
+        run: poetry run pytest ./tests --junit-xml results/pytest-${{ matrix.python-version }}.xml
 
       - name: Upload Unit Test Results
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
-          name: pytest-results-${{ matrix.python-version }}
-          path: junit/pytest-results-${{ matrix.python-version }}.xml
+          name: Unit Test Results
+          path: results/*.xml
 
       - name: Download Artifacts
         if: success() || failure()
