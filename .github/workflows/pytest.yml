@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies
         run: poetry install --no-interaction
       - name: Test
-        run: poetry run pytest ./tests --junit-xml results/pytest.xml
+        run: poetry run pytest ./tests --junit-xml results/pytest-${{ matrix.python-version }}.
       - name: Upload Unit Test Results
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
