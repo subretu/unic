@@ -38,8 +38,8 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
-          name: Unit Test Results
-          path: results/*.xml
+          name: pytest-${{ matrix.python-version }}.xml
+          path: results/pytest-${{ matrix.python-version }}.xml
 
       - name: Download Artifacts
         if: success() || failure()
