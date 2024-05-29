@@ -33,10 +33,10 @@ jobs:
         run: poetry install --no-interaction
 
       - name: Test
-        run: poetry run pytest tests/ -vv --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov=unic | tee pytest-coverage.txt
+        run: poetry run pytest tests/ -vv --junitxml=pytest-${{ matrix.python-version }}.xml --cov-report=term-missing:skip-covered --cov=unic | tee pytest-${{ matrix.python-version }}-coverage.txt
 
       - name: Pytest coverage comment
         uses: MishaKav/pytest-coverage-comment@main
         with:
-          pytest-coverage-path: ./pytest-coverage.txt
-          junitxml-path: ./pytest.xml
+          pytest-coverage-path: ./pytest-${{ matrix.python-version }}-coverage.txt
+          junitxml-path: ./pytest-${{ matrix.python-version }}.xml
