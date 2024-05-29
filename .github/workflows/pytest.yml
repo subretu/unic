@@ -5,6 +5,7 @@ on:
 
 permissions:
   checks: write
+  contents: write
   pull-requests: write
 
 jobs:
@@ -17,30 +18,25 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+
       - name: Install Poetry
         run: |
           curl -sSL https://install.python-poetry.org | python3 -
           echo "$HOME/.local/bin" >> $GITHUB_PATH
+
       - name: Install dependencies
         run: poetry install --no-interaction
+
       - name: Test
-        run: poetry run pytest ./tests --junit-xml results/pytest.xml
-      - name: Upload Unit Test Results
-        if: ${{ always() }}
-        uses: actions/upload-artifact@v3
+        run: poetry run pytest tests/ -vv --junitxml=pytest-${{ matrix.python-version }}.xml --cov-report=term-missing:skip-covered --cov=unic | tee pytest-${{ matrix.python-version }}-coverage.txt
+
+      - name: Pytest coverage comment
+        uses: MishaKav/pytest-coverage-comment@main
         with:
-          name: Unit Test Results
-          path: results/*.xml
-      - name: Download Artifacts
-        if: success() || failure()
-        uses: actions/download-artifact@v3
-        with:
-          path: artifacts
-      - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
-        with:
-          files: artifacts/**/*.xml
+          pytest-coverage-path: ./pytest-${{ matrix.python-version }}-coverage.txt
+          junitxml-path: ./pytest-${{ matrix.python-version }}.xml
