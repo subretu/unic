@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "unic"
-version = "0.4.7"
+version = "1.0.0"
 description = "Python package for converting various units."
 authors = ["Subretu"]
 maintainers = ["Subretu"]
