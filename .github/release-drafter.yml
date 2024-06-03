@@ -29,7 +29,7 @@ version-resolver:
   patch:
     labels:
       - "patch"
-  default: none
+  default: patch
 template: |
   ## Changes
 
