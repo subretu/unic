@@ -12,12 +12,16 @@ categories:
       - "bug"
   - title: "🧰 Maintenance"
     label: "chore"
-  - title: "📖 Docs"
+  - title: "📖 Documentation"
     labels:
       - documentation
+  - title: "🔧 Refactoring"
+    label: "refactor"
   - title: "💡Internal"
     labels:
       - internal
+  - title: "⛓️ Dependency update"
+    label: "dependencies"
 change-template: "- $TITLE @$AUTHOR (#$NUMBER)"
 version-resolver:
   major:
