@@ -18,6 +18,11 @@ class TimeModel:
             raise ValueError(error_messages)
 
         parameter = self.time_unit_parameter.get(from_unit, {}).get(to_unit, None)
-        data = float(input_data.data * Fraction(parameter))
+
+        conversion_parameter = (
+            Fraction(parameter) if isinstance(parameter, str) else float(parameter)
+        )
+
+        data = float(input_data.data * conversion_parameter)
 
         return data
