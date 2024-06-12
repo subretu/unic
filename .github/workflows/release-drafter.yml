@@ -5,6 +5,10 @@ on:
     # branches to consider in the event; optional, defaults to all
     branches:
       - main
+  pull_request:
+    types: [closed]
+    branches:
+      - develop
 
 permissions:
   contents: read
