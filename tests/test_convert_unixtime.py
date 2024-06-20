@@ -13,6 +13,8 @@ class TestConvertUnixtime:
         [
             ("2022-07-18 13:49:00", None, 1658152140),
             ("2022-07-18 13:49:00.123", None, 1658152140123),
+            ("2024-06-20 13:49:00", None, 1718891340),
+            ("2024-06-20 13:49:00.123", None, 1718891340123),
             ("2022-07-18 13:49:00", "Asia/Tokyo", 1658184540),
         ],
     )
@@ -36,14 +38,21 @@ class TestConvertUnixtime:
         "input_time, tz, error_msg",
         [
             (
-                "2022/07/18 13:49:00",
+                "22/07/18 13:49:00",
                 "Asia/Tokyo",
-                "Value error, '2022/07/18 13:49:00' is invalid date format. Allowed formats are ['%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M:%S.%f'].",
+                (
+                    "Value error, '22/07/18 13:49:00' is invalid date format. Allowed formats are "
+                    "['%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M:%S.%f', '%Y/%m/%d %H:%M:%S', '%Y/%m/%d %H:%M:%S.%f']."
+                ),
             ),
             (
-                "2022/07/18 13:49:00",
+                "22/07/18 13:49:00",
                 "Asia/Osaka",
-                "Value error, '2022/07/18 13:49:00' is invalid date format. Allowed formats are ['%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M:%S.%f'].; Value error, Asia/Osaka is invalid value for parameter: tz.",
+                (
+                    "Value error, '22/07/18 13:49:00' is invalid date format. Allowed formats are "
+                    "['%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M:%S.%f', '%Y/%m/%d %H:%M:%S', '%Y/%m/%d %H:%M:%S.%f'].; "
+                    "Value error, Asia/Osaka is invalid value for parameter: tz."
+                ),
             ),
         ],
     )
