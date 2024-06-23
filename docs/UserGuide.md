@@ -86,7 +86,9 @@ convert_model = unic.load_model("unixtime")
 
 # to unixtime
 convert_unixtime = convert_model.convert("2023-05-12 10:15:20")
+convert_unixtime = convert_model.convert("2023/05/12 10:15:20")
 # to unixtime with timezone
 convert_unixtime = convert_model.convert("2023-05-12 10:15:20", tz="Asia/Tokyo")
+convert_unixtime = convert_model.convert("2023/05/12 10:15:20", tz="Asia/Tokyo")
 
 ```
