@@ -23,8 +23,11 @@ class UnixtimeModel:
         dt = datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S").replace(
             tzinfo=timezone.utc
         )
-        dt_timestamp = dt.timestamp() + timezone_hour * 3600
 
-        dt_unixtime = f"{int(dt_timestamp)}{millisecond_str}"
+        if timezone_hour != 0:
+            dt += timedelta(hours=timezone_hour)
+
+        dt_timestamp = int(dt.timestamp())
+        dt_unixtime = f"{dt_timestamp}{millisecond_str}"
 
         return int(dt_unixtime)
