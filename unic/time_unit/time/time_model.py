@@ -8,7 +8,7 @@ class TimeModel:
     def __init__(self):
         self.time_unit_parameter = config_parser.parse_toml("timeunit")
 
-    def convert(self, data: int, *, from_unit: str, to_unit: str) -> int:
+    def convert(self, data: int, *, from_unit: str, to_unit: str) -> float:
         try:
             input_data = validators.TimeModelValidator(
                 data=data, from_unit=from_unit, to_unit=to_unit
@@ -20,9 +20,9 @@ class TimeModel:
         parameter = self.time_unit_parameter.get(from_unit, {}).get(to_unit, None)
 
         conversion_parameter = (
-            Fraction(parameter) if isinstance(parameter, str) else float(parameter)
+            float(Fraction(parameter))
+            if isinstance(parameter, str)
+            else float(parameter)
         )
 
-        data = float(input_data.data * conversion_parameter)
-
-        return data
+        return input_data.data * conversion_parameter
