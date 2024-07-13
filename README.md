@@ -21,6 +21,7 @@
       - unixtime / unixtime+timezone → datetime.date
     - UnixtimeModel
       - string(yyyy-mm-dd hh:mm:ss) / string(yyyy-mm-dd hh:mm:ss)+timezone → unixtime
+      - string(yyyy/mm/dd hh:mm:ss) / string(yyyy/mm/dd hh:mm:ss)+timezone → unixtime
   </details>
 
   <details>

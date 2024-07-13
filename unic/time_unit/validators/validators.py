@@ -75,7 +75,12 @@ class UnixtimeModelValidator(BaseModel, ValidatorMixin):
 
     @field_validator("data")
     def data_check(cls, v):
-        date_formats = ["%Y-%m-%d %H:%M:%S", "%Y-%m-%d %H:%M:%S.%f"]
+        date_formats = [
+            "%Y-%m-%d %H:%M:%S",
+            "%Y-%m-%d %H:%M:%S.%f",
+            "%Y/%m/%d %H:%M:%S",
+            "%Y/%m/%d %H:%M:%S.%f",
+        ]
         for date_format in date_formats:
             try:
                 datetime.strptime(v, date_format)
