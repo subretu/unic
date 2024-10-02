@@ -1,4 +1,4 @@
-![Python minimum version](https://img.shields.io/badge/Python-3.8%2B-brightgreen)
+![Python minimum version](https://img.shields.io/badge/Python-3.9%2B-brightgreen)
 [![pytest](https://github.com/subretu/unic/actions/workflows/pytest.yml/badge.svg)](https://github.com/subretu/unic/actions/workflows/pytest.yml)
 [![black](https://github.com/subretu/unic/actions/workflows/format.yml/badge.svg)](https://github.com/subretu/unic/actions/workflows/format.yml)
 
