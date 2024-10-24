@@ -1,6 +1,6 @@
 from pydantic import BaseModel, StrictFloat, field_validator, StrictInt, StrictStr
 from typing import Union
-from datetime import date, datetime
+from datetime import datetime
 from unic.utils import config_parser
 
 
