@@ -26,6 +26,26 @@ class DatetimeModel:
 
         return converted_data
 
+    def convert_batch(
+        self, data: list[int], format: str, tz: str = None
+    ) -> list[date, datetime]:
+        try:
+            input_data = validators.DatetimeModelValidator(
+                data=data, format=format, tz=tz
+            )
+        except ValidationError as e:
+            error_messages = "; ".join(err["msg"] for err in e.errors())
+            raise ValueError(error_messages)
+
+        timezone_hour = self.timezone_parameters.get(tz, {}).get("value", 0)
+
+        converted_data_list = [
+            self.convert_timestamp_by_digits(data, timezone_hour, format)
+            for data in input_data.data
+        ]
+
+        return converted_data_list
+
     def convert_timestamp_by_digits(
         self, data: int, timezone_hour: int, target_format: str
     ) -> Union[date, datetime]:
