@@ -3,7 +3,7 @@ from datetime import date, datetime, timezone, timedelta
 from unic.utils import config_parser
 from unic.time_unit.validators import validators
 from typing import Union
-from unic.time_unit.exception.exception import DatetimeValidationError
+from unic.time_unit.exceptions.exceptions import DatetimeValidationError
 
 
 class DatetimeModel:
