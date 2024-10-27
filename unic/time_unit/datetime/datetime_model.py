@@ -3,6 +3,7 @@ from datetime import date, datetime, timezone, timedelta
 from unic.utils import config_parser
 from unic.time_unit.validators import validators
 from typing import Union
+from unic.time_unit.exception.exception import DatetimeValidationError
 
 
 class DatetimeModel:
@@ -16,7 +17,7 @@ class DatetimeModel:
             )
         except ValidationError as e:
             error_messages = "; ".join(err["msg"] for err in e.errors())
-            raise ValueError(error_messages)
+            raise DatetimeValidationError(error_messages)
 
         timezone_hour = self.timezone_parameters.get(tz, {}).get("value", 0)
 
@@ -33,18 +34,23 @@ class DatetimeModel:
             input_data = validators.DatetimeModelValidator(
                 data=data, format=format, tz=tz
             )
+
+            timezone_hour = self.timezone_parameters.get(tz, {}).get("value", 0)
+
+            converted_data_list = [
+                self.convert_timestamp_by_digits(data, timezone_hour, format)
+                for data in input_data.data
+            ]
+
+            return converted_data_list
+
         except ValidationError as e:
             error_messages = "; ".join(err["msg"] for err in e.errors())
-            raise ValueError(error_messages)
+            raise DatetimeValidationError(error_messages)
 
-        timezone_hour = self.timezone_parameters.get(tz, {}).get("value", 0)
-
-        converted_data_list = [
-            self.convert_timestamp_by_digits(data, timezone_hour, format)
-            for data in input_data.data
-        ]
-
-        return converted_data_list
+        except Exception as e:
+            error_message = f"An error occurred: {str(e)}"
+            raise ValueError(error_message)
 
     def convert_timestamp_by_digits(
         self, data: int, timezone_hour: int, target_format: str
