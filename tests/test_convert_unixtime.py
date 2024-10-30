@@ -15,7 +15,7 @@ class TestConvertUnixtime:
             ("2022-07-18 13:49:00.123", None, 1658152140123),
             ("2024-06-20 13:49:00", None, 1718891340),
             ("2024-06-20 13:49:00.123", None, 1718891340123),
-            ("2022-07-18 13:49:00", "Asia/Tokyo", 1658184540),
+            ("2022-07-18 13:49:00", "Asia/Tokyo", 1658119740),
         ],
     )
     def test_convert_unixtime_normal(self, test_unixtime, input_time, tz, expected):

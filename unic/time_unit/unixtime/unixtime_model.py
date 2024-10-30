@@ -1,6 +1,6 @@
 from pydantic import ValidationError
 from datetime import datetime, timezone, timedelta
-from unic.utils import config_parser
+from unic.utils import config_parser, utils
 from unic.time_unit.validators import validators
 
 
@@ -15,19 +15,18 @@ class UnixtimeModel:
             error_messages = "; ".join(err["msg"] for err in e.errors())
             raise ValueError(error_messages)
 
-        timezone_hour = self.timezone_parameters.get(tz, {}).get("value", 0)
+        target_timezone = utils.get_timezone(
+            timezone_parameters=self.timezone_parameters, tz=tz
+        )
 
         date_str = input_data.data[:19]
         millisecond_str = input_data.data[20:23]
 
-        dt = datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S").replace(
-            tzinfo=timezone.utc
+        dt_with_timezone = datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S").replace(
+            tzinfo=target_timezone
         )
 
-        if timezone_hour != 0:
-            dt += timedelta(hours=timezone_hour)
-
-        dt_timestamp = int(dt.timestamp())
+        dt_timestamp = int(dt_with_timezone.timestamp())
         dt_unixtime = f"{dt_timestamp}{millisecond_str}"
 
         return int(dt_unixtime)
