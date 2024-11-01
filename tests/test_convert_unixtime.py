@@ -22,6 +22,27 @@ class TestConvertUnixtime:
         result = test_unixtime.convert(input_time, tz=tz)
         assert result == expected
 
+    @pytest.mark.parametrize(
+        "input_time_list, tz, expected",
+        [
+            (
+                ["2022-07-18 13:49:00", "2022-07-18 13:49:00.123"],
+                None,
+                [1658152140, 1658152140123],
+            ),
+            (
+                ["2022-07-18 13:49:00", "2022-07-19 13:49:00"],
+                "Asia/Tokyo",
+                [1658119740, 1658206140],
+            ),
+        ],
+    )
+    def test_convert_batch_unixtime_normal(
+        self, test_unixtime, input_time_list, tz, expected
+    ):
+        result = test_unixtime.convert_batch(input_time_list, tz=tz)
+        assert result == expected
+
     def test_convert_unixtime_parameter_number_error(self):
         with pytest.raises(Exception) as e:
             test_unixtime = unic.load_model("unixtime")
