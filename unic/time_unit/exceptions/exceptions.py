@@ -3,3 +3,10 @@ class DatetimeValidationError(Exception):
 
     def __init__(self, message: str):
         super().__init__(message)
+
+
+class UnixtimeValidationError(Exception):
+    """Custom exception: UnixtimeModel validation error"""
+
+    def __init__(self, message: str):
+        super().__init__(message)

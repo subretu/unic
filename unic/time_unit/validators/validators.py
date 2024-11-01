@@ -75,26 +75,31 @@ class DatetimeModelValidator(BaseModel, ValidatorMixin):
 
 
 class UnixtimeModelValidator(BaseModel, ValidatorMixin):
-    data: StrictStr
+    data: Union[StrictStr, list[StrictStr]]
     tz: Union[StrictStr, None]
 
     @field_validator("data")
     def data_check(cls, v):
-        date_formats = [
-            "%Y-%m-%d %H:%M:%S",
-            "%Y-%m-%d %H:%M:%S.%f",
-            "%Y/%m/%d %H:%M:%S",
-            "%Y/%m/%d %H:%M:%S.%f",
-        ]
-        for date_format in date_formats:
-            try:
-                datetime.strptime(v, date_format)
-                return v
-            except ValueError:
-                continue
-        raise ValueError(
-            f"'{v}' is invalid date format. Allowed formats are {date_formats}."
-        )
+        def validate_date_formats(value):
+            date_formats = [
+                "%Y-%m-%d %H:%M:%S",
+                "%Y-%m-%d %H:%M:%S.%f",
+                "%Y/%m/%d %H:%M:%S",
+                "%Y/%m/%d %H:%M:%S.%f",
+            ]
+            for date_format in date_formats:
+                try:
+                    datetime.strptime(value, date_format)
+                    return value
+                except ValueError:
+                    continue
+            raise ValueError(
+                f"'{value}' is invalid date format. Allowed formats are {date_formats}."
+            )
+
+        if isinstance(v, list):
+            return [validate_date_formats(value) for value in v]
+        return validate_date_formats(v)
 
     @field_validator("tz")
     def timezone_check(cls, v):
