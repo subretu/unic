@@ -41,6 +41,14 @@ class TestConverterSecond:
 
         assert result == 2
 
+    def test_convert_batch_second_hour(self):
+        test_timeobject = unic.load_model("time")
+        result = test_timeobject.convert_batch(
+            [3600, 54000], from_unit="sec", to_unit="hour"
+        )
+
+        assert result == [1, 15]
+
     def test_convert_second_fail(self):
         with pytest.raises(Exception) as e:
             test_timeunit = unic.load_model("time")

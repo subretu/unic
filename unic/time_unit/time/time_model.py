@@ -3,6 +3,7 @@ from unic.utils import config_parser
 from unic.time_unit.validators import validators
 from fractions import Fraction
 from unic.time_unit.exceptions.exceptions import TimeValidationError
+from typing import Union
 
 
 class TimeModel:
@@ -10,7 +11,7 @@ class TimeModel:
         self.time_unit_parameter = config_parser.parse_toml("timeunit")
 
     def _convert_time(
-        self, target_data: str, target_time_conversion_parameter: str
+        self, target_data: Union[int, float], target_time_conversion_parameter: str
     ) -> int:
         conversion_parameter = (
             float(Fraction(target_time_conversion_parameter))
@@ -59,7 +60,7 @@ class TimeModel:
 
             converted_data_list = [
                 self._convert_time(
-                    target_data=input_data.data,
+                    target_data=data,
                     target_time_conversion_parameter=target_time_conversion_parameter,
                 )
                 for data in input_data.data

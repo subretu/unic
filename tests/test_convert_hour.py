@@ -33,6 +33,12 @@ class TestConverterHour:
 
         assert result == 24
 
+    def test_convert_batch_hour_min(self):
+        test_timeobject = unic.load_model("time")
+        result = test_timeobject.convert_batch([7, 10], from_unit="hour", to_unit="min")
+
+        assert result == [420, 600]
+
     def test_convert_hour_fail(self):
         with pytest.raises(Exception) as e:
             test_timeunit = unic.load_model("time")
