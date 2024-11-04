@@ -32,7 +32,7 @@ class ValidatorMixin:
 
 
 class TimeModelValidator(BaseModel, ValidatorMixin):
-    data: Union[StrictInt, StrictFloat]
+    data: Union[StrictInt, StrictFloat, list[StrictInt, StrictFloat]]
     from_unit: StrictStr
     to_unit: StrictStr
 
