@@ -10,3 +10,10 @@ class UnixtimeValidationError(Exception):
 
     def __init__(self, message: str):
         super().__init__(message)
+
+
+class TimeValidationError(Exception):
+    """Custom exception: TimeModel validation error"""
+
+    def __init__(self, message: str):
+        super().__init__(message)
