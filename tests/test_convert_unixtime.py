@@ -83,3 +83,15 @@ class TestConvertUnixtime:
         with pytest.raises(Exception) as e:
             _ = test_unixtime.convert(input_time, tz=tz)
         assert str(e.value) == error_msg
+
+    def test_convert_batch_error(
+        self,
+        test_unixtime,
+    ):
+        with pytest.raises(Exception) as e:
+            _ = test_unixtime.convert_batch(
+                ["22/07/18 13:49:00", "2022-07-18 13:49:00.123"], tz="Asia/Tokyo"
+            )
+
+        error_msg = "Value error, '22/07/18 13:49:00' is invalid date format. Allowed formats are ['%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M:%S.%f', '%Y/%m/%d %H:%M:%S', '%Y/%m/%d %H:%M:%S.%f']."
+        assert str(e.value) == error_msg

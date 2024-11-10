@@ -22,6 +22,14 @@ class TestConvertDate:
 
         assert result == date(2022, 7, 17)
 
+    def test_convert_batch_date_utc_13digits(self):
+        test_timeobject = unic.load_model("datetime")
+        result = test_timeobject.convert_batch(
+            [1657985494123, 1658071894000], format="date"
+        )
+
+        assert result == [date(2022, 7, 16), date(2022, 7, 17)]
+
     def test_convert_date_parameter_name_error(self):
         with pytest.raises(Exception) as e:
             test_timeobject = unic.load_model("datetime")
@@ -107,3 +115,12 @@ class TestConvertDate:
             str(e.value)
             == "Value error, Unixtime digits is 10 or 13.; Value error, Asia/Osaka is invalid value for parameter: tz."
         )
+
+    def test_convert_batch_date_error(self):
+        with pytest.raises(Exception) as e:
+            test_timeobject = unic.load_model("datetime")
+            _ = test_timeobject.convert_batch(
+                [16579854494123, 1658071894000], format="date"
+            )
+
+        assert str(e.value) == "Value error, Unixtime digits is 10 or 13."
