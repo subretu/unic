@@ -77,3 +77,13 @@ class TestConverterMinute:
 
         error_msg = "Value error, minute is invalid value for parameter: from_unit. Allowed values are ['msec', 'sec', 'min', 'hour'].; Value error, hr is invalid value for parameter: to_unit. Allowed values are ['msec', 'sec', 'min', 'hour']."
         assert str(e.value) == error_msg
+
+    def test_convert_batch_error(self):
+        with pytest.raises(Exception) as e:
+            test_timeobject = unic.load_model("time")
+            _ = test_timeobject.convert_batch(
+                [568, 120], from_unit="minute", to_unit="hour"
+            )
+
+        error_msg = "Value error, minute is invalid value for parameter: from_unit. Allowed values are ['msec', 'sec', 'min', 'hour']."
+        assert str(e.value) == error_msg
