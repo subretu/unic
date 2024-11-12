@@ -31,9 +31,9 @@
       -  Target Metric System Units
 
          ```
-         nm, um*, mm, cm, m, km, Mm, Gm, Tm
+         nm, um, mm, cm, m, km, Mm, Gm, Tm
          ```
-         ※ um represents ㎛.
+         ※ um : represents ㎛.
        -  The target metric system units are can be converted to each other.
 
   </details>
@@ -58,6 +58,8 @@ import unic
 convert_model = unic.load_model("time")
 # Convert hour to minute
 convert_min = convert_model.convert(2, from_unit="hour", to_unit="min")
+# Convert hour to minute (batch processing)
+convert_min = convert_model.convert_batch([2,4,6], from_unit="hour", to_unit="min")
 ```
 
 #### DatetimeModel
@@ -69,6 +71,9 @@ import unic
 convert_model = unic.load_model("datetime")
 # Convert to datatime
 convert_datetime = convert_model.convert(1577841753, format="datetime")
+# Convert to datatime (batch processing)
+convert_datetime = convert_model.convert_batch([1577841753,1577941753], format="datetime")
+
 # Convert to date
 convert_datetime = convert_model.convert(1577841753, format="date")
 ```
@@ -82,6 +87,8 @@ import unic
 convert_model = unic.load_model("unixtime")
 # Specify time zone
 convert_unixtime = convert_model.convert("2023-05-12 10:15:20", tz="Asia/Tokyo")
+# Specify time zone (batch processing)
+convert_unixtime = convert_model.convert_batch(["2023-05-12 10:15:20","2023-05-13 10:15:20","2023-05-14 10:15:20"], tz="Asia/Tokyo")
 ```
 
 ### Length Unit
@@ -93,5 +100,7 @@ import unic
 
 convert_model = unic.load_model("metric_system")
 # Convert cm to m
-convert_min = convert_model.convert(20, from_unit="cm", to_unit="m")
+convert_m = convert_model.convert(20, from_unit="cm", to_unit="m")
+# Convert cm to m (batch processing)
+convert_m = convert_model.convert_batch([20,50,100,200], from_unit="cm", to_unit="m")
 ```

@@ -50,6 +50,8 @@ convert_min = convert_model.convert(2, from_unit="msec", to_unit="min")
 # millisecond to second
 convert_sec = convert_model.convert(2, from_unit="msec", to_unit="sec")
 
+# hour to minute (batch processing)
+convert_min = convert_model.convert_batch([2,4,6], from_unit="hour", to_unit="min")
 ```
 
 ### DatetimeModel
@@ -72,6 +74,8 @@ convert_date = convert_model.convert(1577841753, format="date")
 # to date with timezone
 convert_date = convert_model.convert(1577841753, format="date", tz="Asia/Tokyo")
 
+# to datetime (batch processing)
+convert_datetime = convert_model.convert_batch([1577841753,1577941753], format="datetime")
 ```
 
 ### UnixtimeModel
@@ -90,5 +94,36 @@ convert_unixtime = convert_model.convert("2023/05/12 10:15:20")
 # to unixtime with timezone
 convert_unixtime = convert_model.convert("2023-05-12 10:15:20", tz="Asia/Tokyo")
 convert_unixtime = convert_model.convert("2023/05/12 10:15:20", tz="Asia/Tokyo")
+# to unixtime with timezone (batch processing)
+convert_unixtime = convert_model.convert_batch(["2023-05-12 10:15:20","2023-05-13 10:15:20"], tz="Asia/Tokyo")
+```
 
+## Length Unit Conversion
+### MetricSystemModel
+
+```python
+import unic
+
+# Load the MetricSystemModel from unic
+convert_model = unic.load_model("metric_system")
+
+# Examples of MetricSystem Conversion:
+
+# nm to um
+convert_um = convert_model.convert(20, from_unit="nm", to_unit="um")
+# nm to mm
+convert_mm = convert_model.convert(20, from_unit="nm", to_unit="mm")
+# nm to cm
+convert_cm = convert_model.convert(20, from_unit="nm", to_unit="cm")
+# nm to m
+convert_m = convert_model.convert(20, from_unit="nm", to_unit="m")
+# nm to Mm
+convert_Mm = convert_model.convert(20, from_unit="nm", to_unit="Mm")
+# nm to Gm
+convert_Gm = convert_model.convert(20, from_unit="nm", to_unit="Gm")
+# nm to Tm
+convert_Tm = convert_model.convert(20, from_unit="nm", to_unit="Tm")
+
+# nm to um (batch processing)
+convert_um = convert_model.convert_batch([20,50,100,200], from_unit="nm", to_unit="um")
 ```
