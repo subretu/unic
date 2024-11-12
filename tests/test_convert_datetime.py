@@ -16,6 +16,17 @@ class TestConvertDatetime:
 
         assert result == datetime(2022, 7, 16, 15, 31, 34, 123000, tzinfo=timezone.utc)
 
+    def test_convert_batch_datetime_utc(self):
+        test_timeobject = unic.load_model("datetime")
+        result = test_timeobject.convert_batch(
+            [1657985494, 1657985494123], format="datetime"
+        )
+
+        assert result == [
+            datetime(2022, 7, 16, 15, 31, 34, tzinfo=timezone.utc),
+            datetime(2022, 7, 16, 15, 31, 34, 123000, tzinfo=timezone.utc),
+        ]
+
     def test_convert_datetime_jst(self):
         test_timeobject = unic.load_model("datetime")
         result = test_timeobject.convert(1657985494, format="datetime", tz="Asia/Tokyo")
@@ -108,4 +119,16 @@ class TestConvertDatetime:
         assert (
             str(e.value)
             == "Value error, Unixtime digits is 10 or 13.; Value error, datatime is invalid value for parameter: format. Allowed values are ['datetime', 'date']."
+        )
+
+    def test_convert_batch_datetime_error(self):
+        with pytest.raises(Exception) as e:
+            test_timeobject = unic.load_model("datetime")
+            _ = test_timeobject.convert_batch(
+                [1657985494, 1657985494123], format="datatime"
+            )
+
+        assert (
+            str(e.value)
+            == "Value error, datatime is invalid value for parameter: format. Allowed values are ['datetime', 'date']."
         )

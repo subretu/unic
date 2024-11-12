@@ -33,6 +33,12 @@ class TestConverterHour:
 
         assert result == 24
 
+    def test_convert_batch_hour_min(self):
+        test_timeobject = unic.load_model("time")
+        result = test_timeobject.convert_batch([7, 10], from_unit="hour", to_unit="min")
+
+        assert result == [420, 600]
+
     def test_convert_hour_fail(self):
         with pytest.raises(Exception) as e:
             test_timeunit = unic.load_model("time")
@@ -67,4 +73,12 @@ class TestConverterHour:
             _ = test_timeunit.convert(24, from_unit="hr", to_unit="second")
 
         error_msg = "Value error, hr is invalid value for parameter: from_unit. Allowed values are ['msec', 'sec', 'min', 'hour'].; Value error, second is invalid value for parameter: to_unit. Allowed values are ['msec', 'sec', 'min', 'hour']."
+        assert str(e.value) == error_msg
+
+    def test_convert_batch_error(self):
+        with pytest.raises(Exception) as e:
+            test_timeobject = unic.load_model("time")
+            _ = test_timeobject.convert_batch([7, 10], from_unit="hr", to_unit="min")
+
+        error_msg = "Value error, hr is invalid value for parameter: from_unit. Allowed values are ['msec', 'sec', 'min', 'hour']."
         assert str(e.value) == error_msg

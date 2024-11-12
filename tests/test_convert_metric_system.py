@@ -25,6 +25,24 @@ class TestConverterMetricSystem:
         assert result == expect
 
     @pytest.mark.parametrize(
+        "input_data, from_unit, to_unit,  expect",
+        [
+            ([1, 30, 50], "um", "cm", [0.0001, 0.003, 0.005]),
+            ([10, 45, 125], "cm", "mm", [100, 450, 1250]),
+            ([20, 68, 216], "um", "cm", [0.002, 0.0068000000000000005, 0.0216]),
+        ],
+    )
+    def test_convert_batch_metric_system_normal(
+        self, input_data, from_unit, to_unit, expect
+    ):
+        test_metric_system_unit = unic.load_model("metric_system")
+        result = test_metric_system_unit.convert_batch(
+            input_data, from_unit=from_unit, to_unit=to_unit
+        )
+
+        assert result == expect
+
+    @pytest.mark.parametrize(
         "input_data, from_unit, to_unit,  error_msg",
         [
             (
@@ -71,3 +89,15 @@ class TestConverterMetricSystem:
             "MetricSystemModel.convert() missing 1 required keyword-only argument: 'to_unit'",
             "convert() missing 1 required keyword-only argument: 'to_unit'",
         ]
+
+    def test_convert_batch_metric_system_error(self):
+        with pytest.raises(Exception) as e:
+            test_metric_system_unit = unic.load_model("metric_system")
+            _ = test_metric_system_unit.convert_batch(
+                [1, 30, 50], from_unit="um", to_unit="MM"
+            )
+
+        assert (
+            str(e.value)
+            == "Value error, MM is invalid value for parameter: to_unit. Allowed values are ['nm', 'um', 'mm', 'cm', 'm', 'km', 'Mm', 'Gm', 'Tm']."
+        )

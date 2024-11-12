@@ -15,11 +15,32 @@ class TestConvertUnixtime:
             ("2022-07-18 13:49:00.123", None, 1658152140123),
             ("2024-06-20 13:49:00", None, 1718891340),
             ("2024-06-20 13:49:00.123", None, 1718891340123),
-            ("2022-07-18 13:49:00", "Asia/Tokyo", 1658184540),
+            ("2022-07-18 13:49:00", "Asia/Tokyo", 1658119740),
         ],
     )
     def test_convert_unixtime_normal(self, test_unixtime, input_time, tz, expected):
         result = test_unixtime.convert(input_time, tz=tz)
+        assert result == expected
+
+    @pytest.mark.parametrize(
+        "input_time_list, tz, expected",
+        [
+            (
+                ["2022-07-18 13:49:00", "2022-07-18 13:49:00.123"],
+                None,
+                [1658152140, 1658152140123],
+            ),
+            (
+                ["2022-07-18 13:49:00", "2022-07-19 13:49:00"],
+                "Asia/Tokyo",
+                [1658119740, 1658206140],
+            ),
+        ],
+    )
+    def test_convert_batch_unixtime_normal(
+        self, test_unixtime, input_time_list, tz, expected
+    ):
+        result = test_unixtime.convert_batch(input_time_list, tz=tz)
         assert result == expected
 
     def test_convert_unixtime_parameter_number_error(self):
@@ -61,4 +82,16 @@ class TestConvertUnixtime:
     ):
         with pytest.raises(Exception) as e:
             _ = test_unixtime.convert(input_time, tz=tz)
+        assert str(e.value) == error_msg
+
+    def test_convert_batch_error(
+        self,
+        test_unixtime,
+    ):
+        with pytest.raises(Exception) as e:
+            _ = test_unixtime.convert_batch(
+                ["22/07/18 13:49:00", "2022-07-18 13:49:00.123"], tz="Asia/Tokyo"
+            )
+
+        error_msg = "Value error, '22/07/18 13:49:00' is invalid date format. Allowed formats are ['%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M:%S.%f', '%Y/%m/%d %H:%M:%S', '%Y/%m/%d %H:%M:%S.%f']."
         assert str(e.value) == error_msg
