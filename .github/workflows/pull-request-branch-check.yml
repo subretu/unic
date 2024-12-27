@@ -1,0 +1,21 @@
+name: Pull request branch check
+
+on:
+  pull_request:
+    types: [opened, reopened]
+    branches:
+      - main
+
+jobs:
+  pull_request_branch_check:
+    name: Pull request branch check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check
+        run: |
+          if [ "${{ github.event.pull_request.base.ref }}" == "main" ] && [[ "${{ github.event.pull_request.head.ref }}" != "develop" ]]; then
+            echo "Pull request to the main branch can only be made from the develop branch."
+            exit 1
+          else
+            echo "There is no issue with the pull request branch check."
+          fi
