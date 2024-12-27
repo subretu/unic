@@ -17,6 +17,14 @@ def get_path(key):
 def parse_toml(key):
     file_path = get_path(key)
 
-    with open(file_path, "rb") as f:
-        obj = tomli.load(f)
-        return obj
+    try:
+        with open(file_path, "rb") as f:
+            obj = tomli.load(f)
+            return obj
+
+    except FileNotFoundError:
+        raise ValueError(f"Configuration file not found: {file_path}")
+    except tomli.TOMLDecodeError as e:
+        raise ValueError(f"Syntax error in the TOML file: {file_path}, Error: {str(e)}")
+    except Exception as e:
+        raise ValueError(f"An error occurred: {str(e)}")
