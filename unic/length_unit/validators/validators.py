@@ -21,7 +21,7 @@ class ValidatorMixin:
 
 
 class MetricSystemModelValidator(BaseModel, ValidatorMixin):
-    data: Union[StrictInt, StrictFloat, list[StrictInt, StrictFloat]]
+    data: Union[StrictInt, StrictFloat, list[Union[StrictInt, StrictFloat]]]
     from_unit: StrictStr
     to_unit: StrictStr
 
