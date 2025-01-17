@@ -10,6 +10,11 @@ class TimeModel:
     def __init__(self):
         self.time_unit_parameter = config_parser.parse_toml("timeunit")
 
+    def _get_conversion_parameter(
+        self, from_unit: str, to_unit: str
+    ) -> Union[str, None]:
+        return self.time_unit_parameter.get(from_unit, {}).get(to_unit, None)
+
     def _convert_time(
         self, target_data: Union[int, float], target_time_conversion_parameter: str
     ) -> int:
@@ -27,16 +32,14 @@ class TimeModel:
                 data=data, from_unit=from_unit, to_unit=to_unit
             )
 
-            target_time_conversion_parameter = self.time_unit_parameter.get(
-                from_unit, {}
-            ).get(to_unit, None)
+            target_time_conversion_parameter = self._get_conversion_parameter(
+                from_unit=from_unit, to_unit=to_unit
+            )
 
-            converted_data = self._convert_time(
+            return self._convert_time(
                 target_data=input_data.data,
                 target_time_conversion_parameter=target_time_conversion_parameter,
             )
-
-            return converted_data
 
         except ValidationError as e:
             error_messages = "; ".join(err["msg"] for err in e.errors())
@@ -54,19 +57,17 @@ class TimeModel:
                 data=data, from_unit=from_unit, to_unit=to_unit
             )
 
-            target_time_conversion_parameter = self.time_unit_parameter.get(
-                from_unit, {}
-            ).get(to_unit, None)
+            target_time_conversion_parameter = self._get_conversion_parameter(
+                from_unit=from_unit, to_unit=to_unit
+            )
 
-            converted_data_list = [
+            return [
                 self._convert_time(
                     target_data=data,
                     target_time_conversion_parameter=target_time_conversion_parameter,
                 )
                 for data in input_data.data
             ]
-
-            return converted_data_list
 
         except ValidationError as e:
             error_messages = "; ".join(err["msg"] for err in e.errors())
