@@ -36,12 +36,10 @@ class TimeModel:
                 from_unit=from_unit, to_unit=to_unit
             )
 
-            converted_data = self._convert_time(
+            return self._convert_time(
                 target_data=input_data.data,
                 target_time_conversion_parameter=target_time_conversion_parameter,
             )
-
-            return converted_data
 
         except ValidationError as e:
             error_messages = "; ".join(err["msg"] for err in e.errors())
@@ -63,15 +61,13 @@ class TimeModel:
                 from_unit=from_unit, to_unit=to_unit
             )
 
-            converted_data_list = [
+            return [
                 self._convert_time(
                     target_data=data,
                     target_time_conversion_parameter=target_time_conversion_parameter,
                 )
                 for data in input_data.data
             ]
-
-            return converted_data_list
 
         except ValidationError as e:
             error_messages = "; ".join(err["msg"] for err in e.errors())
