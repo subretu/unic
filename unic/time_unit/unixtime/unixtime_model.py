@@ -30,11 +30,9 @@ class UnixtimeModel:
                 timezone_parameters=self.timezone_parameters, tz=tz
             )
 
-            converted_data = self._convert_unixtime(
+            return self._convert_unixtime(
                 target_data=input_data.data, target_timezone=target_timezone
             )
-
-            return converted_data
 
         except ValidationError as e:
             error_messages = "; ".join(err["msg"] for err in e.errors())
@@ -52,14 +50,12 @@ class UnixtimeModel:
                 timezone_parameters=self.timezone_parameters, tz=tz
             )
 
-            converted_data_list = [
+            return [
                 self._convert_unixtime(
                     target_data=data, target_timezone=target_timezone
                 )
                 for data in input_data.data
             ]
-
-            return converted_data_list
 
         except ValidationError as e:
             error_messages = "; ".join(err["msg"] for err in e.errors())
