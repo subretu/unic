@@ -15,11 +15,7 @@ class DatetimeModel:
     ) -> Union[date, datetime]:
         timestamp_data = datetime.fromtimestamp(data, target_timezone)
 
-        result = (
-            timestamp_data if target_format == "datetime" else timestamp_data.date()
-        )
-
-        return result
+        return timestamp_data if target_format == "datetime" else timestamp_data.date()
 
     def convert(self, data: int, format: str, tz: str = None) -> Union[date, datetime]:
         try:
@@ -31,11 +27,7 @@ class DatetimeModel:
                 timezone_parameters=self.timezone_parameters, tz=tz
             )
 
-            converted_data = self._convert_timestamp(
-                input_data.data, target_timezone, format
-            )
-
-            return converted_data
+            return self._convert_timestamp(input_data.data, target_timezone, format)
 
         except ValidationError as e:
             error_messages = "; ".join(err["msg"] for err in e.errors())
@@ -47,7 +39,7 @@ class DatetimeModel:
 
     def convert_batch(
         self, data: list[int], format: str, tz: str = None
-    ) -> list[date, datetime]:
+    ) -> list[Union[date, datetime]]:
         try:
             input_data = validators.DatetimeModelValidator(
                 data=data, format=format, tz=tz
@@ -57,12 +49,10 @@ class DatetimeModel:
                 timezone_parameters=self.timezone_parameters, tz=tz
             )
 
-            converted_data_list = [
+            return [
                 self._convert_timestamp(data, target_timezone, format)
                 for data in input_data.data
             ]
-
-            return converted_data_list
 
         except ValidationError as e:
             error_messages = "; ".join(err["msg"] for err in e.errors())
