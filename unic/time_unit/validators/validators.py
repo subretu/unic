@@ -35,12 +35,12 @@ class TimeModelValidator(BaseModel):
     to_unit: StrictStr
 
     @field_validator("from_unit")
-    def from_unit_check(cls, v: str) -> str:
-        return validate_units(v, ["msec", "sec", "min", "hour"], "from_unit")
+    def from_unit_check(cls, value: str) -> str:
+        return validate_units(value, ["msec", "sec", "min", "hour"], "from_unit")
 
     @field_validator("to_unit")
-    def to_unit_check(cls, v: str) -> str:
-        return validate_units(v, ["msec", "sec", "min", "hour"], "to_unit")
+    def to_unit_check(cls, value: str) -> str:
+        return validate_units(value, ["msec", "sec", "min", "hour"], "to_unit")
 
 
 class DatetimeModelValidator(BaseModel):
@@ -50,7 +50,7 @@ class DatetimeModelValidator(BaseModel):
 
     @field_validator("data")
     def data_check(
-        cls, v: Union[StrictInt, list[StrictInt]]
+        cls, value: Union[StrictInt, list[StrictInt]]
     ) -> Union[float, list[float]]:
         def validate_unixtime(value: int) -> float:
             digits = len(str(abs(value)))
@@ -61,17 +61,17 @@ class DatetimeModelValidator(BaseModel):
             else:
                 raise ValueError("Unixtime digits is 10 or 13.")
 
-        if isinstance(v, list):
-            return [validate_unixtime(value) for value in v]
-        return validate_unixtime(v)
+        if isinstance(value, list):
+            return [validate_unixtime(num) for num in value]
+        return validate_unixtime(value)
 
     @field_validator("format")
-    def format_check(cls, v: str) -> str:
-        return validate_units(v, ["datetime", "date"], "format")
+    def format_check(cls, value: str) -> str:
+        return validate_units(value, ["datetime", "date"], "format")
 
     @field_validator("tz")
-    def timezone_check(cls, v: Optional[str]) -> Optional[str]:
-        return validate_timezone(v)
+    def timezone_check(cls, value: Optional[str]) -> Optional[str]:
+        return validate_timezone(value)
 
 
 class UnixtimeModelValidator(BaseModel):
@@ -79,7 +79,9 @@ class UnixtimeModelValidator(BaseModel):
     tz: Optional[StrictStr]
 
     @field_validator("data")
-    def data_check(cls, v: Union[StrictStr, list[StrictStr]]) -> Union[str, list[str]]:
+    def data_check(
+        cls, value: Union[StrictStr, list[StrictStr]]
+    ) -> Union[str, list[str]]:
         def validate_date_formats(value: str) -> str:
             date_formats = [
                 "%Y-%m-%d %H:%M:%S",
@@ -97,10 +99,10 @@ class UnixtimeModelValidator(BaseModel):
                 f"'{value}' is invalid date format. Allowed formats are {date_formats}."
             )
 
-        if isinstance(v, list):
-            return [validate_date_formats(value) for value in v]
-        return validate_date_formats(v)
+        if isinstance(value, list):
+            return [validate_date_formats(datetime_str) for datetime_str in value]
+        return validate_date_formats(value)
 
     @field_validator("tz")
-    def timezone_check(cls, v: Optional[str]) -> Optional[str]:
-        return validate_timezone(v)
+    def timezone_check(cls, value: Optional[str]) -> Optional[str]:
+        return validate_timezone(value)
