@@ -1,21 +1,13 @@
 from pydantic import BaseModel, StrictFloat, field_validator, StrictInt, StrictStr
 from typing import Union
-from unic.utils import config_parser
 
 
-def validate_units(v, valid_units, parameter):
-    if v not in valid_units:
+def validate_units(value: str, valid_units: list[str], parameter: str) -> str:
+    if value not in valid_units:
         raise ValueError(
-            f"{v} is invalid value for parameter: {parameter}. Allowed values are {valid_units}."
+            f"{value} is invalid value for parameter: {parameter}. Allowed values are {valid_units}."
         )
-    return v
-
-
-def validate_timezone(v):
-    valid_timezones = config_parser.parse_toml("timezone")
-    if v not in valid_timezones.keys() and v is not None:
-        raise ValueError(f"{v} is invalid value for parameter: tz.")
-    return v
+    return value
 
 
 class MetricSystemModelValidator(BaseModel):
@@ -24,13 +16,13 @@ class MetricSystemModelValidator(BaseModel):
     to_unit: StrictStr
 
     @field_validator("from_unit")
-    def from_unit_check(cls, v):
+    def from_unit_check(cls, value: str) -> str:
         return validate_units(
-            v, ["nm", "um", "mm", "cm", "m", "km", "Mm", "Gm", "Tm"], "from_unit"
+            value, ["nm", "um", "mm", "cm", "m", "km", "Mm", "Gm", "Tm"], "from_unit"
         )
 
     @field_validator("to_unit")
-    def to_unit_check(cls, v):
+    def to_unit_check(cls, value: str) -> str:
         return validate_units(
-            v, ["nm", "um", "mm", "cm", "m", "km", "Mm", "Gm", "Tm"], "to_unit"
+            value, ["nm", "um", "mm", "cm", "m", "km", "Mm", "Gm", "Tm"], "to_unit"
         )
