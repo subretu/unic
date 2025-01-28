@@ -27,7 +27,11 @@ class DatetimeModel:
                 timezone_parameters=self.timezone_parameters, tz=tz
             )
 
-            return self._convert_timestamp(input_data.data, target_timezone, format)
+            return self._convert_timestamp(
+                data=input_data.data,
+                target_timezone=target_timezone,
+                target_format=format,
+            )
 
         except ValidationError as e:
             error_messages = "; ".join(err["msg"] for err in e.errors())
@@ -50,7 +54,11 @@ class DatetimeModel:
             )
 
             return [
-                self._convert_timestamp(data, target_timezone, format)
+                self._convert_timestamp(
+                    data=data,
+                    target_timezone=target_timezone,
+                    target_format=format,
+                )
                 for data in input_data.data
             ]
 
