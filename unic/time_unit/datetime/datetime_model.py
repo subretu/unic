@@ -1,6 +1,6 @@
 from pydantic import ValidationError
 from datetime import date, datetime, timezone
-from unic.utils import config_parser, utils
+from unic.utils import config_parser, timezone
 from unic.time_unit.validators import validators
 from typing import Union
 from unic.time_unit.exceptions.exceptions import DatetimeValidationError
@@ -23,7 +23,7 @@ class DatetimeModel:
                 data=data, format=format, tz=tz
             )
 
-            target_timezone = utils.get_timezone(
+            target_timezone = timezone.get_timezone(
                 timezone_parameters=self.timezone_parameters, tz=tz
             )
 
@@ -45,7 +45,7 @@ class DatetimeModel:
                 data=data, format=format, tz=tz
             )
 
-            target_timezone = utils.get_timezone(
+            target_timezone = timezone.get_timezone(
                 timezone_parameters=self.timezone_parameters, tz=tz
             )
 
