@@ -1,4 +1,4 @@
-name: black
+name: Format Check
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   black:
-    name: Format with black
+    name: Format Check with Ruff
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,6 +24,6 @@ jobs:
           echo "$HOME/.local/bin" >> $GITHUB_PATH
       - name: Install dependencies
         run: poetry install --no-interaction
-      - name: format
+      - name: Format Check
         run: |
-          poetry run black --check --verbose .
+          poetry run ruff format --check --verbose . || exit 1
