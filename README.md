@@ -1,6 +1,7 @@
 ![Python minimum version](https://img.shields.io/badge/Python-3.9%2B-brightgreen)
-[![pytest](https://github.com/subretu/unic/actions/workflows/pytest.yml/badge.svg)](https://github.com/subretu/unic/actions/workflows/pytest.yml)
-[![black](https://github.com/subretu/unic/actions/workflows/format.yml/badge.svg)](https://github.com/subretu/unic/actions/workflows/format.yml)
+[![Test-pytest](https://github.com/subretu/unic/actions/workflows/pytest.yml/badge.svg)](https://github.com/subretu/unic/actions/workflows/pytest.yml)
+[![Format-Ruff](https://github.com/subretu/unic/actions/workflows/format_check.yml/badge.svg)](https://github.com/subretu/unic/actions/workflows/format_check.yml)
+[![Lint-Ruff](https://github.com/subretu/unic/actions/workflows/lint_check.yml/badge.svg)](https://github.com/subretu/unic/actions/workflows/lint_check.yml)
 
 # unic
   `unic` is a python package that can convert various units.

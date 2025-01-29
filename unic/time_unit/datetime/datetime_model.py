@@ -1,6 +1,6 @@
 from pydantic import ValidationError
 from datetime import date, datetime, timezone
-from unic.utils import config_parser, timezone
+from unic.utils import config_parser
 from unic.time_unit.validators import validators
 from typing import Union
 from unic.time_unit.exceptions.exceptions import DatetimeValidationError
