@@ -26,4 +26,4 @@ jobs:
         run: poetry install --no-interaction
       - name: Format Check
         run: |
-          poetry run ruff format --check --verbose . || exit 1
+          poetry run ruff format --check --verbose .
