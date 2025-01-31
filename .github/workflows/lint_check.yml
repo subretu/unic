@@ -1,4 +1,4 @@
-name: black
+name: Lint Check
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   black:
-    name: Format with black
+    name: Lint Check with Ruff
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,6 +24,6 @@ jobs:
           echo "$HOME/.local/bin" >> $GITHUB_PATH
       - name: Install dependencies
         run: poetry install --no-interaction
-      - name: format
+      - name: Lint Check
         run: |
-          poetry run black --check --verbose .
+           poetry run ruff check . --output-format=github

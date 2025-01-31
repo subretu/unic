@@ -2,7 +2,7 @@ import tomli
 import os
 
 
-def get_path(key):
+def get_path(key: str) -> str:
     config_file_path = os.path.join(
         os.path.dirname(os.path.abspath(__file__)),
         "..",
@@ -14,8 +14,8 @@ def get_path(key):
     return config_file_path
 
 
-def parse_toml(key):
-    file_path = get_path(key)
+def parse_toml(key: str) -> dict[str, dict[str, float]]:
+    file_path = get_path(key=key)
 
     try:
         with open(file_path, "rb") as f:

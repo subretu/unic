@@ -14,45 +14,43 @@ class TimezoneConfigCache:
         return cls._timezone_cache
 
 
-class ValidatorMixin:
-    @classmethod
-    def validate_units(cls, v: str, valid_units: list[str], parameter: str) -> str:
-        if v not in valid_units:
-            raise ValueError(
-                f"{v} is invalid value for parameter: {parameter}. Allowed values are {valid_units}."
-            )
-        return v
-
-    @classmethod
-    def validate_timezone(cls, v: Optional[str]) -> Optional[str]:
-        valid_timezones = TimezoneConfigCache.get_valid_timezones()
-        if v not in valid_timezones.keys() and v is not None:
-            raise ValueError(f"{v} is invalid value for parameter: tz.")
-        return v
+def validate_units(value: str, valid_units: list[str], parameter: str) -> str:
+    if value not in valid_units:
+        raise ValueError(
+            f"{value} is invalid value for parameter: {parameter}. Allowed values are {valid_units}."
+        )
+    return value
 
 
-class TimeModelValidator(BaseModel, ValidatorMixin):
+def validate_timezone(value: Optional[str]) -> Optional[str]:
+    valid_timezones = TimezoneConfigCache.get_valid_timezones()
+    if value and value not in valid_timezones:
+        raise ValueError(f"{value} is invalid value for parameter: tz.")
+    return value
+
+
+class TimeModelValidator(BaseModel):
     data: Union[StrictInt, StrictFloat, list[Union[StrictInt, StrictFloat]]]
     from_unit: StrictStr
     to_unit: StrictStr
 
     @field_validator("from_unit")
-    def from_unit_check(cls, v: str) -> str:
-        return cls.validate_units(v, ["msec", "sec", "min", "hour"], "from_unit")
+    def from_unit_check(cls, value: str) -> str:
+        return validate_units(value, ["msec", "sec", "min", "hour"], "from_unit")
 
     @field_validator("to_unit")
-    def to_unit_check(cls, v: str) -> str:
-        return cls.validate_units(v, ["msec", "sec", "min", "hour"], "to_unit")
+    def to_unit_check(cls, value: str) -> str:
+        return validate_units(value, ["msec", "sec", "min", "hour"], "to_unit")
 
 
-class DatetimeModelValidator(BaseModel, ValidatorMixin):
+class DatetimeModelValidator(BaseModel):
     data: Union[StrictInt, list[StrictInt]]
     format: StrictStr
     tz: Optional[StrictStr]
 
     @field_validator("data")
     def data_check(
-        cls, v: Union[StrictInt, list[StrictInt]]
+        cls, value: Union[StrictInt, list[StrictInt]]
     ) -> Union[float, list[float]]:
         def validate_unixtime(value: int) -> float:
             digits = len(str(abs(value)))
@@ -63,25 +61,27 @@ class DatetimeModelValidator(BaseModel, ValidatorMixin):
             else:
                 raise ValueError("Unixtime digits is 10 or 13.")
 
-        if isinstance(v, list):
-            return [validate_unixtime(value) for value in v]
-        return validate_unixtime(v)
+        if isinstance(value, list):
+            return [validate_unixtime(num) for num in value]
+        return validate_unixtime(value)
 
     @field_validator("format")
-    def format_check(cls, v: str) -> str:
-        return cls.validate_units(v, ["datetime", "date"], "format")
+    def format_check(cls, value: str) -> str:
+        return validate_units(value, ["datetime", "date"], "format")
 
     @field_validator("tz")
-    def timezone_check(cls, v: Optional[str]) -> Optional[str]:
-        return cls.validate_timezone(v)
+    def timezone_check(cls, value: Optional[str]) -> Optional[str]:
+        return validate_timezone(value)
 
 
-class UnixtimeModelValidator(BaseModel, ValidatorMixin):
+class UnixtimeModelValidator(BaseModel):
     data: Union[StrictStr, list[StrictStr]]
     tz: Optional[StrictStr]
 
     @field_validator("data")
-    def data_check(cls, v: Union[StrictStr, list[StrictStr]]) -> Union[str, list[str]]:
+    def data_check(
+        cls, value: Union[StrictStr, list[StrictStr]]
+    ) -> Union[str, list[str]]:
         def validate_date_formats(value: str) -> str:
             date_formats = [
                 "%Y-%m-%d %H:%M:%S",
@@ -99,10 +99,10 @@ class UnixtimeModelValidator(BaseModel, ValidatorMixin):
                 f"'{value}' is invalid date format. Allowed formats are {date_formats}."
             )
 
-        if isinstance(v, list):
-            return [validate_date_formats(value) for value in v]
-        return validate_date_formats(v)
+        if isinstance(value, list):
+            return [validate_date_formats(datetime_str) for datetime_str in value]
+        return validate_date_formats(value)
 
     @field_validator("tz")
-    def timezone_check(cls, v: Optional[str]) -> Optional[str]:
-        return cls.validate_timezone(v)
+    def timezone_check(cls, value: Optional[str]) -> Optional[str]:
+        return validate_timezone(value)

@@ -2,6 +2,9 @@ name: Pull request branch check
 
 on:
   pull_request:
+    types:
+      - opened
+      - edited
     branches: ["main", "develop"]
 
 jobs:

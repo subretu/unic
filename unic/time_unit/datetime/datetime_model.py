@@ -1,6 +1,6 @@
 from pydantic import ValidationError
 from datetime import date, datetime, timezone
-from unic.utils import config_parser, utils
+from unic.utils import config_parser
 from unic.time_unit.validators import validators
 from typing import Union
 from unic.time_unit.exceptions.exceptions import DatetimeValidationError
@@ -15,11 +15,7 @@ class DatetimeModel:
     ) -> Union[date, datetime]:
         timestamp_data = datetime.fromtimestamp(data, target_timezone)
 
-        result = (
-            timestamp_data if target_format == "datetime" else timestamp_data.date()
-        )
-
-        return result
+        return timestamp_data if target_format == "datetime" else timestamp_data.date()
 
     def convert(self, data: int, format: str, tz: str = None) -> Union[date, datetime]:
         try:
@@ -27,15 +23,15 @@ class DatetimeModel:
                 data=data, format=format, tz=tz
             )
 
-            target_timezone = utils.get_timezone(
+            target_timezone = timezone.get_timezone(
                 timezone_parameters=self.timezone_parameters, tz=tz
             )
 
-            converted_data = self._convert_timestamp(
-                input_data.data, target_timezone, format
+            return self._convert_timestamp(
+                data=input_data.data,
+                target_timezone=target_timezone,
+                target_format=format,
             )
-
-            return converted_data
 
         except ValidationError as e:
             error_messages = "; ".join(err["msg"] for err in e.errors())
@@ -47,22 +43,24 @@ class DatetimeModel:
 
     def convert_batch(
         self, data: list[int], format: str, tz: str = None
-    ) -> list[date, datetime]:
+    ) -> list[Union[date, datetime]]:
         try:
             input_data = validators.DatetimeModelValidator(
                 data=data, format=format, tz=tz
             )
 
-            target_timezone = utils.get_timezone(
+            target_timezone = timezone.get_timezone(
                 timezone_parameters=self.timezone_parameters, tz=tz
             )
 
-            converted_data_list = [
-                self._convert_timestamp(data, target_timezone, format)
+            return [
+                self._convert_timestamp(
+                    data=data,
+                    target_timezone=target_timezone,
+                    target_format=format,
+                )
                 for data in input_data.data
             ]
-
-            return converted_data_list
 
         except ValidationError as e:
             error_messages = "; ".join(err["msg"] for err in e.errors())

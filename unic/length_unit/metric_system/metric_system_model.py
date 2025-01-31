@@ -12,9 +12,7 @@ class MetricSystemModel:
     def _convert_metric_system(
         self, target_data: int, target_metric_system_conversion_parameter: str
     ) -> int:
-        data = float(target_data * Fraction(target_metric_system_conversion_parameter))
-
-        return data
+        return float(target_data * Fraction(target_metric_system_conversion_parameter))
 
     def convert(self, data: int, *, from_unit: str, to_unit: str) -> int:
         try:
@@ -26,12 +24,10 @@ class MetricSystemModel:
                 self.metric_system_parameter.get(from_unit, {}).get(to_unit, None)
             )
 
-            converted_data = self._convert_metric_system(
+            return self._convert_metric_system(
                 target_data=input_data.data,
                 target_metric_system_conversion_parameter=target_metric_system_conversion_parameter,
             )
-
-            return converted_data
 
         except ValidationError as e:
             error_messages = "; ".join(err["msg"] for err in e.errors())
@@ -53,15 +49,13 @@ class MetricSystemModel:
                 self.metric_system_parameter.get(from_unit, {}).get(to_unit, None)
             )
 
-            converted_data_list = [
+            return [
                 self._convert_metric_system(
                     target_data=data,
                     target_metric_system_conversion_parameter=target_metric_system_conversion_parameter,
                 )
                 for data in input_data.data
             ]
-
-            return converted_data_list
 
         except ValidationError as e:
             error_messages = "; ".join(err["msg"] for err in e.errors())

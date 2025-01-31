@@ -1,6 +1,6 @@
 from pydantic import ValidationError
 from datetime import datetime, timezone
-from unic.utils import config_parser, utils
+from unic.utils import config_parser
 from unic.time_unit.validators import validators
 from unic.time_unit.exceptions.exceptions import UnixtimeValidationError
 
@@ -26,15 +26,13 @@ class UnixtimeModel:
         try:
             input_data = validators.UnixtimeModelValidator(data=data, tz=tz)
 
-            target_timezone = utils.get_timezone(
+            target_timezone = timezone.get_timezone(
                 timezone_parameters=self.timezone_parameters, tz=tz
             )
 
-            converted_data = self._convert_unixtime(
+            return self._convert_unixtime(
                 target_data=input_data.data, target_timezone=target_timezone
             )
-
-            return converted_data
 
         except ValidationError as e:
             error_messages = "; ".join(err["msg"] for err in e.errors())
@@ -48,18 +46,16 @@ class UnixtimeModel:
         try:
             input_data = validators.UnixtimeModelValidator(data=data, tz=tz)
 
-            target_timezone = utils.get_timezone(
+            target_timezone = timezone.get_timezone(
                 timezone_parameters=self.timezone_parameters, tz=tz
             )
 
-            converted_data_list = [
+            return [
                 self._convert_unixtime(
                     target_data=data, target_timezone=target_timezone
                 )
                 for data in input_data.data
             ]
-
-            return converted_data_list
 
         except ValidationError as e:
             error_messages = "; ".join(err["msg"] for err in e.errors())
