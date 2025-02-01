@@ -38,7 +38,9 @@ jobs:
         run: poetry install --no-interaction
 
       - name: Test
-        run: poetry run pytest tests/ -vv --junitxml=pytest-${{ matrix.python-version }}.xml --cov-report=term-missing:skip-covered --cov=unic | tee pytest-${{ matrix.python-version }}-coverage.txt
+        run: |
+          set -o pipefail
+          poetry run pytest tests/ -vv --junitxml=pytest-${{ matrix.python-version }}.xml --cov-report=term-missing:skip-covered --cov=unic | tee pytest-${{ matrix.python-version }}-coverage.txt
 
       - name: Pytest coverage comment
         uses: MishaKav/pytest-coverage-comment@main
