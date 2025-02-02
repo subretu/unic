@@ -2,6 +2,11 @@ from pydantic import BaseModel, StrictFloat, field_validator, StrictInt, StrictS
 from typing import Union, Optional
 from datetime import datetime
 from unic.utils import config_parser
+from unic.time_unit.constants.constants import (
+    VALID_TIME_UNITS,
+    VALID_CONVERTED_FORMATS,
+    VALID_TIMESTAMP_FORMATS,
+)
 
 
 class TimezoneConfigCache:
@@ -36,11 +41,11 @@ class TimeModelValidator(BaseModel):
 
     @field_validator("from_unit")
     def from_unit_check(cls, value: str) -> str:
-        return validate_units(value, ["msec", "sec", "min", "hour"], "from_unit")
+        return validate_units(value, VALID_TIME_UNITS, "from_unit")
 
     @field_validator("to_unit")
     def to_unit_check(cls, value: str) -> str:
-        return validate_units(value, ["msec", "sec", "min", "hour"], "to_unit")
+        return validate_units(value, VALID_TIME_UNITS, "to_unit")
 
 
 class DatetimeModelValidator(BaseModel):
@@ -67,7 +72,7 @@ class DatetimeModelValidator(BaseModel):
 
     @field_validator("format")
     def format_check(cls, value: str) -> str:
-        return validate_units(value, ["datetime", "date"], "format")
+        return validate_units(value, VALID_CONVERTED_FORMATS, "format")
 
     @field_validator("tz")
     def timezone_check(cls, value: Optional[str]) -> Optional[str]:
@@ -83,20 +88,14 @@ class UnixtimeModelValidator(BaseModel):
         cls, value: Union[StrictStr, list[StrictStr]]
     ) -> Union[str, list[str]]:
         def validate_date_formats(value: str) -> str:
-            date_formats = [
-                "%Y-%m-%d %H:%M:%S",
-                "%Y-%m-%d %H:%M:%S.%f",
-                "%Y/%m/%d %H:%M:%S",
-                "%Y/%m/%d %H:%M:%S.%f",
-            ]
-            for date_format in date_formats:
+            for date_format in VALID_TIMESTAMP_FORMATS:
                 try:
                     datetime.strptime(value, date_format)
                     return value
                 except ValueError:
                     continue
             raise ValueError(
-                f"'{value}' is invalid date format. Allowed formats are {date_formats}."
+                f"'{value}' is invalid date format. Allowed formats are {VALID_TIMESTAMP_FORMATS}."
             )
 
         if isinstance(value, list):
