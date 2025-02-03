@@ -5,7 +5,7 @@ on:
     branches: ["main", "develop"]
 
 jobs:
-  black:
+  Ruff:
     name: Format Check with Ruff
     runs-on: ubuntu-latest
     steps:
@@ -14,7 +14,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.9
+          python-version: 3.12
       - name: Clear Poetry Cache
         run: |
           rm -rf ~/.cache/pypoetry
