@@ -11,7 +11,7 @@ class MetricSystemModel:
 
     def _convert_metric_system(
         self, target_data: int, target_metric_system_conversion_parameter: str
-    ) -> int:
+    ) -> float:
         return float(target_data * Fraction(target_metric_system_conversion_parameter))
 
     def convert(self, data: int, *, from_unit: str, to_unit: str) -> int:
@@ -40,9 +40,14 @@ class MetricSystemModel:
     def convert_batch(
         self, data: list[str], *, from_unit: str, to_unit: str
     ) -> list[int]:
+        if not isinstance(data, list):
+            raise TypeError("data must be a list of str")
+
         try:
             input_data = validators.MetricSystemModelValidator(
-                data=data, from_unit=from_unit, to_unit=to_unit
+                data=data,
+                from_unit=from_unit,
+                to_unit=to_unit,
             )
 
             target_metric_system_conversion_parameter = (

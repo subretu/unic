@@ -1,4 +1,5 @@
 from pydantic import ValidationError
+from typing import Union
 from datetime import datetime, timezone
 from unic.utils import config_parser, time_helpers
 from unic.time_unit.validators import validators
@@ -22,7 +23,7 @@ class UnixtimeModel:
 
         return int(dt_unixtime)
 
-    def convert(self, data: str, tz: str = None) -> int:
+    def convert(self, data: str, tz: Union[str, None] = None) -> int:
         try:
             input_data = validators.UnixtimeModelValidator(data=data, tz=tz)
 
@@ -31,7 +32,8 @@ class UnixtimeModel:
             )
 
             return self._convert_unixtime(
-                target_data=input_data.data, target_timezone=target_timezone
+                target_data=input_data.data,
+                target_timezone=target_timezone,
             )
 
         except ValidationError as e:
@@ -42,7 +44,10 @@ class UnixtimeModel:
             error_message = f"An error occurred: {str(e)}"
             raise ValueError(error_message)
 
-    def convert_batch(self, data: list[str], tz: str = None) -> list[int]:
+    def convert_batch(self, data: list[str], tz: Union[str, None] = None) -> list[int]:
+        if not isinstance(data, list):
+            raise TypeError("data must be a list of str")
+
         try:
             input_data = validators.UnixtimeModelValidator(data=data, tz=tz)
 

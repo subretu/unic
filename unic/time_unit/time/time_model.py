@@ -17,7 +17,7 @@ class TimeModel:
 
     def _convert_time(
         self, target_data: Union[int, float], target_time_conversion_parameter: str
-    ) -> int:
+    ) -> float:
         conversion_parameter = (
             float(Fraction(target_time_conversion_parameter))
             if isinstance(target_time_conversion_parameter, str)
@@ -50,8 +50,11 @@ class TimeModel:
             raise ValueError(error_message)
 
     def convert_batch(
-        self, data: list[int, float], *, from_unit: str, to_unit: str
+        self, data: list[Union[int, float]], *, from_unit: str, to_unit: str
     ) -> list[int]:
+        if not isinstance(data, list):
+            raise TypeError("data must be a list of int or float")
+
         try:
             input_data = validators.TimeModelValidator(
                 data=data, from_unit=from_unit, to_unit=to_unit
