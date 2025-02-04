@@ -17,7 +17,9 @@ class DatetimeModel:
 
         return timestamp_data if target_format == "datetime" else timestamp_data.date()
 
-    def convert(self, data: int, format: str, tz: str = None) -> Union[date, datetime]:
+    def convert(
+        self, data: int, format: str, tz: Union[str, None] = None
+    ) -> Union[date, datetime]:
         try:
             input_data = validators.DatetimeModelValidator(
                 data=data, format=format, tz=tz
@@ -42,7 +44,7 @@ class DatetimeModel:
             raise ValueError(error_message)
 
     def convert_batch(
-        self, data: list[int], format: str, tz: str = None
+        self, data: list[int], format: str, tz: Union[str, None] = None
     ) -> list[Union[date, datetime]]:
         try:
             input_data = validators.DatetimeModelValidator(

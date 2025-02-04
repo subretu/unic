@@ -10,10 +10,10 @@ from unic.time_unit.constants.constants import (
 
 
 class TimezoneConfigCache:
-    _timezone_cache: Optional[dict[str, str]] = None
+    _timezone_cache: Optional[dict[str, dict[str, float]]] = None
 
     @classmethod
-    def get_valid_timezones(cls) -> dict[str, str]:
+    def get_valid_timezones(cls) -> dict[str, dict[str, float]]:
         if cls._timezone_cache is None:
             cls._timezone_cache = config_parser.parse_toml("timezone")
         return cls._timezone_cache
