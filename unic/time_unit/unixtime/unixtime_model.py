@@ -45,6 +45,9 @@ class UnixtimeModel:
             raise ValueError(error_message)
 
     def convert_batch(self, data: list[str], tz: Union[str, None] = None) -> list[int]:
+        if not isinstance(data, list):
+            raise TypeError("data must be a list of str")
+
         try:
             input_data = validators.UnixtimeModelValidator(data=data, tz=tz)
 

@@ -46,6 +46,9 @@ class DatetimeModel:
     def convert_batch(
         self, data: list[int], format: str, tz: Union[str, None] = None
     ) -> list[Union[date, datetime]]:
+        if not isinstance(data, list):
+            raise TypeError("data must be a list of int")
+
         try:
             input_data = validators.DatetimeModelValidator(
                 data=data, format=format, tz=tz

@@ -40,6 +40,9 @@ class MetricSystemModel:
     def convert_batch(
         self, data: list[str], *, from_unit: str, to_unit: str
     ) -> list[int]:
+        if not isinstance(data, list):
+            raise TypeError("data must be a list of str")
+
         try:
             input_data = validators.MetricSystemModelValidator(
                 data=data,
