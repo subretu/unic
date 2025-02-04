@@ -12,9 +12,9 @@ class TestConvertUnixtime:
         "input_time, tz, expected",
         [
             ("2022-07-18 13:49:00", None, 1658152140),
-            ("2022-07-18 13:49:00.123", None, 1658152140123),
+            ("2022-07-18 13:49:00.123", None, 1658152140),
             ("2024-06-20 13:49:00", None, 1718891340),
-            ("2024-06-20 13:49:00.123", None, 1718891340123),
+            ("2024-06-20 13:49:00.123", None, 1718891340),
             ("2022-07-18 13:49:00", "Asia/Tokyo", 1658119740),
         ],
     )
@@ -23,12 +23,28 @@ class TestConvertUnixtime:
         assert result == expected
 
     @pytest.mark.parametrize(
+        "input_time, tz, unit, expected",
+        [
+            ("2022-07-18 13:49:00", None, "sec", 1658152140),
+            ("2022-07-18 13:49:00.123", None, "msec", 1658152140123),
+            ("2024-06-20 13:49:00", None, "sec", 1718891340),
+            ("2024-06-20 13:49:00.123", None, "sec", 1718891340),
+            ("2022-07-18 13:49:00", "Asia/Tokyo", "msec", 1658119740000),
+        ],
+    )
+    def test_convert_unixtime_normal_unit(
+        self, test_unixtime, input_time, tz, unit, expected
+    ):
+        result = test_unixtime.convert(input_time, tz=tz, unit=unit)
+        assert result == expected
+
+    @pytest.mark.parametrize(
         "input_time_list, tz, expected",
         [
             (
                 ["2022-07-18 13:49:00", "2022-07-18 13:49:00.123"],
                 None,
-                [1658152140, 1658152140123],
+                [1658152140, 1658152140],
             ),
             (
                 ["2022-07-18 13:49:00", "2022-07-19 13:49:00"],
