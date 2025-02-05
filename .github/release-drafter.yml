@@ -24,7 +24,7 @@ categories:
     label: "dependencies"
   - title: "⚠️Breaking Changes"
     labels:
-      - Breaking
+      - breaking
 change-template: "- $TITLE @$AUTHOR (#$NUMBER)"
 version-resolver:
   major:
