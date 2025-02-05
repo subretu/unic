@@ -6,6 +6,7 @@ from unic.time_unit.constants.constants import (
     VALID_TIME_UNITS,
     VALID_CONVERTED_FORMATS,
     VALID_TIMESTAMP_FORMATS,
+    VALID_UNIXTIME_UNITS,
 )
 
 
@@ -82,6 +83,7 @@ class DatetimeModelValidator(BaseModel):
 class UnixtimeModelValidator(BaseModel):
     data: Union[StrictStr, list[StrictStr]]
     tz: Optional[StrictStr]
+    unit: Optional[StrictStr]
 
     @field_validator("data")
     def data_check(
@@ -105,3 +107,7 @@ class UnixtimeModelValidator(BaseModel):
     @field_validator("tz")
     def timezone_check(cls, value: Optional[str]) -> Optional[str]:
         return validate_timezone(value)
+
+    @field_validator("unit")
+    def unit_check(cls, value: str) -> str:
+        return validate_units(value, VALID_UNIXTIME_UNITS, "unit")

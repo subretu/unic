@@ -8,3 +8,5 @@ VALID_TIMESTAMP_FORMATS = [
     "%Y/%m/%d %H:%M:%S",
     "%Y/%m/%d %H:%M:%S.%f",
 ]
+
+VALID_UNIXTIME_UNITS = ["msec", "sec"]

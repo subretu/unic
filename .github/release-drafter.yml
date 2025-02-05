@@ -22,6 +22,9 @@ categories:
       - internal
   - title: "⛓️ Dependency update"
     label: "dependencies"
+  - title: "⚠️Breaking Changes"
+    labels:
+      - breaking
 change-template: "- $TITLE @$AUTHOR (#$NUMBER)"
 version-resolver:
   major:

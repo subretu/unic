@@ -21,8 +21,8 @@
       - unixtime / unixtime+timezone → datetime.datetime
       - unixtime / unixtime+timezone → datetime.date
     - UnixtimeModel
-      - string(yyyy-mm-dd hh:mm:ss) / string(yyyy-mm-dd hh:mm:ss)+timezone → unixtime
-      - string(yyyy/mm/dd hh:mm:ss) / string(yyyy/mm/dd hh:mm:ss)+timezone → unixtime
+      - string(yyyy-mm-dd hh:mm:ss) / string(yyyy-mm-dd hh:mm:ss)+timezone → unixtime(default is seconds)
+      - string(yyyy/mm/dd hh:mm:ss) / string(yyyy/mm/dd hh:mm:ss)+timezone → unixtime(default is seconds)
   </details>
 
   <details>
@@ -88,6 +88,8 @@ import unic
 convert_model = unic.load_model("unixtime")
 # Specify time zone
 convert_unixtime = convert_model.convert("2023-05-12 10:15:20", tz="Asia/Tokyo")
+# Specify unit(if not specified, the unit defaults to seconds)
+convert_unixtime = convert_model.convert("2023-05-12 10:15:20.123", tz="Asia/Tokyo", unit="msec")
 # Specify time zone (batch processing)
 convert_unixtime = convert_model.convert_batch(["2023-05-12 10:15:20","2023-05-13 10:15:20","2023-05-14 10:15:20"], tz="Asia/Tokyo")
 ```
