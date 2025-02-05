@@ -32,7 +32,7 @@ class TestConvertUnixtime:
             ("2022-07-18 13:49:00", "Asia/Tokyo", "msec", 1658119740000),
         ],
     )
-    def test_convert_unixtime_normal_unit(
+    def test_convert_unixtime_normal_specify_unit(
         self, test_unixtime, input_time, tz, unit, expected
     ):
         result = test_unixtime.convert(input_time, tz=tz, unit=unit)
