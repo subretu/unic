@@ -91,6 +91,9 @@ convert_model = unic.load_model("unixtime")
 # to unixtime
 convert_unixtime = convert_model.convert("2023-05-12 10:15:20")
 convert_unixtime = convert_model.convert("2023/05/12 10:15:20")
+# to unixtime(specify unit, if not specified, the unit defaults to seconds)
+convert_unixtime = convert_model.convert("2023-05-12 10:15:20", unit="sec")
+convert_unixtime = convert_model.convert("2023/05/12 10:15:20.123", unit="msec")
 # to unixtime with timezone
 convert_unixtime = convert_model.convert("2023-05-12 10:15:20", tz="Asia/Tokyo")
 convert_unixtime = convert_model.convert("2023/05/12 10:15:20", tz="Asia/Tokyo")
