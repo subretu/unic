@@ -1,7 +1,7 @@
 from pydantic import ValidationError
 from datetime import date, datetime, timezone
 from unic.utils import config_parser, time_helpers
-from unic.time_unit.validators import validators
+from unic.time_unit.validators.models import DatetimeModelValidator
 from typing import Union
 from unic.time_unit.exceptions.exceptions import DatetimeValidationError
 
@@ -21,9 +21,7 @@ class DatetimeModel:
         self, data: int, format: str, tz: Union[str, None] = None
     ) -> Union[date, datetime]:
         try:
-            input_data = validators.DatetimeModelValidator(
-                data=data, format=format, tz=tz
-            )
+            input_data = DatetimeModelValidator(data=data, format=format, tz=tz)
 
             target_timezone = time_helpers.get_timezone(
                 timezone_parameters=self.timezone_parameters, tz=tz
@@ -50,9 +48,7 @@ class DatetimeModel:
             raise TypeError("data must be a list of int")
 
         try:
-            input_data = validators.DatetimeModelValidator(
-                data=data, format=format, tz=tz
-            )
+            input_data = DatetimeModelValidator(data=data, format=format, tz=tz)
 
             target_timezone = time_helpers.get_timezone(
                 timezone_parameters=self.timezone_parameters, tz=tz
