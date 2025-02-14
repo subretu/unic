@@ -2,7 +2,7 @@ from pydantic import ValidationError
 from typing import Union
 from datetime import datetime, timezone
 from unic.utils import config_parser, time_helpers
-from unic.time_unit.validators import validators
+from unic.time_unit.validators.models import UnixtimeModelValidator
 from unic.time_unit.exceptions.exceptions import UnixtimeValidationError
 
 
@@ -29,7 +29,7 @@ class UnixtimeModel:
 
     def convert(self, data: str, tz: Union[str, None] = None, unit: str = "sec") -> int:
         try:
-            input_data = validators.UnixtimeModelValidator(data=data, tz=tz, unit=unit)
+            input_data = UnixtimeModelValidator(data=data, tz=tz, unit=unit)
 
             target_timezone = time_helpers.get_timezone(
                 timezone_parameters=self.timezone_parameters, tz=tz
@@ -56,7 +56,7 @@ class UnixtimeModel:
             raise TypeError("data must be a list of str")
 
         try:
-            input_data = validators.UnixtimeModelValidator(data=data, tz=tz, unit=unit)
+            input_data = UnixtimeModelValidator(data=data, tz=tz, unit=unit)
 
             target_timezone = time_helpers.get_timezone(
                 timezone_parameters=self.timezone_parameters, tz=tz
