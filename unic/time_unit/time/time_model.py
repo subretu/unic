@@ -1,6 +1,6 @@
 from pydantic import ValidationError
 from unic.utils import config_parser
-from unic.time_unit.validators import validators
+from unic.time_unit.validators.models import TimeModelValidator
 from fractions import Fraction
 from unic.time_unit.exceptions.exceptions import TimeValidationError
 from typing import Union
@@ -28,7 +28,7 @@ class TimeModel:
 
     def convert(self, data: int, *, from_unit: str, to_unit: str) -> float:
         try:
-            input_data = validators.TimeModelValidator(
+            input_data = TimeModelValidator(
                 data=data, from_unit=from_unit, to_unit=to_unit
             )
 
@@ -56,7 +56,7 @@ class TimeModel:
             raise TypeError("data must be a list of int or float")
 
         try:
-            input_data = validators.TimeModelValidator(
+            input_data = TimeModelValidator(
                 data=data, from_unit=from_unit, to_unit=to_unit
             )
 

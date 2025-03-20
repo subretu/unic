@@ -1,6 +1,6 @@
 from pydantic import ValidationError
 from unic.utils import config_parser
-from unic.length_unit.validators import validators
+from unic.length_unit.validators.models import MetricSystemModelValidator
 from fractions import Fraction
 from unic.length_unit.exceptions.exceptions import MetricSystemValidationError
 
@@ -16,7 +16,7 @@ class MetricSystemModel:
 
     def convert(self, data: int, *, from_unit: str, to_unit: str) -> int:
         try:
-            input_data = validators.MetricSystemModelValidator(
+            input_data = MetricSystemModelValidator(
                 data=data, from_unit=from_unit, to_unit=to_unit
             )
 
@@ -44,7 +44,7 @@ class MetricSystemModel:
             raise TypeError("data must be a list of str")
 
         try:
-            input_data = validators.MetricSystemModelValidator(
+            input_data = MetricSystemModelValidator(
                 data=data,
                 from_unit=from_unit,
                 to_unit=to_unit,
