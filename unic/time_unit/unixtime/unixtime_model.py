@@ -1,14 +1,15 @@
 from pydantic import ValidationError
 from typing import Union
 from datetime import datetime, timezone
-from unic.utils import config_parser, time_helpers
+from unic.utils import time_helpers
 from unic.time_unit.validators.models import UnixtimeModelValidator
 from unic.time_unit.exceptions.exceptions import UnixtimeValidationError
+from unic.core.base_model import BaseModel
 
 
-class UnixtimeModel:
+class UnixtimeModel(BaseModel):
     def __init__(self):
-        self.timezone_parameters = config_parser.parse_toml("timezone")
+        super().__init__("timezone")
 
     def _convert_unixtime(
         self, target_data: str, target_timezone: timezone, unit: str
@@ -32,7 +33,7 @@ class UnixtimeModel:
             input_data = UnixtimeModelValidator(data=data, tz=tz, unit=unit)
 
             target_timezone = time_helpers.get_timezone(
-                timezone_parameters=self.timezone_parameters, tz=tz
+                timezone_parameters=self.model_config, tz=tz
             )
 
             return self._convert_unixtime(
@@ -59,7 +60,7 @@ class UnixtimeModel:
             input_data = UnixtimeModelValidator(data=data, tz=tz, unit=unit)
 
             target_timezone = time_helpers.get_timezone(
-                timezone_parameters=self.timezone_parameters, tz=tz
+                timezone_parameters=self.model_config, tz=tz
             )
 
             return [
