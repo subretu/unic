@@ -1,19 +1,19 @@
 from pydantic import ValidationError
-from unic.utils import config_parser
 from unic.time_unit.validators.models import TimeModelValidator
 from fractions import Fraction
 from unic.time_unit.exceptions.exceptions import TimeValidationError
 from typing import Union
+from unic.core.base_model import BaseModel
 
 
-class TimeModel:
+class TimeModel(BaseModel):
     def __init__(self):
-        self.time_unit_parameter = config_parser.parse_toml("timeunit")
+        super().__init__("timeunit")
 
     def _get_conversion_parameter(
         self, from_unit: str, to_unit: str
     ) -> Union[str, None]:
-        return self.time_unit_parameter.get(from_unit, {}).get(to_unit, None)
+        return self.model_config.get(from_unit, {}).get(to_unit, None)
 
     def _convert_time(
         self, target_data: Union[int, float], target_time_conversion_parameter: str
