@@ -1,6 +1,7 @@
 from pydantic import ValidationError
 from unic.time_unit.validators.models import TimeModelValidator
 from fractions import Fraction
+from unic.utils import time_helpers
 from unic.time_unit.exceptions.exceptions import TimeValidationError
 from typing import Union
 from unic.core.base_model import BaseModel
@@ -9,11 +10,6 @@ from unic.core.base_model import BaseModel
 class TimeModel(BaseModel):
     def __init__(self):
         super().__init__("timeunit")
-
-    def _get_conversion_parameter(
-        self, from_unit: str, to_unit: str
-    ) -> Union[str, None]:
-        return self.model_config.get(from_unit, {}).get(to_unit, None)
 
     def _convert_time(
         self, target_data: Union[int, float], target_time_conversion_parameter: str
@@ -32,8 +28,10 @@ class TimeModel(BaseModel):
                 data=data, from_unit=from_unit, to_unit=to_unit
             )
 
-            target_time_conversion_parameter = self._get_conversion_parameter(
-                from_unit=from_unit, to_unit=to_unit
+            target_time_conversion_parameter = (
+                time_helpers.get_time_unit_conversion_factor(
+                    model_config=self.model_config, from_unit=from_unit, to_unit=to_unit
+                )
             )
 
             return self._convert_time(
@@ -60,8 +58,10 @@ class TimeModel(BaseModel):
                 data=data, from_unit=from_unit, to_unit=to_unit
             )
 
-            target_time_conversion_parameter = self._get_conversion_parameter(
-                from_unit=from_unit, to_unit=to_unit
+            target_time_conversion_parameter = (
+                time_helpers.get_time_unit_conversion_factor(
+                    model_config=self.model_config, from_unit=from_unit, to_unit=to_unit
+                )
             )
 
             return [

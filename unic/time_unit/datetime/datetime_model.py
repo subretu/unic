@@ -25,7 +25,7 @@ class DatetimeModel(BaseModel):
             input_data = DatetimeModelValidator(data=data, format=format, tz=tz)
 
             target_timezone = time_helpers.get_timezone(
-                timezone_parameters=self.model_config, tz=tz
+                model_config=self.model_config, tz=tz
             )
 
             return self._convert_timestamp(
@@ -52,7 +52,7 @@ class DatetimeModel(BaseModel):
             input_data = DatetimeModelValidator(data=data, format=format, tz=tz)
 
             target_timezone = time_helpers.get_timezone(
-                timezone_parameters=self.model_config, tz=tz
+                model_config=self.model_config, tz=tz
             )
 
             return [

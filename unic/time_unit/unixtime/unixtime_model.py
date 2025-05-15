@@ -33,7 +33,7 @@ class UnixtimeModel(BaseModel):
             input_data = UnixtimeModelValidator(data=data, tz=tz, unit=unit)
 
             target_timezone = time_helpers.get_timezone(
-                timezone_parameters=self.model_config, tz=tz
+                model_config=self.model_config, tz=tz
             )
 
             return self._convert_unixtime(
@@ -60,7 +60,7 @@ class UnixtimeModel(BaseModel):
             input_data = UnixtimeModelValidator(data=data, tz=tz, unit=unit)
 
             target_timezone = time_helpers.get_timezone(
-                timezone_parameters=self.model_config, tz=tz
+                model_config=self.model_config, tz=tz
             )
 
             return [
