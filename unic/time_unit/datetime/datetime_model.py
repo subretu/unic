@@ -1,14 +1,15 @@
 from pydantic import ValidationError
 from datetime import date, datetime, timezone
-from unic.utils import config_parser, time_helpers
+from unic.utils import time_helpers
 from unic.time_unit.validators.models import DatetimeModelValidator
 from typing import Union
 from unic.time_unit.exceptions.exceptions import DatetimeValidationError
+from unic.core.base_model import BaseModel
 
 
-class DatetimeModel:
+class DatetimeModel(BaseModel):
     def __init__(self):
-        self.timezone_parameters = config_parser.parse_toml("timezone")
+        super().__init__("timezone")
 
     def _convert_timestamp(
         self, data: int, target_timezone: timezone, target_format: str
@@ -24,7 +25,7 @@ class DatetimeModel:
             input_data = DatetimeModelValidator(data=data, format=format, tz=tz)
 
             target_timezone = time_helpers.get_timezone(
-                timezone_parameters=self.timezone_parameters, tz=tz
+                model_config=self.model_config, tz=tz
             )
 
             return self._convert_timestamp(
@@ -51,7 +52,7 @@ class DatetimeModel:
             input_data = DatetimeModelValidator(data=data, format=format, tz=tz)
 
             target_timezone = time_helpers.get_timezone(
-                timezone_parameters=self.timezone_parameters, tz=tz
+                model_config=self.model_config, tz=tz
             )
 
             return [
