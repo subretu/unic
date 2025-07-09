@@ -25,22 +25,18 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Clear Poetry Cache
-        run: |
-          rm -rf ~/.cache/pypoetry
-
-      - name: Install Poetry
-        run: |
-          curl -sSL https://install.python-poetry.org | python3 -
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: "latest"
 
       - name: Install dependencies
-        run: poetry install --no-interaction
+        run: uv sync --locked --all-extras --dev
 
       - name: Test
         run: |
           set -o pipefail
-          poetry run pytest tests/ -vv --junitxml=pytest-${{ matrix.python-version }}.xml --cov-report=term-missing:skip-covered --cov=unic | tee pytest-${{ matrix.python-version }}-coverage.txt
+          uv run pytest tests/ -vv --junitxml=pytest-${{ matrix.python-version }}.xml --cov-report=term-missing:skip-covered --cov=unic | tee pytest-${{ matrix.python-version }}-coverage.txt
 
       - name: Pytest coverage comment
         uses: MishaKav/pytest-coverage-comment@main
