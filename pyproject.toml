@@ -1,34 +1,42 @@
-[tool.poetry]
+[project]
 name = "unic"
 version = "2.0.2"
 description = "Python package for converting various units."
-authors = ["Subretu"]
-maintainers = ["Subretu"]
+authors = [{ name = "Subretu" }]
+requires-python = "~=3.9"
+readme = "README.md"
 license = "MIT"
-readme = 'README.md'
-repository = 'https://github.com/subretu/unic'
-keywords = ['unit', 'convert', 'time', 'timestamp', 'length']
-
-classifiers=[
-    'License :: OSI Approved :: MIT License',
-
-    'Programming Language :: Python :: 3.9',
-    'Programming Language :: Python :: 3.10',
-    'Programming Language :: Python :: 3.11',
-    'Programming Language :: Python :: 3.12',
+maintainers = [{ name = "Subretu" }]
+keywords = [
+    "unit",
+    "convert",
+    "time",
+    "timestamp",
+    "length",
+]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "pydantic~=2.1",
+    "tomli~=2.0.1",
 ]
 
-[tool.poetry.dependencies]
-python = "^3.9"
-pydantic = "^2.1"
-tomli = "^2.0.1"
+[project.urls]
+Repository = "https://github.com/subretu/unic"
 
-[tool.poetry.group.dev.dependencies]
-mypy = "^1.4.1"
-pytest-cov = "^5.0.0"
-pytest = "^8.2.2"
-ruff = "^0.9.3"
+[dependency-groups]
+dev = [
+    "mypy~=1.4.1",
+    "pytest-cov~=5.0.0",
+    "pytest~=8.2.2",
+    "ruff~=0.9.3",
+]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
