@@ -20,7 +20,7 @@ jobs:
         with:
           version: "latest"
       - name: Install dependencies
-        run: uv pip install .
+        run: uv pip install . --system
       - name: Format Check
         run: |
           uv run ruff format --check --verbose .
