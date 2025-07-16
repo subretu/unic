@@ -22,7 +22,9 @@ class TimeModel(BaseModel):
 
         return target_data * conversion_parameter
 
-    def convert(self, data: int, *, from_unit: str, to_unit: str) -> float:
+    def convert(
+        self, data: Union[int, list[Union[int, float]]], *, from_unit: str, to_unit: str
+    ) -> Union[float, list[int]]:
         try:
             input_data = TimeModelValidator(
                 data=data, from_unit=from_unit, to_unit=to_unit
@@ -34,10 +36,19 @@ class TimeModel(BaseModel):
                 )
             )
 
-            return self._convert_time(
-                target_data=input_data.data,
-                target_time_conversion_parameter=target_time_conversion_parameter,
-            )
+            if isinstance(data, list):
+                return [
+                    self._convert_time(
+                        target_data=data,
+                        target_time_conversion_parameter=target_time_conversion_parameter,
+                    )
+                    for data in input_data.data
+                ]
+            else:
+                return self._convert_time(
+                    target_data=input_data.data,
+                    target_time_conversion_parameter=target_time_conversion_parameter,
+                )
 
         except ValidationError as e:
             error_messages = "; ".join(err["msg"] for err in e.errors())

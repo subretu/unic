@@ -19,8 +19,8 @@ class DatetimeModel(BaseModel):
         return timestamp_data if target_format == "datetime" else timestamp_data.date()
 
     def convert(
-        self, data: int, format: str, tz: Union[str, None] = None
-    ) -> Union[date, datetime]:
+        self, data: Union[int, list[int]], format: str, tz: Union[str, None] = None
+    ) -> Union[date, datetime, list[Union[date, datetime]]]:
         try:
             input_data = DatetimeModelValidator(data=data, format=format, tz=tz)
 
@@ -28,11 +28,21 @@ class DatetimeModel(BaseModel):
                 model_config=self.model_config, tz=tz
             )
 
-            return self._convert_timestamp(
-                data=input_data.data,
-                target_timezone=target_timezone,
-                target_format=format,
-            )
+            if isinstance(data, list):
+                return [
+                    self._convert_timestamp(
+                        data=d,
+                        target_timezone=target_timezone,
+                        target_format=format,
+                    )
+                    for d in input_data.data
+                ]
+            else:
+                return self._convert_timestamp(
+                    data=input_data.data,
+                    target_timezone=target_timezone,
+                    target_format=format,
+                )
 
         except ValidationError as e:
             error_messages = "; ".join(err["msg"] for err in e.errors())

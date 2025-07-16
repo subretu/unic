@@ -28,7 +28,12 @@ class UnixtimeModel(BaseModel):
 
         return int(dt_unixtime)
 
-    def convert(self, data: str, tz: Union[str, None] = None, unit: str = "sec") -> int:
+    def convert(
+        self,
+        data: Union[str, list[str]],
+        tz: Union[str, None] = None,
+        unit: str = "sec",
+    ) -> Union[int, list[int]]:
         try:
             input_data = UnixtimeModelValidator(data=data, tz=tz, unit=unit)
 
@@ -36,11 +41,21 @@ class UnixtimeModel(BaseModel):
                 model_config=self.model_config, tz=tz
             )
 
-            return self._convert_unixtime(
-                target_data=input_data.data,
-                target_timezone=target_timezone,
-                unit=unit,
-            )
+            if isinstance(data, list):
+                return [
+                    self._convert_unixtime(
+                        target_data=data,
+                        target_timezone=target_timezone,
+                        unit=unit,
+                    )
+                    for data in input_data.data
+                ]
+            else:
+                return self._convert_unixtime(
+                    target_data=input_data.data,
+                    target_timezone=target_timezone,
+                    unit=unit,
+                )
 
         except ValidationError as e:
             error_messages = "; ".join(err["msg"] for err in e.errors())
