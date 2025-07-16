@@ -22,6 +22,12 @@ class TestConvertDate:
 
         assert result == date(2022, 7, 17)
 
+    def test_convert_list_date_utc_13digits(self):
+        test_timeobject = unic.load_model("datetime")
+        result = test_timeobject.convert([1657985494123, 1658071894000], format="date")
+
+        assert result == [date(2022, 7, 16), date(2022, 7, 17)]
+
     def test_convert_batch_date_utc_13digits(self):
         test_timeobject = unic.load_model("datetime")
         result = test_timeobject.convert_batch(

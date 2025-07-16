@@ -53,6 +53,27 @@ class TestConvertUnixtime:
             ),
         ],
     )
+    def test_convert_list_unixtime_normal(
+        self, test_unixtime, input_time_list, tz, expected
+    ):
+        result = test_unixtime.convert(input_time_list, tz=tz)
+        assert result == expected
+
+    @pytest.mark.parametrize(
+        "input_time_list, tz, expected",
+        [
+            (
+                ["2022-07-18 13:49:00", "2022-07-18 13:49:00.123"],
+                None,
+                [1658152140, 1658152140],
+            ),
+            (
+                ["2022-07-18 13:49:00", "2022-07-19 13:49:00"],
+                "Asia/Tokyo",
+                [1658119740, 1658206140],
+            ),
+        ],
+    )
     def test_convert_batch_unixtime_normal(
         self, test_unixtime, input_time_list, tz, expected
     ):
