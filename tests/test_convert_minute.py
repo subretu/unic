@@ -33,6 +33,12 @@ class TestConverterMinute:
 
         assert result == 2
 
+    def test_convert_list_minute_sec(self):
+        test_timeobject = unic.load_model("time")
+        result = test_timeobject.convert([568, 120], from_unit="min", to_unit="sec")
+
+        assert result == [34080, 7200]
+
     def test_convert_batch_minute_sec(self):
         test_timeobject = unic.load_model("time")
         result = test_timeobject.convert_batch(
