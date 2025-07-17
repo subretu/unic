@@ -46,7 +46,7 @@
   ```
 
 ## How to
-- See the [UserGuide](docs/UserGuide.md).
+- See the [UserGuide](https://github.com/subretu/unic/blob/main/docs/UserGuide.md).
 
 ## Example
 ### Time Unit
