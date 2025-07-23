@@ -387,7 +387,7 @@ wheels = [
 
 [[package]]
 name = "unic"
-version = "2.0.3"
+version = "2.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "pydantic" },
@@ -405,7 +405,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "pydantic", specifier = "~=2.1" },
-    { name = "tomli", specifier = "~=2.0.1" },
+    { name = "tomli", specifier = ">=2.0.1,<2.3.0" },
 ]
 
 [package.metadata.requires-dev]

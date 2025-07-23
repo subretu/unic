@@ -1,132 +1,150 @@
-# User Guide for unic
 
-This guide provides instructions on utilizing the `unic`.
+
+
+# User Guide
+
+This guide provides a concise overview of how to use the `unic` package.
+
+---
 
 ## Installation
-
-`unic` is installed by executing the following command:
 
 ```bash
 pip install unic
 ```
 
+---
 
 ## Time Unit Conversion
+
+The current available conversion targets are as follows.
+
+  - TimeModel
+    - minute / second / milisecond → hour
+    - hour / second / milisecond → minute
+    - hour / minute / milisecond → second
+    - hour / minute / second → milisecond
+  - DatetimeModel
+    - unixtime / unixtime+timezone → datetime.datetime
+    - unixtime / unixtime+timezone → datetime.date
+  - UnixtimeModel
+    - string(yyyy-mm-dd hh:mm:ss) / string(yyyy-mm-dd hh:mm:ss)+timezone → unixtime(default is seconds)
+    - string(yyyy/mm/dd hh:mm:ss) / string(yyyy/mm/dd hh:mm:ss)+timezone → unixtime(default is seconds)
+
 ### TimeModel
 
 ```python
 import unic
+convert_model = unic.load_model("time")  # Load TimeModel
 
-# Load the TimeModel from unic
-convert_model = unic.load_model("time")
+# Examples of TimeModel Conversion:
 
-# Examples of TimeUnit Conversion:
+# Single value conversion
+convert_model.convert(2, from_unit="hour", to_unit="min")    # 2 hours → minutes
+convert_model.convert(2, from_unit="min",  to_unit="sec")    # 2 minutes → seconds
+convert_model.convert(2, from_unit="sec",  to_unit="msec")   # 2 seconds → milliseconds
+convert_model.convert(2, from_unit="msec", to_unit="hour")   # 2 milliseconds → hours
 
-# hour to minute
-convert_min = convert_model.convert(2, from_unit="hour", to_unit="min")
-# hour to second
-convert_sec = convert_model.convert(2, from_unit="hour", to_unit="sec")
-# hour to millisecond
-convert_msec = convert_model.convert(2, from_unit="hour", to_unit="msec")
+# List conversion
+convert_model.convert([2, 4, 6], from_unit="hour", to_unit="min")
+convert_model.convert([2, 4, 6], from_unit="min",  to_unit="sec")
+convert_model.convert([2, 4, 6], from_unit="sec",  to_unit="msec")
+convert_model.convert([2, 4, 6], from_unit="msec", to_unit="hour")
 
-# minute to hour
-convert_hour = convert_model.convert(2, from_unit="min", to_unit="hour")
-# minute to second
-convert_sec = convert_model.convert(2, from_unit="min", to_unit="sec")
-# minute to millisecond
-convert_msec = convert_model.convert(2, from_unit="min", to_unit="msec")
-
-# second to hour
-convert_hour = convert_model.convert(2, from_unit="sec", to_unit="hour")
-# second to minute
-convert_min = convert_model.convert(2, from_unit="sec", to_unit="min")
-# second to millisecond
-convert_msec = convert_model.convert(2, from_unit="sec", to_unit="msec")
-
-# millisecond to hour
-convert_hour = convert_model.convert(2, from_unit="msec", to_unit="hour")
-# millisecond to minute
-convert_min = convert_model.convert(2, from_unit="msec", to_unit="min")
-# millisecond to second
-convert_sec = convert_model.convert(2, from_unit="msec", to_unit="sec")
-
-# hour to minute (batch processing)
-convert_min = convert_model.convert_batch([2,4,6], from_unit="hour", to_unit="min")
+# Deprecated: convert_batch
+convert_model.convert_batch([2,4,6], from_unit="hour", to_unit="min")  # -- deprecated
 ```
+
+---
 
 ### DatetimeModel
 
 ```python
 import unic
+convert_model = unic.load_model("datetime")  # Load DatetimeModel
 
-# Load the DatetimeModel from unic
-convert_model = unic.load_model("datetime")
+# Examples of DatetimeModel Conversion:
 
-# Examples of DateTime Conversion:
+# Single value conversion
+convert_model.convert(1577841753, format="datetime")
+convert_model.convert(1577841753, format="datetime", tz="Asia/Tokyo")
+convert_model.convert(1577841753, format="date")
+convert_model.convert(1577841753, format="date", tz="Asia/Tokyo")
 
-# to datetime
-convert_datetime = convert_model.convert(1577841753, format="datetime")
-# to datetime with timezone
-convert_datetime = convert_model.convert(1577841753, format="datetime", tz="Asia/Tokyo")
+# List conversion
+convert_model.convert([1577841753, 1577941753], format="datetime")
+convert_model.convert([1577841753, 1577941753], format="datetime", tz="Asia/Tokyo")
+convert_model.convert([1577841753, 1577941753], format="date")
+convert_model.convert([1577841753, 1577941753], format="date", tz="Asia/Tokyo")
 
-# to date
-convert_date = convert_model.convert(1577841753, format="date")
-# to date with timezone
-convert_date = convert_model.convert(1577841753, format="date", tz="Asia/Tokyo")
-
-# to datetime (batch processing)
-convert_datetime = convert_model.convert_batch([1577841753,1577941753], format="datetime")
+# Deprecated: convert_batch
+convert_model.convert_batch([1577841753,1577941753], format="datetime")  # -- deprecated
 ```
+
+---
 
 ### UnixtimeModel
 
 ```python
 import unic
+convert_model = unic.load_model("unixtime")  # Load UnixtimeModel
 
-# Load the UnixtimeModel from unic
-convert_model = unic.load_model("unixtime")
+# Examples of UnixtimeModel Conversion:
 
-# Examples of Unixtime Conversion:
+# Single value conversion
+convert_model.convert("2023-05-12 10:15:20")
+convert_model.convert("2023-05-12 10:15:20", unit="sec")
+convert_model.convert("2023-05-12 10:15:20", tz="Asia/Tokyo")
 
-# to unixtime
-convert_unixtime = convert_model.convert("2023-05-12 10:15:20")
-convert_unixtime = convert_model.convert("2023/05/12 10:15:20")
-# to unixtime(specify unit, if not specified, the unit defaults to seconds)
-convert_unixtime = convert_model.convert("2023-05-12 10:15:20", unit="sec")
-convert_unixtime = convert_model.convert("2023/05/12 10:15:20.123", unit="msec")
-# to unixtime with timezone
-convert_unixtime = convert_model.convert("2023-05-12 10:15:20", tz="Asia/Tokyo")
-convert_unixtime = convert_model.convert("2023/05/12 10:15:20", tz="Asia/Tokyo")
-# to unixtime with timezone (batch processing)
-convert_unixtime = convert_model.convert_batch(["2023-05-12 10:15:20","2023-05-13 10:15:20"], tz="Asia/Tokyo")
+# List conversion
+convert_model.convert(["2023-05-12 10:15:20", "2023-05-13 10:15:20"], tz="Asia/Tokyo")
+convert_model.convert(["2023-05-12 10:15:20", "2023-05-13 10:15:20.123"], unit="msec")
+
+# Deprecated: convert_batch
+convert_model.convert_batch(["2023-05-12 10:15:20","2023-05-13 10:15:20"], tz="Asia/Tokyo")  # -- deprecated
 ```
 
+---
+
 ## Length Unit Conversion
+
+The current available conversion targets are as follows.
+
+  - MetricSystemModel
+    -  Target Metric System Units
+
+       ```
+       nm, um, mm, cm, m, km, Mm, Gm, Tm
+       ```
+       ※ um : represents ㎛.
+     -  The target metric system units are can be converted to each other.
+
 ### MetricSystemModel
 
 ```python
 import unic
+convert_model = unic.load_model("metric_system")  # Load MetricSystemModel
 
-# Load the MetricSystemModel from unic
-convert_model = unic.load_model("metric_system")
+# Examples of MetricSystemModel Conversion:
 
-# Examples of MetricSystem Conversion:
+# Single value conversion
+convert_model.convert(20, from_unit="nm", to_unit="um")
+convert_model.convert(20, from_unit="nm", to_unit="mm")
+convert_model.convert(20, from_unit="nm", to_unit="cm")
+convert_model.convert(20, from_unit="nm", to_unit="m")
+convert_model.convert(20, from_unit="nm", to_unit="Mm")
+convert_model.convert(20, from_unit="nm", to_unit="Gm")
+convert_model.convert(20, from_unit="nm", to_unit="Tm")
 
-# nm to um
-convert_um = convert_model.convert(20, from_unit="nm", to_unit="um")
-# nm to mm
-convert_mm = convert_model.convert(20, from_unit="nm", to_unit="mm")
-# nm to cm
-convert_cm = convert_model.convert(20, from_unit="nm", to_unit="cm")
-# nm to m
-convert_m = convert_model.convert(20, from_unit="nm", to_unit="m")
-# nm to Mm
-convert_Mm = convert_model.convert(20, from_unit="nm", to_unit="Mm")
-# nm to Gm
-convert_Gm = convert_model.convert(20, from_unit="nm", to_unit="Gm")
-# nm to Tm
-convert_Tm = convert_model.convert(20, from_unit="nm", to_unit="Tm")
+# List conversion
+convert_model.convert([20, 50, 100, 200], from_unit="nm", to_unit="um")
+convert_model.convert([20, 50, 100, 200], from_unit="nm", to_unit="mm")
+convert_model.convert([20, 50, 100, 200], from_unit="nm", to_unit="cm")
+convert_model.convert([20, 50, 100, 200], from_unit="nm", to_unit="m")
+convert_model.convert([20, 50, 100, 200], from_unit="nm", to_unit="Mm")
+convert_model.convert([20, 50, 100, 200], from_unit="nm", to_unit="Gm")
+convert_model.convert([20, 50, 100, 200], from_unit="nm", to_unit="Tm")
 
-# nm to um (batch processing)
-convert_um = convert_model.convert_batch([20,50,100,200], from_unit="nm", to_unit="um")
+# Deprecated: convert_batch
+convert_model.convert_batch([20,50,100,200], from_unit="nm", to_unit="um")  # -- deprecated
 ```
