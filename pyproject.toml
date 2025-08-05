@@ -33,7 +33,7 @@ Repository = "https://github.com/subretu/unic"
 dev = [
     "mypy>=1.4.1,<1.18.0",
     "pytest-cov~=5.0.0",
-    "pytest~=8.2.2",
+    "pytest>=8.2.2,<8.5.0",
     "ruff~=0.9.3",
 ]
 
