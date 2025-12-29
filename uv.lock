@@ -607,7 +607,7 @@ wheels = [
 
 [[package]]
 name = "unic"
-version = "2.1.0"
+version = "2.2.0"
 source = { editable = "." }
 dependencies = [
     { name = "pydantic" },
@@ -625,13 +625,13 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "pydantic", specifier = "~=2.1" },
-    { name = "tomli", specifier = ">=2.0.1,<2.3.0" },
+    { name = "tomli", specifier = ">=2.0.1,<2.4.0" },
 ]
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "mypy", specifier = "~=1.4.1" },
-    { name = "pytest", specifier = "~=8.2.2" },
-    { name = "pytest-cov", specifier = "~=5.0.0" },
-    { name = "ruff", specifier = "~=0.9.3" },
+    { name = "mypy", specifier = ">=1.4.1,<1.20.0" },
+    { name = "pytest", specifier = ">=8.2.2,<8.5.0" },
+    { name = "pytest-cov", specifier = ">=5.0,<7.1" },
+    { name = "ruff", specifier = ">=0.9.3,<0.15.0" },
 ]
