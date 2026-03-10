@@ -1,6 +1,6 @@
 [project]
 name = "unic"
-version = "2.2.0"
+version = "2.2.1"
 description = "Python package for converting various units."
 authors = [{ name = "Subretu" }]
 requires-python = ">=3.9.0, <4"
@@ -25,7 +25,7 @@ classifiers = [
 ]
 dependencies = [
     "pydantic~=2.1",
-    "tomli>=2.0.1,<2.4.0",
+    "tomli>=2.0.1,<2.5.0",
 ]
 
 [project.urls]
@@ -36,7 +36,7 @@ dev = [
     "mypy>=1.4.1,<1.20.0",
     "pytest-cov>=5.0,<7.1",
     "pytest>=8.2.2,<8.5.0",
-    "ruff>=0.9.3,<0.15.0",
+    "ruff>=0.9.3,<0.16.0",
 ]
 
 [build-system]
