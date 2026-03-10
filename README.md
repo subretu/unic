@@ -4,144 +4,123 @@
 [![Lint-Ruff](https://github.com/subretu/unic/actions/workflows/lint_check.yml/badge.svg)](https://github.com/subretu/unic/actions/workflows/lint_check.yml)
 
 # unic
-  `unic` is a python package that can convert various units.
+`unic` is a lightweight Python package for converting:
 
-## Conversion Targets
-- The current available conversion targets are as follows.
+- time units (`hour`, `min`, `sec`, `msec`)
+- Unix timestamps to `datetime` / `date`
+- datetime strings to Unix timestamps
+- metric length units (`nm` to `Tm`)
 
-  <details>
-  <summary>Time Unit</summary>
+It is designed for simple scripting, data processing, analytics, and timestamp handling.
 
-    - TimeModel
-      - minute / second / milisecond → hour
-      - hour / second / milisecond → minute
-      - hour / minute / milisecond → second
-      - hour / minute / second → milisecond
-    - DatetimeModel
-      - unixtime / unixtime+timezone → datetime.datetime
-      - unixtime / unixtime+timezone → datetime.date
-    - UnixtimeModel
-      - string(yyyy-mm-dd hh:mm:ss) / string(yyyy-mm-dd hh:mm:ss)+timezone → unixtime(default is seconds)
-      - string(yyyy/mm/dd hh:mm:ss) / string(yyyy/mm/dd hh:mm:ss)+timezone → unixtime(default is seconds)
-  </details>
+## Installation
 
-  <details>
-  <summary>Length Unit</summary>
+```bash
+pip install unic
+```
 
-    - MetricSystemModel
-      -  Target Metric System Units
-
-         ```
-         nm, um, mm, cm, m, km, Mm, Gm, Tm
-         ```
-         ※ um : represents ㎛.
-       -  The target metric system units are can be converted to each other.
-
-  </details>
-
-## Installing
-
-  ```
-  pip install unic
-  ```
-
-## How to
-- See the [UserGuide](https://github.com/subretu/unic/blob/main/docs/UserGuide.md).
-
-## Example
-### Time Unit
-#### TimeModel
+## Quick Start
 
 ```python
 import unic
 
+# Time conversion
+time_model = unic.load_model("time")
+print(time_model.convert(2, from_unit="hour", to_unit="min"))  # 120
 
-convert_model = unic.load_model("time")
+# Unixtime -> datetime
+datetime_model = unic.load_model("datetime")
+print(datetime_model.convert(1657985494, format="datetime"))
 
-# Convert hour to minute (single value)
-convert_min = convert_model.convert(2, from_unit="hour", to_unit="min")
+# String datetime -> unixtime
+unixtime_model = unic.load_model("unixtime")
+print(unixtime_model.convert("2022-07-18 13:49:00", tz="Asia/Tokyo"))
 
-# Convert hour to minute (list)
-convert_min = convert_model.convert([2, 4, 6], from_unit="hour", to_unit="min")
-
-# Convert hour to minute (batch processing) -- deprecated
-convert_min = convert_model.convert_batch([2,4,6], from_unit="hour", to_unit="min")
+# Metric system conversion
+metric_model = unic.load_model("metric_system")
+print(metric_model.convert(1200, from_unit="mm", to_unit="m"))  # 1.2
 ```
 
-#### DatetimeModel
+## Supported Conversions
 
+### TimeModel
+- `hour` / `min` / `sec` / `msec`
+
+### DatetimeModel
+- unixtime -> `datetime.datetime`
+- unixtime -> `datetime.date`
+
+### UnixtimeModel
+- datetime string -> unixtime
+- supported formats:
+  - `yyyy-mm-dd hh:mm:ss`
+  - `yyyy/mm/dd hh:mm:ss`
+
+### MetricSystemModel
+- metric length units:
+  - `nm`, `um`, `mm`, `cm`, `m`, `km`, `Mm`, `Gm`, `Tm`
+
+## Examples
+
+### Convert a single value
 ```python
 import unic
 
-
-convert_model = unic.load_model("datetime")
-
-# Convert to datatime (single value)
-convert_datetime = convert_model.convert(1577841753, format="datetime")
-
-#Convert to datatime (list)
-convert_min = convert_model.conver([1577841753,1577941753], format="datetime")
-
-# Convert to datatime (batch processing) -- deprecated
-convert_datetime = convert_model.convert_batch([1577841753,1577941753], format="datetime")
-
-# Convert to date
-convert_datetime = convert_model.convert(1577841753, format="date")
+model = unic.load_model("time")
+result = model.convert(7.5, from_unit="hour", to_unit="min")
+print(result)  # 450
 ```
 
-#### UnixtimeModel
-
+### Convert a list of values
 ```python
 import unic
 
-
-convert_model = unic.load_model("unixtime")
-
-# Specify time zone (single value)
-convert_unixtime = convert_model.convert("2023-05-12 10:15:20", tz="Asia/Tokyo")
-
-# Specify unit(if not specified, the unit defaults to seconds)
-convert_unixtime = convert_model.convert("2023-05-12 10:15:20.123", tz="Asia/Tokyo", unit="msec")
-
-# Specify time zone (list)
-convert_unixtime = convert_model.convert(["2023-05-12 10:15:20","2023-05-13 10:15:20","2023-05-14 10:15:20"], tz="Asia/Tokyo")
-
-# Specify time zone (batch processing) -- deprecated
-convert_unixtime = convert_model.convert_batch(["2023-05-12 10:15:20","2023-05-13 10:15:20","2023-05-14 10:15:20"], tz="Asia/Tokyo")
+model = unic.load_model("time")
+result = model.convert([2, 4, 6], from_unit="hour", to_unit="min")
+print(result)  # [120, 240, 360]
 ```
 
-### Length Unit
-#### MetricSystemModel
-
+### Convert unixtime to datetime
 ```python
 import unic
 
-
-convert_model = unic.load_model("metric_system")
-
-# Convert cm to m (single value)
-convert_m = convert_model.convert(20, from_unit="cm", to_unit="m")
-
-# Convert cm to m (list)
-convert_m = convert_model.conver([20,50,100,200], from_unit="cm", to_unit="m")
-
-# Convert cm to m (batch processing)-- deprecated, will be removed in a future release
-convert_m = convert_model.convert_batch([20,50,100,200], from_unit="cm", to_unit="m")
+model = unic.load_model("datetime")
+result = model.convert(1657985494, format="datetime", tz="Asia/Tokyo")
+print(result)
 ```
 
-
-## ⚠️ Deprecation Notice
-
-The `convert_batch()` method is now **deprecated** and will be removed in a future release.
-
-You can now use the `convert()` method for both single values and lists.
-
-**Before (deprecated):**
+### Convert datetime string to unixtime
 ```python
-convert_model.convert_batch([2, 4, 6], from_unit="hour", to_unit="min")
+import unic
+
+model = unic.load_model("unixtime")
+result = model.convert("2022-07-18 13:49:00.123", unit="msec")
+print(result)
 ```
 
-**Now (recommended):**
-```python
-convert_model.convert([2, 4, 6], from_unit="hour", to_unit="min")
-```
+## Notes
+
+- `convert()` supports both single values and lists.
+- `convert_batch()` is deprecated. Please use `convert()` with a list instead.
+- If `unit` is omitted in `UnixtimeModel`, the default is `sec`.
+
+## Documentation
+
+- See `docs/UserGuide.md`
+- Add future pages:
+  - `docs/QuickStart.md`
+  - `docs/SupportedConversions.md`
+  - `docs/FAQ.md`
+  - `docs/MigrationGuide.md`
+
+## Why unic?
+
+- Simple API
+- Lightweight package
+- Supports list conversion
+- Supports timezone-aware conversion
+- Tested with multiple Python versions
+
+## License
+
+MIT
