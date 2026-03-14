@@ -1,7 +1,7 @@
 [project]
 name = "unic"
-version = "2.2.1"
-description = "Python package for converting various units."
+version = "2.2.2"
+description = "Lightweight Python package for converting."
 authors = [{ name = "Subretu" }]
 requires-python = ">=3.9.0, <4"
 readme = "README.md"
