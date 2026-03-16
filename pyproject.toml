@@ -1,7 +1,7 @@
 [project]
 name = "unic"
 version = "3.0.0"
-description = "Lightweight Python package for converting."
+description = "Lightweight Python library for time unit conversions and Unix timestamp conversion."
 authors = [{ name = "Subretu" }]
 requires-python = ">=3.9.0, <4"
 readme = "README.md"

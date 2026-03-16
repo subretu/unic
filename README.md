@@ -4,7 +4,7 @@
 [![Lint-Ruff](https://github.com/subretu/unic/actions/workflows/lint_check.yml/badge.svg)](https://github.com/subretu/unic/actions/workflows/lint_check.yml)
 
 # unic
-`unic` is a lightweight Python package for converting:
+`unic` is a lightweight Python library for time unit conversions and Unix timestamp conversions:
 
 - time units (`hour`, `min`, `sec`, `msec`)
 - Unix timestamps to `datetime` / `date`
