@@ -9,7 +9,6 @@
 - time units (`hour`, `min`, `sec`, `msec`)
 - Unix timestamps to `datetime` / `date`
 - datetime strings to Unix timestamps
-- metric length units (`nm` to `Tm`)
 
 It is designed for simple scripting, data processing, analytics, and timestamp handling.
 
@@ -35,10 +34,6 @@ print(datetime_model.convert(1657985494, format="datetime"))
 # String datetime -> unixtime
 unixtime_model = unic.load_model("unixtime")
 print(unixtime_model.convert("2022-07-18 13:49:00", tz="Asia/Tokyo"))
-
-# Metric system conversion
-metric_model = unic.load_model("metric_system")
-print(metric_model.convert(1200, from_unit="mm", to_unit="m"))  # 1.2
 ```
 
 ## Supported Conversions
@@ -55,10 +50,6 @@ print(metric_model.convert(1200, from_unit="mm", to_unit="m"))  # 1.2
 - supported formats:
   - `yyyy-mm-dd hh:mm:ss`
   - `yyyy/mm/dd hh:mm:ss`
-
-### MetricSystemModel
-- metric length units:
-  - `nm`, `um`, `mm`, `cm`, `m`, `km`, `Mm`, `Gm`, `Tm`
 
 ## Examples
 

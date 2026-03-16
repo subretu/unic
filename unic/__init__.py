@@ -6,10 +6,6 @@ _model_paths: Dict[str, tuple] = {
     "time": ("unic.time_unit.time.time_model", "TimeModel"),
     "datetime": ("unic.time_unit.datetime.datetime_model", "DatetimeModel"),
     "unixtime": ("unic.time_unit.unixtime.unixtime_model", "UnixtimeModel"),
-    "metric_system": (
-        "unic.length_unit.metric_system.metric_system_model",
-        "MetricSystemModel",
-    ),
 }
 
 _convert_model_instances: Dict[str, Any] = {}
