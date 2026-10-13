@@ -24,7 +24,7 @@ classifiers = [
 ]
 dependencies = [
     "pydantic~=2.1",
-    "tomli>=2.0.1,<2.5.0",
+    "tomli>=2.0.1,<2.6.0",
 ]
 
 [project.urls]
